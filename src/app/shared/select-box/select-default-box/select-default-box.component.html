@@ -1,5 +1,5 @@
 <mat-form-field class="full-width">
-  <mat-select placeholder="{{attrContent.placeholder | titlecase}}" [formControl]="control" required>
+  <mat-select placeholder="{{attrContent.placeholder | titlecase}}" disabled="true">
     <mat-option *ngFor="let role of attrContent.roles" [value]="role.value">
       {{ role.viewValue }}
     </mat-option>

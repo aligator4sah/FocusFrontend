@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../shared/validation-service/validation.service';
 import {InputAttributes, SelectAttributes,Admins} from '../../shared/shared-control/attributes';
+import {CurrentUser} from "../../model/User";
 
 @Component({
   selector: 'app-sys-login',
@@ -10,6 +11,7 @@ import {InputAttributes, SelectAttributes,Admins} from '../../shared/shared-cont
   styleUrls: ['./sys-login.component.css']
 })
 export class SysLoginComponent implements OnInit {
+
   public role = Admins;
 
   public userName: InputAttributes = {name:'username',min:4,max:32, placeholder:'username', type: 'text'};
@@ -21,6 +23,26 @@ export class SysLoginComponent implements OnInit {
   userNamePara :string;
   userPasswordPara: string;
   userAdminPara:string;
+
+
+  // TODO: get administrator token from server
+  public sysAdmin = new CurrentUser({
+    id: 1,
+    name: this.userNamePara,
+    role: "System Administrator",
+  });
+  public stateAdmin = new CurrentUser({
+    id: 1,
+    name: this.userNamePara,
+    role: "State Administrator",
+    location: 39,
+  });
+  public comAdmin = new CurrentUser({
+    id: 1,
+    name: this.userNamePara,
+    role: "Community Administrator",
+    location: 11,
+  });
 
   constructor(
     public router: Router,
@@ -37,6 +59,7 @@ export class SysLoginComponent implements OnInit {
         'admin': ['',[ Validators.required]]
       }
     );
+    localStorage.clear();
     // console.log(this.userForm.invalid)
     // console.log(this.admin.roles);
   }
@@ -45,6 +68,9 @@ export class SysLoginComponent implements OnInit {
     if(value){
       this.userNamePara = value;
       console.log("username:"+this.userNamePara);
+      this.sysAdmin.setName(this.userNamePara);
+      this.stateAdmin.setName(this.userNamePara);
+      this.comAdmin.setName(this.userNamePara);
     }
   }
 
@@ -65,10 +91,13 @@ export class SysLoginComponent implements OnInit {
   login(){
     //this.roleName = this.getRole();
     if (this.userAdminPara === "system") {
+      localStorage.setItem('curUser', JSON.stringify(this.sysAdmin));
       this.router.navigateByUrl('SysDashboard');
     } else if (this.userAdminPara === "state") {
+      localStorage.setItem('curUser', JSON.stringify(this.stateAdmin));
       this.router.navigateByUrl('StateDashboard');
     } else {
+      localStorage.setItem('curUser', JSON.stringify(this.comAdmin));
       this.router.navigateByUrl('CommunityDashboard');
     }
   }

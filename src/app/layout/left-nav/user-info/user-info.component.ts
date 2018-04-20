@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit {
+  public user = null;
 
   constructor() { }
 
   ngOnInit() {
+    if (localStorage.length != 0) {
+      this.user = JSON.parse(localStorage.getItem('curUser'));
+      console.log(this.user.name);
+    }
   }
 
 }

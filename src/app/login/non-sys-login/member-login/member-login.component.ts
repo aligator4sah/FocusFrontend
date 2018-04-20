@@ -3,6 +3,7 @@ import { Router} from '@angular/router';
 import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../../shared/validation-service/validation.service';
 import { InputAttributes } from '../../../shared/shared-control/attributes';
+import {CurrentUser} from "../../../model/User";
 
 @Component({
   selector: 'app-member-login',
@@ -10,12 +11,20 @@ import { InputAttributes } from '../../../shared/shared-control/attributes';
   styleUrls: ['./member-login.component.css']
 })
 export class MemberLoginComponent implements OnInit {
+
   public userForm: any;
   public userName: InputAttributes = {name:'username',min:4,max:32, placeholder: 'username', type: 'text'};
   public passWord: InputAttributes = {name:'password',min:8,max:32, placeholder: 'password', type: 'password'};
 
   userNamePara : string;
   userPasswordPara : string;
+
+  public curMem = new CurrentUser({
+    id: 3,
+    name: this.userNamePara,
+    role: "Community Member",
+    location: 2
+  })
   constructor(
     public router: Router,
     public fb: FormBuilder
@@ -28,6 +37,7 @@ export class MemberLoginComponent implements OnInit {
         'username': ['',[ Validators.required,Validators.minLength(4)]],
       }
     );
+    localStorage.clear();
   }
 
 
@@ -35,6 +45,7 @@ export class MemberLoginComponent implements OnInit {
     if(value){
       this.userNamePara = value;
       console.log("username:"+this.userNamePara);
+      this.curMem.setName(this.userNamePara);
     }
   }
 
@@ -46,6 +57,7 @@ export class MemberLoginComponent implements OnInit {
   }
 
   login() {
+    localStorage.setItem('curUser', JSON.stringify(this.curMem));
     this.router.navigateByUrl('MemberDashboard')
   }
 

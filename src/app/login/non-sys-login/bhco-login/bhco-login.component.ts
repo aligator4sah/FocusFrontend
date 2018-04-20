@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../../shared/validation-service/validation.service';
 import { InputAttributes } from '../../../shared/shared-control/attributes';
+import {CurrentUser} from "../../../model/User";
 
 
 @Component({
@@ -11,13 +12,20 @@ import { InputAttributes } from '../../../shared/shared-control/attributes';
   styleUrls: ['./bhco-login.component.css']
 })
 export class BhcoLoginComponent implements OnInit {
-
   public userForm:any;
   public userName: InputAttributes = {name:'username',min:4,max:32, placeholder: 'username', type: 'text'};
   public passWord: InputAttributes = {name:'password',min:8,max:32, placeholder: 'password', type: 'password'};
 
   userNamePara :string;
   userPasswordPara: string;
+
+  // TODO: get the bhco token from server
+  public curBhco = new CurrentUser({
+    id: 2,
+    name: this.userNamePara,
+    role: "bhco",
+    location: 2
+  })
 
   constructor(
     private fb: FormBuilder,
@@ -33,12 +41,14 @@ export class BhcoLoginComponent implements OnInit {
         'username': ['',[ Validators.required,Validators.minLength(4)]],
       }
     );
+    localStorage.clear();
   }
 
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
       console.log("username:"+this.userNamePara);
+      this.curBhco.setName(this.userNamePara);
     }
   }
 
@@ -50,6 +60,7 @@ export class BhcoLoginComponent implements OnInit {
   }
 
   login() {
+    localStorage.setItem('curUser', JSON.stringify(this.curBhco));
     this.router.navigateByUrl('BhcoDashboard')
   }
 

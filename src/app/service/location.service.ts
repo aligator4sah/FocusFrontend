@@ -27,28 +27,28 @@ export class LocationService {
 
   /** GET: get county by state, city by county, community by city, block and family by community */
   getCountyByState(stateId: number): Observable<County[]> {
-    return this.http.get<County[]>(API_URL + 'county/state/' + stateId)
+    return this.http.get<County[]>(API_URL + '/county/state/' + stateId)
       .pipe(
         catchError(this.handleError('getCountyByState', []))
       );
   }
 
   getCityByCounty(countyId: number): Observable<City[]> {
-    return this.http.get<City[]>(API_URL + 'city/county/' + countyId)
+    return this.http.get<City[]>(API_URL + '/city/county/' + countyId)
       .pipe(
         catchError(this.handleError('getCityByCounty', []))
       );
   }
 
   getCommunityByCity(cityId: number): Observable<Community[]> {
-    return this.http.get<Community[]>(API_URL + 'community/city/' + cityId)
+    return this.http.get<Community[]>(API_URL + '/community/city/' + cityId)
       .pipe(
         catchError(this.handleError('getCommunityByCity', []))
       );
   }
 
   getBlockByCommunity(comId: number): Observable<Block[]> {
-    return this.http.get<Block[]>(API_URL + 'block/community/' + comId)
+    return this.http.get<Block[]>(API_URL + '/block/community/' + comId)
       .pipe(
         catchError(this.handleError('getBlockByCommunity', []))
       );

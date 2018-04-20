@@ -7,10 +7,14 @@
     <mat-card-content>
       <form [formGroup]="communityGroup">
         <app-select-control-box [attrContent]="selectCounty" (follow)="getCounty($event)"></app-select-control-box>
-        <div *ngIf="cityRole">
+        <div *ngIf="loadCity; else elseBlock">
         <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
         <app-input-control-box [attrContent]="inputCommunity" (follow)="getCommunity($event)"></app-input-control-box>
         </div>
+        <ng-template #elseBlock>
+          <app-select-default-box [attrContent]="defaultCity"></app-select-default-box>
+          <app-input-default-box [attrContent]="defaultCom"></app-input-default-box>
+        </ng-template>
         <br><br>
         <div class="col-sm-12">
           <button mat-raised-button color="primary" [disabled]="communityGroup.invalid" (click)="addCommunity()">Submit</button>
@@ -25,3 +29,5 @@
     </mat-card-content>
   </mat-card>
 </div>
+
+

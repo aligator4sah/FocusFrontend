@@ -65,6 +65,7 @@ export class Member extends User{
   marry: string;
   education: string;
   employments: string;
+  assigned: boolean;
   bhco: any;
 
   constructor(options: {} = {}) {
@@ -83,6 +84,7 @@ export class Member extends User{
       this.marry = options['marry'] || '';
       this.education = options['education'] || '';
       this.employments = options['employments'] || '';
+      this.assigned = options['assigned'] || false;
       this.bhco = options['bhco'] || [];
   }
 }
@@ -98,5 +100,32 @@ export class Bhcos extends User{
     this.community = options['community'] || '';
     this.city = options['city'] || '';
     this.county = options['county'] || '';
+  }
+}
+
+
+export class CurrentUser {
+  id: number;
+  name: string;
+  role: string;
+  location: any;
+  constructor(options: {
+    id?: number;
+    name?: string;
+    role?: string;
+    location?: any;
+  } = {}) {
+    this.id = options.id;
+    this.name = options.name || '';
+    this.role = options.role;
+    this.location = options.location || [];
+  }
+
+  getLocation(): number {
+    return this.location;
+  }
+
+  setName(userName: string): void {
+    this.name = userName;
   }
 }

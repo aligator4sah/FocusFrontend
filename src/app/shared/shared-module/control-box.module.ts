@@ -8,6 +8,7 @@ import {InputDefaultBoxComponent} from '../input-box/input-default-box/input-def
 import {SelectControlBoxModule} from '../select-box/select-control-box/select-control-box.module';
 import {RadioControlBoxModule} from '../radio-box/radio-control-box/radio-control-box.module';
 import {InputDefaultBoxModule} from '../input-box/input-default-box/input-default-box.module';
+import {SelectDefaultBoxModule} from "../select-box/select-default-box/select-default-box.module";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {InputDefaultBoxModule} from '../input-box/input-default-box/input-defaul
     InputDateBoxModule,
     InputDefaultBoxModule,
     SelectControlBoxModule,
-    RadioControlBoxModule
+    RadioControlBoxModule,
+    SelectDefaultBoxModule
   ],
   declarations: [],
   exports: [
@@ -28,7 +30,8 @@ import {InputDefaultBoxModule} from '../input-box/input-default-box/input-defaul
     InputDateBoxModule,
     InputDefaultBoxModule,
     SelectControlBoxModule,
-    RadioControlBoxModule
+    RadioControlBoxModule,
+    SelectDefaultBoxModule
   ]
 })
 export class ControlBoxModule { }
