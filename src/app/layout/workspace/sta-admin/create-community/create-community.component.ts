@@ -20,10 +20,9 @@ export class CreateCommunityComponent implements OnInit {
   public locId = null;
 
   public communityGroup: FormGroup;
-  public blocks = Block;
 
   counties: County[];
-  citiies: City[];
+  cities: City[];
   communities: Community[];
 
   countyRole: roleNum[] = [];
@@ -82,8 +81,8 @@ export class CreateCommunityComponent implements OnInit {
     if (this.countyPara != null) {
       this.comService.getCityByCounty(this.countyPara)
         .subscribe(city => {
-          this.citiies = city;
-          for (let cit of this.citiies) {
+          this.cities = city;
+          for (let cit of this.cities) {
             let citRole = new roleNum({value: cit.id, viewValue: cit.city});
             this.cityRole.push(citRole);
             if (this.cityRole.length != 0) {

@@ -57,6 +57,14 @@ export class roleNum {
     this.value = options.value;
     this.viewValue = options.viewValue;
   }
+
+  findValue(num: number) {
+    if (num == this.value) {
+      return this.viewValue;
+    } else {
+      return null;
+    }
+  }
 }
 
 

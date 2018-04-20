@@ -11,10 +11,21 @@
           <form [formGroup]="communityGroup">
             <ng-template matStepLabel>Select the Community</ng-template>
             <app-input-default-box [attrContent]="defaultState" style="width: 100%"></app-input-default-box>
-            <!--<app-select-control-box [attrContent]="selectStates" (follow)="getState($event)"></app-select-control-box>-->
             <app-select-control-box [attrContent]="selectCounty" (follow)="getCounty($event)"></app-select-control-box>
-            <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
-            <app-select-control-box [attrContent]="selectCommunity" (follow)="getCommunity($event)"></app-select-control-box>
+            <div *ngIf="loadCity; else blockCity">
+              <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
+            </div>
+            <ng-template #blockCity>
+              <app-select-default-box [attrContent]="defaultCity"></app-select-default-box>
+            </ng-template>
+
+            <div *ngIf="loadCommunity; else blockCom">
+              <app-select-control-box [attrContent]="selectCommunity" (follow)="getCommunity($event)"></app-select-control-box>
+            </div>
+            <ng-template #blockCom>
+              <app-select-default-box [attrContent]="defaultCommunity"></app-select-default-box>
+            </ng-template>
+
             <div class="col-sm-12">
               <button mat-raised-button color ="primary" matStepperNext [disabled]="communityGroup.invalid">Next</button>
               <!--<button mat-raised-button matStepperNext color="accent">Create Community</button>-->
@@ -61,12 +72,12 @@
           <div layout="col-sm-12">
             <!--get the state and other information from json data later -->
             <p class="col-sm-6"> State: <b class="admin-name"> Pennsylvania </b> </p>
-            <p class="col-sm-6"> County: <b class="admin-name"> {{ countyPara }} </b> </p>
+            <p class="col-sm-6"> County: <b class="admin-name"> {{ countyTextPara }} </b> </p>
           </div>
           <br>
           <div layout="col-sm-12">
-            <p class="col-sm-6"> City: <b class="admin-name"> {{ cityPara }} </b> </p>
-            <p class="col-sm-6"> Community: <b class="admin-name"> {{ communityPara }} </b> </p>
+            <p class="col-sm-6"> City: <b class="admin-name"> {{ cityTextPara }} </b> </p>
+            <p class="col-sm-6"> Community: <b class="admin-name"> {{ communityTextPara }} </b> </p>
           </div>
           <br><br><br><br>
           <div class="col-sm-12">
