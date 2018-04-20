@@ -1,0 +1,58 @@
+
+.title {
+  color: #ffffff;
+  background: #3f51b5;
+  text-align: center;
+}
+
+.title-theme {
+  background-color: #3f51b5;
+}
+
+.img-card {
+  position: absolute;
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 85px;
+  left: 68px;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.example-card {
+  max-width: 400px;
+  border-radius:15px;
+  max-height: 400px;
+  height:400px;
+}
+
+.basic-container {
+  width:350px;
+  height:400px;
+  top: 40%;
+  left: 50%;
+  border-radius:15px;
+  background: #3f51b5;
+}
+
+
+.card-title {
+  font-size:18px;
+  color: #3f51b5;
+  top: 12%;
+  left: 50%;
+}
+
+.card-action {
+  margin-left: auto;
+  margin-right:auto;
+  top: 78%;
+  left: 50%;
+}

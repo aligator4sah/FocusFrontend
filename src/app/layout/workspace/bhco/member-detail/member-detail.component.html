@@ -1,0 +1,102 @@
+<div *ngIf="member" class="workspace-container mid-position">
+  <h3 class="workspace-title">General Information</h3>
+  <mat-card class="com-member-info">
+    <mat-card-header>
+      <div class="col-sm-12">
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{ member.username }} </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{ member.gender}} </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{ member.date }} </b></p>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>
+
+  <div class="full-width">
+    <mat-card class="demo-info">
+      <mat-card-header>
+        Demographic Completion <span class="number"><strong>20%</strong></span>
+      </mat-card-header>
+      <mat-card-content>
+        <br><br>
+        <div style="display: block">
+          <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+                  [legend]="false"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="button-group">
+        <button mat-raised-button color="primary" class="session_button">Continue</button>
+        <button mat-raised-button color="accent" class="session_button">New</button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+    <mat-card class="demo-info">
+      <mat-card-header>
+        Questionnaire Completion<span class="number"><strong>37%</strong></span>
+      </mat-card-header>
+      <mat-card-content>
+        <br><br>
+        <div style="display: block">
+          <canvas baseChart
+                  [data]="polarAreaChartData"
+                  [labels]="polarAreaChartLabels"
+                  [legend]="false"
+                  [chartType]="polarAreaChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="button-group">
+          <button mat-raised-button color="primary" class="session_button">Continue</button>
+          <button mat-raised-button color="accent" class="session_button">New</button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+    <mat-card class="demo-info">
+      <mat-card-header>
+        Social Network Completion<span class="number"><strong>50%</strong></span>
+      </mat-card-header>
+      <mat-card-content>
+        <br><br>
+        <div style="display: block">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
+                  [chartType]="pieChartType"
+                  [legend]="false"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="button-group">
+          <button mat-raised-button color="primary" class="session_button">Continue</button>
+          <button mat-raised-button color="accent" class="session_button">New</button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+  <!--<mat-card class="system-card">-->
+    <!--<mat-card-header >-->
+      <!--<div class="col-sm-12">-->
+        <!--<mat-card-title>Demographic Form</mat-card-title>-->
+      <!--</div>-->
+    <!--</mat-card-header>-->
+    <!--<mat-divider> </mat-divider>-->
+    <!--<mat-card-content>-->
+      <!--<br>-->
+    <!--</mat-card-content>-->
+
+  <!--</mat-card>-->
+</div>
+
+
+
+

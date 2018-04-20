@@ -1,0 +1,7 @@
+<mat-form-field class="form-full-width">
+  <mat-select placeholder="{{attrContent.placeholder | titlecase}}" [formControl]="control" required>
+    <mat-option *ngFor="let role of attrContent.roles" [value]="role.value">
+      {{ role.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

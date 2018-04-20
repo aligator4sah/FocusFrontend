@@ -1,0 +1,78 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Social Worker Tables</h3>
+
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>BHCO List</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <br> <br>
+
+      <!---data table>-->
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <!-- username Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
+          </ng-container>
+
+
+          <!-- first Name Column -->
+          <ng-container matColumnDef="firstname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
+          </ng-container>
+
+          <!-- last Name Column -->
+          <ng-container matColumnDef="lastname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
+          </ng-container>
+
+          <!-- PHONE -->
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.phone }}</mat-cell>
+          </ng-container>
+
+          <!-- email -->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+          </ng-container>
+
+          <!-- City -->
+          <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+          </ng-container>
+
+          <!-- Community -->
+          <ng-container matColumnDef="community">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Community </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.community}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

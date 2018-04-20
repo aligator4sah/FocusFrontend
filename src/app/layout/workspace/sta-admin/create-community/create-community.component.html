@@ -1,0 +1,27 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Community Administrator Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Create Family</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="communityGroup">
+        <app-select-control-box [attrContent]="selectCounty" (follow)="getCounty($event)"></app-select-control-box>
+        <div *ngIf="cityRole">
+        <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
+        <app-input-control-box [attrContent]="inputCommunity" (follow)="getCommunity($event)"></app-input-control-box>
+        </div>
+        <br><br>
+        <div class="col-sm-12">
+          <button mat-raised-button color="primary" [disabled]="communityGroup.invalid" (click)="addCommunity()">Submit</button>
+          <button mat-raised-button color="accent">Reset</button>
+        </div>
+        <br>
+        <div *ngIf="confirm" class="col-sm-12">
+          {{ communityPara }} has been created successfully.
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

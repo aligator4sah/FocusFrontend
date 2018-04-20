@@ -1,0 +1,23 @@
+.input-part {
+  width: 90%;
+  top: 20px;
+  overflow: auto;
+  left: 25px;
+}
+
+.confirm-part {
+  width: 90%;
+  left: 25px;
+  border-top: 20px;
+  border-bottom: 20px;
+}
+
+.button-group {
+  left: 25px;
+  margin-left: 25px;
+}
+
+.confirm-info {
+  font-size: 18px;
+  color: #673ab7;
+}

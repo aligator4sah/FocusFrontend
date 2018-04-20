@@ -1,0 +1,14 @@
+<div [formGroup]="form">
+  <div class="col-sm-12">
+    <label [attr.for]="question.key">{{question.label}}</label>
+  </div>
+
+  <ng-container [ngSwitch]="question.controlType">
+    <app-input-control-box *ngSwitchCase="'textbox'" [attrContent]="createInputAttr()"></app-input-control-box>
+    <app-select-control-box *ngSwitchCase="'dropdown'" [attrContent]="createSelectAttr()"></app-select-control-box>
+    <app-radio-control-box *ngSwitchCase="'radiobutton'" [attrContent]="createRadioAttr()"></app-radio-control-box>
+  </ng-container>
+
+  <!--<div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
+</div>
+

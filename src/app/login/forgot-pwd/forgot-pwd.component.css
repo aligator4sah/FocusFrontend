@@ -1,0 +1,50 @@
+.button-row {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.example-card {
+  max-width: 900px;
+  border-radius:15px;
+  max-height: 400px;
+  height:200px;
+}
+
+.basic-container {
+  max-width: 600px;
+  max-height: 400px;
+  width:600px;
+  height:200px;
+  top: 40%;
+  left: 50%;
+  border-radius:15px;
+}
+
+
+.card-title {
+  font-size:18px;
+  color: #3f51b5;
+  top: 15%;
+  left: 50%;
+}
+
+
+.card-action {
+  width: 80%;
+  margin-left: auto;
+  margin-right:auto;
+  top: 55%;
+  left: 50%;
+}
+
+.email-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.form-full-width {
+  width: 100%;
+}

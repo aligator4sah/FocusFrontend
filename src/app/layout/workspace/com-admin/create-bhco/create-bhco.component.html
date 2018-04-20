@@ -1,0 +1,32 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">BHCO Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <!--<mat-card-title>Create BHCO account</mat-card-title>-->
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="registerForm">
+        <h4> Register Information</h4>
+        <app-input-control-box [attrContent]="userName" (follow)="getUserName($event)"></app-input-control-box>
+        <app-input-control-box [attrContent]="passWord" (follow)="getUserPassword($event)"></app-input-control-box>
+        <app-input-control-box [attrContent]="confirmPassword" validateEqual="password" (follow)="getUserConPassword($event)"></app-input-control-box>
+        <h4>Personal Information </h4>
+        <div class="full-width">
+          <app-input-control-box [attrContent]="firstName" (follow)="getFirstName($event)" class="col-sm-6"></app-input-control-box>
+          <app-input-control-box [attrContent]="lastName" (follow)="getLastName($event)" class="col-sm-6"></app-input-control-box>
+        </div>
+        <div class="full-width">
+          <app-input-control-box [attrContent]="email" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
+          <app-input-control-box [attrContent]="phone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
+        </div>
+        <div class="col-sm-12">
+          <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addBhcos()">Submit</button>
+          <button mat-raised-button color="accent">Reset</button>
+        </div>
+        <div class="col-sm-12">
+          <p *ngIf="confirmed"><strong>Register is done.</strong></p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

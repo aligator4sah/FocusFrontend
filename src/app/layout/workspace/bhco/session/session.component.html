@@ -1,0 +1,35 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Edit Profile</h3>
+  <mat-card class="com-member-info">
+    <mat-card-header>
+      <div class="col-sm-12">
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> John Smith </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> Male </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> 03-22-2018 </b></p>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <br>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Select Session</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-toolbar color="primary" *ngFor="let session of sessions" class="col-sm-12">
+        <mat-toolbar-row>
+          <span>{{session.sessionID}}</span>
+          <span class="example-spacer"></span>
+          <span>Date: {{session.date}} &nbsp; &nbsp;</span>
+          <span>{{session.finished}} / 108</span>
+        </mat-toolbar-row>
+        <mat-divider class="col-sm-12"></mat-divider>
+      </mat-toolbar>
+
+      <mat-toolbar color="accent" class="col-sm-12">
+        <mat-toolbar-row (click)="newSession()">
+          <span> Create New Session</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </mat-card-content>
+  </mat-card>
+</div>

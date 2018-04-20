@@ -1,0 +1,94 @@
+<div class="header-container">
+  <mat-toolbar color="primary">
+    <button mat-icon-button color="white" (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>imHealthy</h1>
+    <span class="blank-space"> </span>
+    <app-header></app-header>
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="sideNav-container">
+    <mat-sidenav #snav class="left-nav" mode="side" opened>
+      <app-user-info></app-user-info>
+      <mat-nav-list>
+        <mat-accordion>
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title> <a routerLink="createAccount" routerLinkActive="active">
+                <mat-icon class="main-icon">account_box</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Create Account</h4> </span> </a>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a routerLink="createAccount" routerLinkActive="active">
+            <button mat-menu-item color="white">
+              <mat-icon>account_box</mat-icon>
+              <span> State Admin</span>
+            </button>
+            </a>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title> <a routerLink="stateList" routerLinkActive="active">
+                <mat-icon class="main-icon">view_list</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Tables</h4> </span> </a>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a routerLink="stateList" routerLinkActive="active">
+            <button mat-menu-item color="white">
+                <!--<mat-icon>account_box</mat-icon>-->
+                <span> State Admins</span>
+            </button>
+            </a>
+            <a routerLink="comList" routerLinkActive="active">
+            <button mat-menu-item color="white">
+                <!--<mat-icon>account_box</mat-icon>-->
+                <span>Community Admins</span>
+            </button>
+            </a>
+            <a routerLink="bhcoList" routerLinkActive="active">
+            <button mat-menu-item color="white">
+                <!--<mat-icon>account_box</mat-icon>-->
+                <span> BHCO </span>
+            </button>
+            </a>
+            <a routerLink="memberList" routerLinkActive="active">
+            <button mat-menu-item color="white">
+                <!--<mat-icon>account_box</mat-icon>-->
+                <span> Community Members</span>
+            </button>
+            </a>
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="main-icon">trending_up</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Analysis</h4> </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-menu-item color="white">
+              <a routerLink="analysis" routerLinkActive="active">
+              <mat-icon>assessment</mat-icon>
+              <span>Assessment</span>
+              </a>
+            </button>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <app-footer></app-footer>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
+
+
+

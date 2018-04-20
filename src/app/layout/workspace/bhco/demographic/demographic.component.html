@@ -1,0 +1,44 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Demographic</h3>
+  <mat-card class="com-member-info">
+    <mat-card-header>
+      <div class="col-sm-12">
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> John Smith </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> Male </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> 03-22-2018 </b></p>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>
+
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>Demographic Form</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <br>
+
+        <!-- form group 1-->
+        <h4> Home Information </h4>
+        <!--Questions container-->
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+          <div *ngFor="let question of questions" class="col-sm-12">
+            <app-demo-question [question]="question" [form]="form"></app-demo-question>
+          </div>
+          <div class="col-sm-12">
+            <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Submit</button>
+            <button mat-raised-button color="accent">Reset</button>
+          </div>
+        </form>
+
+        <div *ngIf="payLoad" class="form-row">
+          <strong>Saved the following values</strong><br>
+          {{payLoad}}
+        </div>
+    </mat-card-content>
+
+  </mat-card>
+</div>

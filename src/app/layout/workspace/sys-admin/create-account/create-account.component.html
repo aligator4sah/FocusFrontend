@@ -1,0 +1,69 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">State Administrator Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Create state administrator account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+        //first step
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Select State</ng-template>
+            <app-select-control-box [attrContent]="selectStates" (follow)="getState($event)"></app-select-control-box>
+            <div>
+              <button mat-raised-button color ="primary" [disabled]="firstFormGroup.invalid"matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        //second step
+        <mat-step [stepControl]="userForm">
+          <form [formGroup]="userForm" novalidate>
+            <ng-template matStepLabel>Registration Information</ng-template>
+            <app-input-control-box [attrContent]="userName" (follow)="getUserName($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="passWord" (follow)="getUserPassword($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="confirmPassword" validateEqual="password" (follow)="getUserConPassword($event)"></app-input-control-box>
+            <p>Basic Information</p>
+            <div>
+            <app-input-control-box [attrContent]="userFirstName" (follow)="getFirstName($event)" class="col-sm-6"></app-input-control-box>
+              <app-input-control-box [attrContent]="userLastName" (follow)="getLastName($event)" class="col-sm-6"></app-input-control-box>
+            </div>
+            <div class="col-sm-12">
+              <app-input-control-box [attrContent]="userPhone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
+              <app-input-control-box [attrContent]="userEmail" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
+            </div>
+            <div class="col-sm-12">
+              <button mat-raised-button color ="primary" [disabled]="userForm.invalid" matStepperNext>Next</button>
+              <button mat-raised-button color ="accent" matStepperPrevious>Back</button>
+            </div>
+          </form>
+        </mat-step>
+        //third step
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <div class="col-sm-12">
+            <p class="col-sm-6"> User Name: <b class="admin-name">{{userNamePara}}</b></p>
+            <p class="col-sm-6"> State: <b class="admin-name">{{statePara}}</b></p>
+          </div>
+
+          <div class="col-sm-12">
+            <p class="col-sm-6">First Name: <b class="admin-name">{{firstNamePara}} </b></p>
+            <p class="col-sm-6">Last Name: <b class="admin-name"> {{lastNamePara}} </b></p>
+          </div>
+          <div class="col-sm-12">
+            <p class="col-sm-6">Phone Number: <b class="admin-name">{{ phonePara }}</b></p>
+            <p class="col-sm-6">Email: <b class="admin-name">{{ emailPara }}</b></p>
+          </div>
+          <div class="col-sm-12">
+            <button mat-raised-button color="accent" (click)="addStateAdmin()">Confirm</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+          </div>
+          <br><br>
+          <div *ngIf="confirm">
+            <p> State Administrator has been registered successfully.</p>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

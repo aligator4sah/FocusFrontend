@@ -1,0 +1,106 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Data Graph</h3>
+  <div class="sys-summary">
+    <mat-card class="summary-info1">
+        <mat-card-content>
+          <h3 id="card-text">Registered State</h3>
+          <p id="card-title"><strong>14</strong>
+          <span id="card-detail">+5% more than last month</span></p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-info2">
+      <mat-card-content>
+        <h3 id="card-text">Registered Community</h3>
+        <p id="card-title"><strong>26</strong>
+          <span id="card-detail">+0.4% more than last month</span></p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-info3">
+      <mat-card-content>
+        <h3 id="card-text">Registered BHCO</h3>
+        <p id="card-title"><strong>47</strong>
+          <span id="card-detail">4.2% more than last month</span></p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-info4">
+      <mat-card-content>
+        <h3 id="card-text">Registered Member</h3>
+        <p id="card-title"><strong>107</strong>
+          <span id="card-detail">2.8% more than last month</span></p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <br><br>
+  <div class="graph-area">
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>Community Summary</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <div class="graph-area">
+      <div class="left-chart">
+        <h3>Community Member Completion By Time</h3>
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [chartType]="lineChartType"
+                [legend]="lineChartLegend"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      <div class="right-chart">
+        <h3>Community Member Completion Ratio</h3>
+        <br> <br>
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      </div>
+      <br><br>
+      <div class="button-group">
+        <button mat-raised-button color="accent" (click)="randomizeType()">Toggle</button>
+        <button mat-raised-button color="primary" (click)="randomizeType()">Select State</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+    <br>
+    <div class="community-info">
+    <mat-card class="left-side-card">
+        <mat-card-header>Community Distribution On Map</mat-card-header>
+      <mat-card-content>
+        <br>
+        <!-- this creates a google map on the page with the given lat/lng from -->
+        <!-- the component as the initial center of the map: -->
+        <agm-map [latitude]="lat" [longitude]="lng">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </mat-card-content>
+    </mat-card>
+      <mat-card class="right-side-card">
+        <mat-card-header>Community List</mat-card-header>
+        <mat-card-content>
+          <mat-selection-list #shoes style="height: 280px">
+            <mat-list-option *ngFor="let community of communities">
+              {{community}}
+            </mat-list-option>
+          </mat-selection-list>
+          <p>
+            Community selected: {{shoes.selectedOptions.selected.length}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <br>
+</div>

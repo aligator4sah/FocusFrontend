@@ -1,0 +1,20 @@
+<div class="login-main">
+  <div class="mat-app-background basic-container mid-position">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title class="card-title mid-position">Retrieve Password</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions class="card-action mid-position">
+        <div class="email-form">
+          <form [formGroup]="userForm">
+            <app-input-control-box [attrContent]="email" (follow)="getUserEmail($event)"></app-input-control-box>
+            <div class="button-row">
+              <button mat-raised-button color="primary" [disabled]="userForm.invalid" (click)="sentRequest()">Send Request</button>
+              <button mat-raised-button color="accent" (click)="back()">Back to login</button>
+            </div>
+          </form>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

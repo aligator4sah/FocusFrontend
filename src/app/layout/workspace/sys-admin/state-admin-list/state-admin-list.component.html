@@ -1,0 +1,128 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Administrator Tables</h3>
+
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>State Administrator List</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content style="height: 500px">
+      <div class="left-side-content">
+      <!---data table>-->
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <!-- UserName Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> UserName </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
+          </ng-container>
+
+
+          <!-- First Name Column -->
+          <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
+          </ng-container>
+
+          <!-- Last Name -->
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastname}}</mat-cell>
+          </ng-container>
+
+          <!-- Phone -->
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.phone}}</mat-cell>
+          </ng-container>
+
+          <!-- Email-->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}}</mat-cell>
+          </ng-container>
+
+          <!-- State -->
+          <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.state}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
+      </div>
+      </div>
+
+      <div class="mid-space"></div>
+
+      <div class="right-side-nav">
+        <h5 class="filter-name">Column Filter</h5>
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" placeholder="User Name" [(ngModel)]="value"/>
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" placeholder="First Name" [(ngModel)]="value"/>
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" placeholder="Last Name" [(ngModel)]="value"/>
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" placeholder="Phone" [(ngModel)]="value"/>
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" placeholder="Email" [(ngModel)]="value"/>
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field class="demo-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let state of states" [selectable]="selectable"
+                      [removable]="removable" (remove)="remove(state)">
+              {{state.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Select States..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

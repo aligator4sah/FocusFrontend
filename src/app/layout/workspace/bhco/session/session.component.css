@@ -1,0 +1,25 @@
+
+.text-danger {
+  color: #a94442;
+  font-size: 12px;
+}
+
+.com-member-info {
+  border-radius: 15px;
+  height: 30px;
+  border: #9d9bb7 solid;
+}
+
+.com-member-detail {
+  float: left;
+  width: 30.5%;
+  margin-right: 18px;
+}
+
+.com-member-detail-item {
+  padding-left: 15px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

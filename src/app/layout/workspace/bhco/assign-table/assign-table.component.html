@@ -1,0 +1,101 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Community Member</h3>
+
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>Community Member List</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <br>
+
+      <!---data table>-->
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <!-- User Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+            <mat-cell *matCellDef="let row" routerLink="/BhcoDashboard/detail/{{row.id}}"> {{row.username}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column
+          <ng-container matColumnDef="progress">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
+          </ng-container> -->
+
+          <!--first Name Column -->
+          <ng-container matColumnDef="firstname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
+          </ng-container>
+
+          <!--last Name Column -->
+          <ng-container matColumnDef="lastname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
+          </ng-container>
+
+          <!-- Gender -->
+          <ng-container matColumnDef="gender">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.gender}} </mat-cell>
+          </ng-container>
+
+          <!-- Date of birth -->
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+          </ng-container>
+
+          <!-- Phone-->
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+          </ng-container>
+
+          <!-- Address-->
+          <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.addressone}} </mat-cell>
+          </ng-container>
+
+          <!-- Zipcode Column -->
+          <ng-container matColumnDef="zipcode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Block </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.block}} </mat-cell>
+          </ng-container>
+
+          <!-- Community Column -->
+          <ng-container matColumnDef="community">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Community </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.community}} </mat-cell>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.state}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

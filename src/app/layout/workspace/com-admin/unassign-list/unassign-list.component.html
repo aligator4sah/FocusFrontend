@@ -1,0 +1,92 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Assignment List</h3>
+
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>Click the checkbox to unassign members from BHCOs</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <br>
+
+      <!---data table>-->
+      <div class="example-header">
+        <mat-form-field class="col-sm-12">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          !-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Member ID Column -->
+          <ng-container matColumnDef="memberID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Member ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.memID}} </mat-cell>
+          </ng-container>
+
+          <!-- Member First Name Column -->
+          <ng-container matColumnDef="memberFirstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Member First Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.memFirstName}} </mat-cell>
+          </ng-container>
+
+          <!-- Member LAst Name Column -->
+          <ng-container matColumnDef="memberLastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Member Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.memLastName}} </mat-cell>
+          </ng-container>
+
+          <!-- BHCO Id -->
+          <ng-container matColumnDef="bhcoID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhcoID}} </mat-cell>
+          </ng-container>
+
+          <!-- BHCO First Name -->
+          <ng-container matColumnDef="bhcoFirstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO First Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhcoFirstName}} </mat-cell>
+          </ng-container>
+
+          <!-- BHCO Last Name -->
+          <ng-container matColumnDef="bhcoLastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhcoLastName}} </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
+      </div>
+      <br>
+      <div class="col-sm-12">
+        <button mat-raised-button color="primary">Confirm</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

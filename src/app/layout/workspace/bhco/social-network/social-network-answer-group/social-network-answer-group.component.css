@@ -1,0 +1,7 @@
+
+/** define styles*/
+.full-width-block{
+  width: 100%;
+  display: inline-block;
+  float: left;
+}

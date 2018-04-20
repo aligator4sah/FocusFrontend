@@ -1,0 +1,24 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Community Member Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Create Block</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="blockGroup">
+        <app-input-control-box [attrContent]="inputBlock" (follow)="getBlock($event)"></app-input-control-box>
+        <app-select-control-box [attrContent]="selectStreet" (follow)="getStreet($event)"></app-select-control-box>
+        <app-input-control-box [attrContent]="inputStart" (follow)="getStart($event)"></app-input-control-box>
+        <app-input-control-box [attrContent]="inputEnd" (follow)="getEnd($event)"></app-input-control-box>
+        <app-input-control-box [attrContent]="inputZipcode" (follow)="getZip($event)"></app-input-control-box>
+        <br><br>
+
+        <div class="col-sm-12">
+          <button mat-raised-button color="primary" [disabled]="blockGroup.invalid">Submit</button>
+          <button mat-raised-button color="accent">Reset</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

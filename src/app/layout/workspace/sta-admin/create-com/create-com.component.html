@@ -1,0 +1,84 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Community Administrator Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Create community administrator account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+        <!--start of the first step form-->
+        <mat-step [stepControl]="communityGroup">
+          <form [formGroup]="communityGroup">
+            <ng-template matStepLabel>Select the Community</ng-template>
+            <app-input-default-box [attrContent]="defaultState" style="width: 100%"></app-input-default-box>
+            <!--<app-select-control-box [attrContent]="selectStates" (follow)="getState($event)"></app-select-control-box>-->
+            <app-select-control-box [attrContent]="selectCounty" (follow)="getCounty($event)"></app-select-control-box>
+            <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
+            <app-select-control-box [attrContent]="selectCommunity" (follow)="getCommunity($event)"></app-select-control-box>
+            <div class="col-sm-12">
+              <button mat-raised-button color ="primary" matStepperNext [disabled]="communityGroup.invalid">Next</button>
+              <!--<button mat-raised-button matStepperNext color="accent">Create Community</button>-->
+            </div>
+          </form>
+        </mat-step>
+        //second step
+        <mat-step [stepControl]="userForm">
+          <form [formGroup]="userForm">
+            <ng-template matStepLabel>Registration Information</ng-template>
+            <app-input-control-box [attrContent]="userName" (follow)="getUserName($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="passWord" (follow)="getUserPassword($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="confirmPassword" validateEqual="password" (follow)="getUserConPassword($event)"></app-input-control-box>
+            <p>Basic Information</p>
+            <div>
+              <app-input-control-box [attrContent]="userFirstName" (follow)="getFirstName($event)" class="col-sm-6"></app-input-control-box>
+              <app-input-control-box [attrContent]="userLastName" (follow)="getLastName($event)" class="col-sm-6"></app-input-control-box>
+            </div>
+
+            <div>
+              <app-input-control-box [attrContent]="userPhone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
+              <app-input-control-box [attrContent]="userEmail" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
+            </div>
+            <div class="col-sm-12">
+              <button mat-raised-button color ="primary" [disabled]="userForm.invalid" matStepperNext>Next</button>
+              <button mat-raised-button color ="accent" matStepperPrevious>Back</button>
+            </div>
+          </form>
+        </mat-step>
+        //third step
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p> You have assigned <b class="admin-name"> {{ userNamePara}} </b> to be the community administrator</p>
+          <mat-divider></mat-divider>
+          <br><br>
+          <div class="col-sm-12">
+            <p class="col-sm-6">First Name: <b class="admin-name">{{firstNamePara}} </b></p>
+            <p class="col-sm-6">Last Name: <b class="admin-name"> {{lastNamePara}} </b></p>
+          </div>
+          <div class="col-sm-12">
+            <p class="col-sm-6">Phone Number: <b class="admin-name">{{ phonePara }}</b></p>
+            <p class="col-sm-6">Email: <b class="admin-name">{{ emailPara }}</b></p>
+          </div>
+          <div layout="col-sm-12">
+            <!--get the state and other information from json data later -->
+            <p class="col-sm-6"> State: <b class="admin-name"> Pennsylvania </b> </p>
+            <p class="col-sm-6"> County: <b class="admin-name"> {{ countyPara }} </b> </p>
+          </div>
+          <br>
+          <div layout="col-sm-12">
+            <p class="col-sm-6"> City: <b class="admin-name"> {{ cityPara }} </b> </p>
+            <p class="col-sm-6"> Community: <b class="admin-name"> {{ communityPara }} </b> </p>
+          </div>
+          <br><br><br><br>
+          <div class="col-sm-12">
+            <button mat-raised-button color="primary" (click)="addComAdmin()">Done</button>
+            <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+          </div>
+          <br><br>
+          <div *ngIf="confirmed">
+            Community Administrator has been registered successfully.
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

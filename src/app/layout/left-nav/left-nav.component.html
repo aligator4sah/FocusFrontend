@@ -1,0 +1,49 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened class="left-nav">
+    <div class="user-info">
+      <img src="../../../assets/atomix_user31.png" alt="Photo of user" class="user-img">
+      <p class="user-name"> John Smith </p>
+      <p class="user-title"> System Administrator</p>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel class="panel-format">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="main-icon">home</mat-icon> &nbsp;
+            <span class="main-menu"> <h4> Home </h4> </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item> <h6> Analysis </h6> </mat-list-item>
+          <mat-list-item> <h6> Query </h6> </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="panel-format">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="main-icon">assignment</mat-icon> &nbsp;
+            <span class="main-menu"><h4> Create</h4></span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item> <h6> New State </h6> </mat-list-item>
+          <mat-list-item> <h6> State Admin </h6> </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
+    <div class="footer">
+      <mat-divider></mat-divider>
+      <p class="copy-right">@2018 <b class="company">Focus Pittsburgh</b> </p>
+      <p class="copy-right"><b>Version: </b> 0.0.1 </p>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>Main content</mat-sidenav-content>
+</mat-sidenav-container>
+
+<div *ngIf="!shouldRun">Please open on Stackblitz to see result</div>
+

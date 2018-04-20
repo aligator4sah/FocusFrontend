@@ -1,0 +1,47 @@
+<div class="header-right">
+  <button mat-icon-button><mat-icon>search</mat-icon></button>
+
+  <button mat-icon-button [matMenuTriggerFor]="user" color="white">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #user="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item color="white" (click)="profile()">
+      <mat-icon>mode_edit</mat-icon>
+      <span>Edit Profile</span>
+    </button>
+    <button mat-menu-item color="white" (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Log out</span>
+    </button>
+  </mat-menu>
+
+  <button mat-icon-button [matMenuTriggerFor] = "language" color="white">
+    <mat-icon>navigation</mat-icon>
+  </button>
+  <mat-menu #language="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>English</span>
+    </button>
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>Chinese</span>
+    </button>
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>Spanish</span>
+    </button>
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>Germany</span>
+    </button>
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>xxxxxx</span>
+    </button>
+    <button mat-menu-item color="white">
+      <mat-icon>autorenew</mat-icon>
+      <span>xxxxxx</span>
+    </button>
+  </mat-menu>
+</div>

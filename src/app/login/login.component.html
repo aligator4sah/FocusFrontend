@@ -1,0 +1,21 @@
+ <div class="login-main">
+      <div class="mat-app-background basic-container mid-position">
+        <div class="title-theme">
+          <h1 class="title"> imHealthy</h1>
+        </div>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title class="card-title mid-position">Select Role to Log In</mat-card-title>
+          </mat-card-header>
+          <span class="spacer"></span>
+            <img mat-card-image class="img-card" src="../../assets/images.png" alt="Photo of a user">
+          <mat-card-actions class="card-action mid-position">
+            <div class="button-row">
+              <button mat-raised-button color="primary" (click)="sysLogin()">Admin</button>
+              <button mat-raised-button color="accent" (click)="bhcoLogin()">BHCO</button>
+              <button mat-raised-button color="warn" (click)="cmemberLogin()">Member</button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+ </div>

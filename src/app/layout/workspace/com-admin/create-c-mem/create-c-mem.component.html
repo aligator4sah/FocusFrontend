@@ -1,0 +1,135 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Community Member Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Register Community Member</mat-card-title>
+    </mat-card-header>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+
+      <mat-step [stepControl]="addressFormGroup">
+        <form [formGroup]="addressFormGroup">
+          <ng-template matStepLabel>Select the family</ng-template>
+          <div class="chip">
+            <app-input-default-box [attrContent]="defaultState" class="col-sm-3"></app-input-default-box>
+            <app-input-default-box [attrContent]="defaultCounty" class="col-sm-3"></app-input-default-box>
+            <app-input-default-box [attrContent]="defaultCity" class="col-sm-3"></app-input-default-box>
+            <app-input-default-box [attrContent]="defaultCommunity" class="col-sm-3"></app-input-default-box>
+          </div>
+          <app-select-control-box [attrContent]="selectBlock" (follow)="getBlock($event)"></app-select-control-box>
+          <app-select-control-box [attrContent]="selectFamily" (follow)="getFamily($event)"></app-select-control-box>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="addressFormGroup.invalid">Next</button>
+            <!--<button mat-raised-button matStepperNext color="accent">Create Family</button>-->
+          </div>
+        </form>
+      </mat-step>
+
+      //second step
+      <mat-step [stepControl]="userForm">
+        <form [formGroup]="userForm">
+          <ng-template matStepLabel>Basic Information</ng-template>
+          <h4> Register Information</h4>
+          <div class="col-sm-12">
+            <app-input-control-box [attrContent]="userName" class="col-sm-12" (follow)="getUserName($event)"></app-input-control-box>
+            <!--<app-input-control-box [attrContent]="passWord" class="col-sm-4" (follow)="getUserPassword($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="confirmPassword" validateEqual="password" class="col-sm-4" (follow)="getUserConPassword($event)"></app-input-control-box>-->
+          </div>
+          <div class="col-sm-12">
+            <app-input-default-box [attrContent]="defaultPassword" class="col-sm-12"></app-input-default-box>
+          </div>
+          <br>
+          <h4>Personal Information</h4>
+          <div>
+            <app-input-control-box [attrContent]="firstName" class="col-sm-4" (follow)="getFirstName($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="midName" class="col-sm-4" (follow)="getMidName($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="lastName" class="col-sm-4" (follow)="getLastName($event)"></app-input-control-box>
+          </div>
+          <div class="col-sm-12">
+            <app-select-control-box [attrContent]="selectGender" class="col-sm-6" (follow)="getGender($event)"></app-select-control-box>
+            <app-input-date-box [attrContent]="date" class="col-sm-6" (follow)="getDate($event)"></app-input-date-box>
+          </div>
+          <div>
+            <app-input-control-box [attrContent]="phoneNumber" class="col-sm-6" (follow)="getPhone($event)"></app-input-control-box>
+            <app-input-control-box [attrContent]="inputEmail" class="col-sm-6" (follow)="getEmail($event)"></app-input-control-box>
+          </div>
+
+          <div class="col-sm-12">
+            <app-input-control-box class="col-sm-6" [attrContent]="addressOne" (follow)="getAddressOne($event)" class="col-sm-12"></app-input-control-box>
+          </div>
+          <div class="col-sm-12">
+            <app-input-control-box class="col-sm-6" [attrContent]="addressTwo" (follow)="getAddressTwo($event)" class="col-sm-12"></app-input-control-box>
+          </div>
+          <!--
+          <div>
+            <app-input-control-box class="col-sm-4" [attrContent]="cities" (follow)="getCity($event)"></app-input-control-box>
+            <app-select-control-box class="col-sm-4" [attrContent]="selectState" (follow)="getState($event)"></app-select-control-box>
+            <app-input-control-box class="col-sm-4" [attrContent]="zipCode" (follow)="getZipcode($event)"></app-input-control-box>
+          </div>-->
+          <div class="col-sm-12">
+            <button mat-raised-button color="primary" matStepperNext [disabled]="userForm.invalid">Next</button>
+            <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!--start of the third step -->
+      <mat-step [stepControl]="otherFormGroup">
+        <form [formGroup]="otherFormGroup">
+          <ng-template matStepLabel>Additional Information</ng-template>
+          <div>
+            <app-select-control-box [attrContent]="race" class="col-sm-6" (follow)="getRace($event)"></app-select-control-box>
+            <app-select-control-box [attrContent]="matrialStatus" class="col-sm-6" (follow)="getMatrial($event)"></app-select-control-box>
+          </div>
+          <div>
+            <app-select-control-box [attrContent]="employments" class="col-sm-6" (follow)="getEmployment($event)"></app-select-control-box>
+            <app-select-control-box [attrContent]="educations" class="col-sm-6" (follow)="getEducation($event)"></app-select-control-box>
+          </div>
+
+          <div class="col-sm-12">
+            <button mat-raised-button color="primary" matStepperNext [disabled]="otherFormGroup.invalid">Next</button>
+            <button mat-raised-button color="accent" matStepperPrevious>Beck</button>
+          </div>
+        </form>
+      </mat-step>
+      //last step
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You have register new community member <b class="admin-name">{{userNamePara}}</b>
+        <br><br>
+        <mat-divider></mat-divider>
+        <div class="full-width">
+          <p class="col-sm-6">First Name: <b class="admin-name">{{ firstNamePara }}</b> </p>
+          <p class="col-sm-6">Last Name: <b class="admin-name">{{ lastNamePara }}</b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">Date of Birth: <b class="admin-name"> {{ dobPara }}</b></p>
+          <p class="col-sm-6">Gender: <b class="admin-name">{{ genderPara }}</b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6"> Phone: <b class="admin-name"> {{ phonePara }}</b></p>
+          <p class="col-sm-6"> Email: <b class="admin-name"> {{ emailPara }}</b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">Address One: <b class="admin-name">{{ addressOnePara }}</b></p>
+          <p class="col-sm-6">Address Two: <b class="admin-name">{{ addressTwoPara }}</b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">Race: <b class="admin-name"> {{ racePara }}</b></p>
+          <p class="col-sm-6"> Marital Status: <b class="admin-name"> {{ matrialPara }}</b> </p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">Employeement: <b class="admin-name"> {{ empolymentPara }}</b></p>
+          <p class="col-sm-6"> Education: <b class="admin-name"> {{ educationPara }}</b></p>
+        </div>
+        <br><br>
+        <div class="full-width">
+          <button mat-raised-button color="primary" [disabled]="otherFormGroup.invalid && userForm.invalid && addressFormGroup.invalid" (click)="addMember()">Confirm</button>
+          <button mat-raised-button color="accent" (click)="stepper.reset()">Reset</button>
+        </div>
+        <div class="full-width">
+          <p *ngIf="show"><strong>Registration is done.</strong></p>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

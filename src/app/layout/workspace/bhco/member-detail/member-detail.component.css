@@ -1,0 +1,42 @@
+.com-member-info {
+  border-radius: 15px;
+  height: 30px;
+  border: #9d9bb7 solid;
+}
+
+
+.number {
+  color: #673ab7;
+  font-size: 30px;
+  margin-left: 30%;
+}
+
+.com-member-detail {
+  float: left;
+  width: 30.5%;
+  margin-right: 18px;
+}
+
+.com-member-detail-item {
+  padding-left: 15px;
+}
+
+
+.demo-info {
+  width: 28%;
+  margin-right: 10px;
+  float: left;
+  height: 390px;
+}
+
+.button-group {
+  width: 90%;
+  margin-left: 14%;
+  margin-top: 12%;
+}
+
+
+.session_button {
+  width: 80%;
+  margin-bottom: 5px;
+}

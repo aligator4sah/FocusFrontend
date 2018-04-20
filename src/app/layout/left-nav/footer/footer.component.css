@@ -1,0 +1,15 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 0;
+  overflow: hidden;
+}
+
+.copy-right {
+  font-size: 13px;
+}
+
+.company {
+  color:#673ab7;
+}

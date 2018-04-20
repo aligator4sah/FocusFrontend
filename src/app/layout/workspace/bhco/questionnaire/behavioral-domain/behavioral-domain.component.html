@@ -1,0 +1,82 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Questionnaire</h3>
+  <mat-card class="com-member-info">
+    <mat-card-header>
+      <div class="col-sm-12">
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> John Smith </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> Male </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> 03-22-2018 </b></p>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <!--<mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>-->
+  <br>
+  <mat-card class="system-card">
+    <mat-card-header >
+      <div class="col-sm-12">
+        <mat-card-title>Behavioral Domain Questionnaire</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-divider> </mat-divider>
+    <mat-card-content>
+      <br>
+
+      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Positive and Negative Reactions (9)</ng-template>
+            <div *ngFor="let question of reaction" class="col-sm-12">
+              <app-demo-question [question]="question" [form]="firstFormGroup"></app-demo-question>
+            </div>
+            <div class="col-sm-12">
+              <button type="submit" [disabled]="!firstFormGroup.valid"  matStepperNext mat-raised-button color="primary">Next</button>
+              <button mat-raised-button color="accent">Reset</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Traumatic Event -- ACE (7)</ng-template>
+            <p>Prior to the age of 18 years old, did you experience the following? Answer each yes or no question by placing an X in the box to the right.</p>
+            <div *ngFor="let question of ace" class="col-sm-12">
+              <app-demo-question [question]="question" [form]="secondFormGroup"></app-demo-question>
+            </div>
+            <div class="col-sm-12">
+              <button type="submit" [disabled]="!secondFormGroup.valid"  matStepperNext mat-raised-button color="primary">Next</button>
+              <button mat-raised-button matStepperPrevious color="accent">Back</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Drug and Alcolhol Subdomain (9)</ng-template>
+            <p>Considering that one drink equals a 10-ounce beer, a 5-ounce glass of wine, or a drink with one shot of liquor, please answer the following questions.</p>
+            <div *ngFor="let question of mobility" class="col-sm-12">
+              <app-demo-question [question]="question" [form]="thirdFormGroup"></app-demo-question>
+            </div>
+            <div class="col-sm-12">
+              <button type="submit" [disabled]="!thirdFormGroup.valid"  matStepperNext mat-raised-button color="primary">Next</button>
+              <button mat-raised-button matStepperPrevious color="accent">Back</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="forthFormGroup">
+          <form (ngSubmit)="onSubmit()" [formGroup]="forthFormGroup">
+            <ng-template matStepLabel>Food Subdomain (2)</ng-template>
+            <div *ngFor="let question of food" class="col-sm-12">
+              <app-demo-question [question]="question" [form]="forthFormGroup"></app-demo-question>
+            </div>
+            <div class="col-sm-12">
+              <button type="submit" [disabled]="!forthFormGroup.valid"  matStepperNext mat-raised-button color="primary">Submit</button>
+              <button mat-raised-button color="accent">Reset</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+
+    </mat-card-content>
+  </mat-card>
+</div>

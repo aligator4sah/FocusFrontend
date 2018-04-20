@@ -1,0 +1,24 @@
+<div class="login-main">
+  <div class="mat-app-background basic-container mid-position">
+    <div class="title-theme">
+      <h1 class="title"> imHealthy</h1>
+    </div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title class="card-title mid-position">Administrator Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions class="card-action mid-position">
+        <form [formGroup]="userForm">
+          <app-input-control-box [attrContent]="userName" (follow)="getUserName($event)"></app-input-control-box>
+          <app-input-control-box [attrContent]="passWord" (follow)="getUserPassword($event)"></app-input-control-box>
+          <app-select-control-box [attrContent]="admin" (follow)="getUserAdmin($event)"></app-select-control-box>
+          <div class="button-row">
+            <button mat-raised-button color="primary" (click)="login()" [disabled]="userForm.invalid">Login</button>
+            <button mat-raised-button color="accent" (click)="back()">Switch</button>
+            <button mat-raised-button color="warn" (click)="forgotPwd()">Forget</button>
+          </div>
+        </form>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
