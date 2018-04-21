@@ -6,7 +6,6 @@ import {SysLoginComponent} from './login/sys-login/sys-login.component';
 import {BhcoLoginComponent} from './login/non-sys-login/bhco-login/bhco-login.component';
 import {MemberLoginComponent} from './login/non-sys-login/member-login/member-login.component';
 import {HeadBarComponent} from './layout/head-bar/head-bar.component';
-import {LayoutComponent} from './layout/layout.component';
 import {LoginComponent} from './login/login.component';
 import {CreateQuestionModule} from "./create-question/create-question.module";
 
@@ -39,10 +38,6 @@ export const appRoutes = [
   {
     path: 'headerBar',
     component: HeadBarComponent
-  },
-  {
-    path: 'layout',
-    component: LayoutComponent
   },
   {
     path: 'SysDashboard',

@@ -121,10 +121,6 @@ export class CurrentUser {
     this.location = options.location || [];
   }
 
-  getLocation(): number {
-    return this.location;
-  }
-
   setName(userName: string): void {
     this.name = userName;
   }

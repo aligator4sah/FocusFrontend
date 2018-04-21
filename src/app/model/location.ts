@@ -58,14 +58,14 @@ export class Block {
 export class Family {
   id: number;
   family: string;
-  blockId: number;
+  block: number;
   constructor(options: {
     id?: number;
     family?: string;
-    blockId?: number;
+    block?: number;
   } = {}) {
     this.id = options.id;
     this.family = options.family;
-    this.blockId = options.blockId || -1;
+    this.block = options.block || -1;
   }
 }

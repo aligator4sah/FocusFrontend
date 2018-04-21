@@ -25,7 +25,7 @@
           <!-- User Name Column -->
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
-            <mat-cell *matCellDef="let row" routerLink="/BhcoDashboard/detail/{{row.id}}"> {{row.username}} </mat-cell>
+            <mat-cell *matCellDef="let row"><a routerLink="/BhcoDashboard/detail/{{row.id}}" class="name-link">{{row.username}}</a> </mat-cell>
           </ng-container>
 
           <!-- Progress Column

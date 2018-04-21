@@ -61,6 +61,8 @@ export class LocationService {
       );
   }
 
+  // TODO: get state, county, city from current community id
+
   /**For temporarily insert test use, delete later*/
   getAllCounty(): Observable<County[]> {
     return this.http.get<County[]>(API_URL + '/county')

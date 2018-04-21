@@ -16,6 +16,7 @@ export class CreateAccountComponent implements OnInit {
   //Form group
   public userForm: FormGroup;
   public firstFormGroup: FormGroup;
+
   //front-end para
   public states = States;
   public state: string;
@@ -23,6 +24,7 @@ export class CreateAccountComponent implements OnInit {
 
   //structure para
   public isLinear = true;
+
   //validator para
   public selectStates : SelectAttributes = {name:'state',roles:this.states,placeholder:'states'};
   public userName : InputAttributes = {name:'username',min:4,max:32,placeholder:'username',type:'text'};
@@ -44,6 +46,7 @@ export class CreateAccountComponent implements OnInit {
   phonePara: string;
   emailPara: string;
 
+  //store data from passing from server
   stateAdmins: StateAdmin[];
   confirm: boolean=false;
 
@@ -58,6 +61,7 @@ export class CreateAccountComponent implements OnInit {
     this.getStateAdmin();
   }
 
+  /** get all state admin from server*/
   getStateAdmin(): void {
     this.stateAdminService.getStateAdmin()
       .subscribe( stateAdmin => this.stateAdmins = stateAdmin);
@@ -78,24 +82,22 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+  /** pass and store data from children to parent*/
   getState(value:string){
     if(value){
       this.statePara = value;
-      console.log("username:"+this.statePara);
     }
   }
 
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      console.log("username:"+this.userNamePara);
     }
   }
 
   getUserPassword(value: string){
     if(value){
       this.userPasswordPara = value;
-      console.log("password:"+this.userPasswordPara);
     }
   }
 
@@ -109,14 +111,12 @@ export class CreateAccountComponent implements OnInit {
   getFirstName(value: string) {
     if (value) {
       this.firstNamePara = value;
-      console.log("firstName:"+this.firstNamePara);
     }
   }
 
   getLastName(value: string) {
     if (value) {
       this.lastNamePara = value;
-      console.log('lastName:'+this.lastNamePara);
     }
   }
 
@@ -132,6 +132,7 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
+  /** send add state admin request to server*/
   addStateAdmin() {
     const newStateAdmin = new StateAdmin({
       username: this.userNamePara,

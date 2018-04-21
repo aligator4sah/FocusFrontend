@@ -17,10 +17,12 @@ import {LocationService} from "../../../../service/location.service";
 })
 export class CreateComComponent implements OnInit {
 
+  // get data from server
   counties: County[];
   cities: City[];
   communities: Community[];
 
+  // transfer data to select box input format
   countyRole: roleNum[] = [];
   cityRole: roleNum[] = [];
   communityRole: roleNum[] = [];
@@ -44,12 +46,10 @@ export class CreateComComponent implements OnInit {
   public userName : InputAttributes = {name:'username',min:4,max:32,placeholder:'username', type: 'text'};
   public passWord: InputAttributes = {name:'password',min:8,max:32,placeholder:'password',type:'password'};
   public confirmPassword : InputAttributes = {name:'confirmPassword',min:4,max:32,placeholder:'confirm password',type:'password'};
-
   public userFirstName : InputAttributes = {name:'firstName', min: 4, max:32, placeholder:'First Name', type: 'text'};
   public userLastName: InputAttributes = {name: 'lastName', min: 4, max: 32, placeholder: 'Last Name', type: 'text'};
   public userPhone: InputAttributes = {name: 'phone', min:8, max: 10, placeholder:'Phone', type:'text'};
   public userEmail: InputAttributes = {name: 'email', min: 8, max: 16, placeholder: 'Email', type: 'text'};
-
 
   public defaultCity: SelectAttributes = {name: 'defaultCity', placeholder:'City', roles: {}};
   public defaultCommunity: SelectAttributes = {name: 'defaultCom', placeholder: 'Community', roles: {}};
@@ -72,6 +72,7 @@ export class CreateComComponent implements OnInit {
   phonePara: string;
   emailPara: string;
 
+  // disabled the input box before data has been loaded
   loadCity: boolean = false;
   loadCommunity: boolean = false;
 
@@ -119,6 +120,7 @@ export class CreateComComponent implements OnInit {
     });
   }
 
+  /** get data from the server.*/
   getCounties() {
     this.locService.getCountyByState(this.locId)
       .subscribe(county => {
@@ -162,16 +164,16 @@ export class CreateComComponent implements OnInit {
   }
 
 
+  /**get data from user input and pass the value to create a new community admin */
   getCounty(value:number){
     if(value){
       this.countyPara = value;
       for (let ele of this.countyRole) {
-        let temp = ele.findValue(this.countyPara);
-        if (temp != null) {
-          this.countyTextPara= temp;
+        if (ele.value == this.countyPara) {
+          this.countyTextPara = ele.viewValue;
         }
-        this.getCities();
       }
+      this.getCities();
       console.log("username:"+this.countyTextPara);
 
     }
@@ -181,13 +183,11 @@ export class CreateComComponent implements OnInit {
     if(value){
       this.cityPara = value;
       for (let ele of this.cityRole) {
-        let temp = ele.findValue(this.cityPara);
-        if (temp != null) {
-          this.cityTextPara = temp;
+        if (ele.value == this.cityPara) {
+          this.cityTextPara = ele.viewValue;
         }
-        this.getCommunities();
       }
-      //console.log("username:"+this.cityPara);
+      this.getCommunities();
     }
   }
 
@@ -195,47 +195,40 @@ export class CreateComComponent implements OnInit {
     if(value){
       this.communityPara = value;
       for (let ele of this.communityRole) {
-        const temp = ele.findValue(this.communityPara);
-        if (temp != null) {
-          this.communityTextPara = temp;
-        }
+       if (ele.value == this.communityPara) {
+         this.communityTextPara = ele.viewValue;
+       }
       }
-      //console.log("username:"+this.communityPara);
     }
   }
 
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      //console.log("username:"+this.userNamePara);
     }
   }
 
   getUserPassword(value: string){
     if(value){
       this.userPasswordPara = value;
-      //console.log("password:"+this.userPasswordPara);
     }
   }
 
   getUserConPassword(value: string){
     if(value){
       this.userConPasswordPara = value;
-      //console.log("password:"+this.userConPasswordPara);
     }
   }
 
   getFirstName(value: string) {
     if (value) {
       this.firstNamePara = value;
-      //console.log("firstName:"+this.firstNamePara);
     }
   }
 
   getLastName(value: string) {
     if (value) {
       this.lastNamePara = value;
-      //console.log('lastName:'+this.lastNamePara);
     }
   }
 
@@ -251,6 +244,7 @@ export class CreateComComponent implements OnInit {
     }
   }
 
+  /** send add a new community admin request to the server */
   addComAdmin() {
     const newComAdmin = new CommunityAdmin({
       username: this.userNamePara,

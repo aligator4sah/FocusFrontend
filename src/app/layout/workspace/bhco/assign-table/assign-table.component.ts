@@ -21,6 +21,7 @@ export class AssignTableComponent implements OnInit {
   displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'zipcode', 'community', 'state'];
   dataSource = null;
 
+  //TODO: change the dob display to age
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

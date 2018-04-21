@@ -15,8 +15,19 @@
             <app-input-default-box [attrContent]="defaultCity" class="col-sm-3"></app-input-default-box>
             <app-input-default-box [attrContent]="defaultCommunity" class="col-sm-3"></app-input-default-box>
           </div>
-          <app-select-control-box [attrContent]="selectBlock" (follow)="getBlock($event)"></app-select-control-box>
-          <app-select-control-box [attrContent]="selectFamily" (follow)="getFamily($event)"></app-select-control-box>
+          <div *ngIf="isBlock; else noBlock">
+            <app-select-control-box [attrContent]="selectBlock" (follow)="getBlock($event)"></app-select-control-box>
+          </div>
+          <ng-template #noBlock>
+            <app-select-default-box [attrContent]="defaultBlock"></app-select-default-box>
+          </ng-template>
+          <div *ngIf="isFamily; else blockFamily">
+            <app-select-control-box [attrContent]="selectFamily" (follow)="getFamily($event)"></app-select-control-box>
+          </div>
+          <ng-template #blockFamily>
+            <app-select-default-box [attrContent]="defaultFamily"></app-select-default-box>
+          </ng-template>
+
           <div>
             <button mat-raised-button color="primary" matStepperNext [disabled]="addressFormGroup.invalid">Next</button>
             <!--<button mat-raised-button matStepperNext color="accent">Create Family</button>-->

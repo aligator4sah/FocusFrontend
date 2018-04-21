@@ -15,30 +15,35 @@ import {CommunityAdmin, CurrentUser, StateAdmin} from "../../../../model/User";
 })
 export class CreateCommunityComponent implements OnInit {
 
-  // used for get subset counties and cities
+  //get current state admin and location id from local storage
   public stateAdmin = null;
   public locId = null;
 
+  // form group declaration
   public communityGroup: FormGroup;
 
+  // get county, city and community array from server
   counties: County[];
   cities: City[];
   communities: Community[];
 
+  //pass county and city parameter to select boxes
   countyRole: roleNum[] = [];
   cityRole: roleNum[] = [];
 
+  // disable the input box unless the data has been loaded
   loadCity: boolean = false;
   confirm: boolean = false;
 
 
+  //input attributes declaration
   public selectCounty :SelectAttributes = {name:'county',roles:this.countyRole,placeholder:'County'};
   public selectCity: SelectAttributes = {name: 'city', roles:this.cityRole, placeholder:'City'};
   public inputCommunity : InputAttributes = {name:'community',min:4,max:32,placeholder:'Community',type:'text'};
-
-
   public defaultCity: SelectAttributes = {name: 'defaultCity', roles:{}, placeholder:'City'};
   public defaultCom: defaultAttributes = {name: 'defaultyCom', type: 'text', placeholder:'Community', value:''};
+
+  //get the value from input box
   countyPara :number;
   cityPara: number;
   communityPara: string;
@@ -66,6 +71,8 @@ export class CreateCommunityComponent implements OnInit {
     })
   }
 
+
+  /** get county, city and community from server*/
   getCounties() {
     this.comService.getCountyByState(this.locId)
       .subscribe(county => {
@@ -100,6 +107,7 @@ export class CreateCommunityComponent implements OnInit {
     }
   }
 
+  /** get value from input box and pass value to the server*/
   getCounty(value: number){
     if(value){
       this.countyPara = value;
@@ -124,7 +132,7 @@ export class CreateCommunityComponent implements OnInit {
   }
 
 
-
+  /**send add community request to the server */
   addCommunity() {
     const newCom = new Community({
       community: this.communityPara,
@@ -138,9 +146,4 @@ export class CreateCommunityComponent implements OnInit {
     this.confirm = true;
   }
 
-}
-
-export class family {
-  block: string;
-  familyName: string;
 }

@@ -12,6 +12,7 @@ import {UserService} from "../../../../service/user.service";
 })
 export class CreateBhcoComponent implements OnInit {
   //form group para
+  public locId = null;
   public registerForm : FormGroup;
   //validator para
   public userName : InputAttributes = {name:'username',min:4,max:32,placeholder:'username', type: 'text'};
@@ -21,6 +22,7 @@ export class CreateBhcoComponent implements OnInit {
   public lastName :InputAttributes = {name:'lastname',min:2,max:32,placeholder:'last name',type:'text'};
   public email: InputAttributes = {name:'email',min:6,max:32,placeholder:'email',type:'email'};
   public phone: InputAttributes = {name: 'phone', min: 6, max:32, placeholder: 'phone', type: 'tel'};
+
   //input value
   userNamePara: string;
   userPasswordPara: string;
@@ -42,8 +44,12 @@ export class CreateBhcoComponent implements OnInit {
   ngOnInit() {
     this.getBhcos();
     this.buildForm();
+    if (localStorage.length > 0) {
+      this.locId = JSON.parse(localStorage.getItem('curUser')).location;
+    }
   }
 
+  // TODO: optional - get bhcos by community id
   getBhcos(): void {
       this.userService.getBhcos()
         .subscribe(bhcos => this.bhcos = bhcos);
@@ -61,45 +67,40 @@ export class CreateBhcoComponent implements OnInit {
     });
   }
 
+  /**get user input and create new bhco */
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      //console.log("username:"+this.userNamePara);
     }
   }
 
   getUserPassword(value: string){
     if(value){
       this.userPasswordPara = value;
-      //console.log("password:"+this.userPasswordPara);
     }
   }
 
   getUserConPassword(value: string){
     if(value){
       this.userConPasswordPara = value;
-      //console.log("password:"+this.userConPasswordPara);
     }
   }
 
   getFirstName(value:string){
     if(value){
       this.firstNamePara = value;
-      //console.log("username:"+this.firstNamePara);
     }
   }
 
   getLastName(value: string){
     if(value){
       this.lastNamePara = value;
-      //console.log("password:"+this.lastNamePara);
     }
   }
 
   getEmail(value: string){
     if(value){
       this.emailPara = value;
-      //console.log("password:"+this.emailPara);
     }
   }
 
@@ -116,8 +117,9 @@ export class CreateBhcoComponent implements OnInit {
       firstname: this.firstNamePara,
       lastname: this.lastNamePara,
       email: this.emailPara,
-      phone: this.phonePara
-    })
+      phone: this.phonePara,
+      communityid: this.locId,
+    });
 
     this.userService.addBhco(newBhco)
       .subscribe(bhco => this.bhcos.push(bhco));

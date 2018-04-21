@@ -18,3 +18,12 @@
   overflow: auto;
   max-height: 500px;
 }
+
+a {
+  color: #673ab7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

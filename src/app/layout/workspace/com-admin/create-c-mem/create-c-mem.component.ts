@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { SelectAttributes} from '../../../../shared/shared-control/attributes';
+import {role, roleNum, SelectAttributes} from '../../../../shared/shared-control/attributes';
 import { InputAttributes } from '../../../../shared/shared-control/attributes';
 import { defaultAttributes} from '../../../../shared/shared-control/attributes';
-import { ValidationService} from '../../../../shared/validation-service/validation.service';
-import { Block} from '../../../../shared/shared-control/attributes';
-import { Family} from '../../../../shared/shared-control/attributes';
 import { Gender} from '../../../../shared/shared-control/attributes';
 import { States} from '../../../../shared/shared-control/attributes';
 import { Race } from '../../../../shared/shared-control/attributes';
@@ -15,6 +12,9 @@ import { Employment} from '../../../../shared/shared-control/attributes';
 import { DatePipe } from '@angular/common';
 import {Member} from "../../../../model/User";
 import {UserService} from "../../../../service/user.service";
+import {Block, Family} from "../../../../model/location";
+import {ValidationService} from "../../../../shared/validation-service/validation.service";
+import {LocationService} from "../../../../service/location.service";
 
 @Component({
   selector: 'app-create-c-mem',
@@ -26,8 +26,16 @@ export class CreateCMemComponent implements OnInit {
   public userForm: FormGroup;
   public addressFormGroup: FormGroup;
   public otherFormGroup: FormGroup;
+
+  // get blocks and family options from the server
+  public locId = null;
+  blocks: Block[];
+  families: Family[];
+  blockRole: roleNum[] = [];
+  famRole: roleNum[] = [];
+
   //front-end para
-  public blocks = Block;
+  //public blocks = Block;
   public familys = Family;
   public gender = Gender;
   public states = States;
@@ -60,10 +68,15 @@ export class CreateCMemComponent implements OnInit {
   public defaultCity: defaultAttributes = {name:'dCity',value:'Pittsburgh',type:'text',placeholder:'city'};
   public defaultCommunity: defaultAttributes = {name:'dCommunity',value:'North Oakland',type:'text',placeholder:'community'};
   public defaultPassword: defaultAttributes = {name: 'dPassword', value: 'imHealthy@2018', type:'text', placeholder:'password'};
+  public defaultFamily: SelectAttributes = {name: 'deFamily', placeholder: 'Family', roles: {}};
+  public defaultBlock: SelectAttributes = {name: 'deBlock', placeholder: 'Block', roles: {}};
+
   //input value
   userNamePara: string;
-  blockPara: string;
-  familyPara: string;
+  blockPara: number;
+  familyPara: number;
+  blockTextPara: string;
+  familyTextPara: string;
   firstNamePara: string;
   lastNamePara: string;
   midNamePara: string;
@@ -85,30 +98,40 @@ export class CreateCMemComponent implements OnInit {
   passwordPara = this.defaultPassword.value;
 
   //add a new community member
-  newMember: Member;
   members: Member[];
+
+  // disable the select box before data has been loaded
+  isBlock = false;
+  isFamily = false;
   show: boolean = false;
 
   constructor(
     private fb:FormBuilder,
     private datapipe : DatePipe,
-    private userService: UserService
+    private userService: UserService,
+    private locService: LocationService
   ){ }
 
   ngOnInit() {
+    //TODO: optional - get the member by community id
     this.getMembers();
     this. buildForm();
+    if (localStorage.length > 0) {
+      this.locId = JSON.parse(localStorage.getItem('curUser')).location;
+      this.getBlocks(this.locId);
+    }
   }
 
   buildForm(): void {
     this.addressFormGroup = this.fb.group({
-
       block: ['', [Validators.required]],
       family:['',[Validators.required]],
       dState:['',[]],
       dCounty:['',[]],
       dCity:['',[]],
       dCommunity:['',[]],
+      deFamily: ['',[]],
+      deBlock: ['', []]
     });
     this.userForm = this.fb.group({
       username:['',[ Validators.required,Validators.minLength(4)]],
@@ -131,21 +154,65 @@ export class CreateCMemComponent implements OnInit {
     })
   }
 
+  /** get block and family information from server*/
+  getBlocks(loc: number) {
+      this.locService.getBlockByCommunity(loc)
+        .subscribe(blo => {
+          this.blocks = blo;
+          if (this.blocks.length > 0) {
+            for (let block of this.blocks) {
+              let cur = new roleNum({value: block.id, viewValue: block.block});
+              this.blockRole.push(cur);
+            }
+            this.isBlock = true;
+          }
+        });
+  }
+
+  getFamilies() {
+    if (this.blockPara != null) {
+      this.locService.getFamilyByBlock(this.blockPara)
+        .subscribe(fam => {
+          this.families = fam;
+          if (this.families.length > 0) {
+            for (let fami of this.families) {
+              let cur = new roleNum({value: fami.id, viewValue: fami.family});
+              this.famRole.push(cur);
+            }
+            this.isFamily = true;
+          }
+        });
+    }
+  }
+
+
+  /** get user input and pass the value to the backend*/
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
     }
   }
 
-  getBlock(value:string){
+  getBlock(value:number){
     if(value){
       this.blockPara = value;
+      for (let blo of this.blockRole) {
+        if(blo.value == this.blockPara) {
+          this.blockTextPara = blo.viewValue;
+        }
+      }
+      this.getFamilies();
     }
   }
 
-  getFamily(value:string){
+  getFamily(value:number){
     if(value){
       this.familyPara = value;
+      for (let fami of this.famRole) {
+        if (fami.value == this.familyPara) {
+          this.familyTextPara = fami.viewValue;
+        }
+      }
     }
   }
 
@@ -249,8 +316,8 @@ export class CreateCMemComponent implements OnInit {
       date: this.dobPara,
       addressone: this.addressOnePara,
       addresstwo: this.addressTwoPara,
-      family: this.familyPara,
-      block: this.blockPara,
+      family: this.familyTextPara,
+      block: this.blockTextPara,
       community: this.communityPara,
       city: this.cityPara,
       county: this.countyPara,
