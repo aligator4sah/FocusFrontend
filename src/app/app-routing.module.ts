@@ -5,7 +5,6 @@ import {ForgotPwdComponent} from './login/forgot-pwd/forgot-pwd.component';
 import {SysLoginComponent} from './login/sys-login/sys-login.component';
 import {BhcoLoginComponent} from './login/non-sys-login/bhco-login/bhco-login.component';
 import {MemberLoginComponent} from './login/non-sys-login/member-login/member-login.component';
-import {HeadBarComponent} from './layout/head-bar/head-bar.component';
 import {LoginComponent} from './login/login.component';
 import {CreateQuestionModule} from "./create-question/create-question.module";
 
@@ -34,10 +33,6 @@ export const appRoutes = [
   {
     path: 'forgotPwd',
     component: ForgotPwdComponent
-  },
-  {
-    path: 'headerBar',
-    component: HeadBarComponent
   },
   {
     path: 'SysDashboard',
