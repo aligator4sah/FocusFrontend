@@ -139,10 +139,12 @@ export class UserService {
       );
   }
 
-  unassignBhco(comId: number, relation: any): Observable<any> {
-    return this.http.patch<any>(API_URL + '/unAssign/CommunityMember/' + comId, relation, httpOptions)
+  unassignBhco(relation: number[]): Observable<any> {
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'token');
+    return this.http.patch<any>(API_URL + '/unAssign/CommunityMember/', relation, httpOptions)
       .pipe(
-        catchError(this.handleError('unassignBhco', comId))
+        catchError(this.handleError('unassignBhco', []))
       );
   }
 

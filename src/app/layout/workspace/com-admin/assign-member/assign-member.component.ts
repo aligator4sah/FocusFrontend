@@ -4,7 +4,7 @@ import {role, roleNum, SelectAttributes} from '../../../../shared/shared-control
 import {SelectionModel} from '@angular/cdk/collections';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from "../../../../service/user.service";
-import {Bhcos, Member} from "../../../../model/User";
+import {Bhcos, CheckOpt, Member} from "../../../../model/User";
 import {baseBuildCommandOptions} from "@angular/cli/commands/build";
 
 @Component({
@@ -87,8 +87,8 @@ export class AssignMemberComponent implements OnInit {
            this.elements.push(newElement);
         }
         this.dataSource = new MatTableDataSource(this.elements);
-        this.dataSource.paginator = this.paginator
-        this.dataSource.sort = this.sort
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -129,16 +129,8 @@ export class AssignMemberComponent implements OnInit {
       this.assignService.assignBHCO(this.assignedBhco, this.assignedMem)
         .subscribe(result => console.log(result));
       console.log(this.assignedMem + "MEMBER");
-      //window.location.reload();
+      window.location.reload();
   }
 }
 
-
-export class CheckOpt extends Member {
-  isChosen: boolean;
-  constructor(options: {} = {}) {
-    super(options);
-    this.isChosen = options['isChosen'] || false;
-  }
-}
 

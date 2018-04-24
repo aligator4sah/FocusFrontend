@@ -125,3 +125,11 @@ export class CurrentUser {
     this.name = userName;
   }
 }
+
+export class CheckOpt extends Member {
+  isChosen: boolean;
+  constructor(options: {} = {}) {
+    super(options);
+    this.isChosen = options['isChosen'] || false;
+  }
+}

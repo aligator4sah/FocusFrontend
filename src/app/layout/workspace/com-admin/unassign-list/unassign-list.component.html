@@ -18,11 +18,13 @@
         </mat-form-field>
       </div>
 
+
       <div class="example-container mat-elevation-z8">
 
         <mat-table [dataSource]="dataSource" matSort>
 
           !-- Checkbox Column -->
+
           <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>
               <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -33,6 +35,7 @@
             <mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()"
                             (change)="$event ? selection.toggle(row) : null"
+                            [(ngModel)]="row.isChosen"
                             [checked]="selection.isSelected(row)">
               </mat-checkbox>
             </mat-cell>
@@ -41,37 +44,37 @@
           <!-- Member ID Column -->
           <ng-container matColumnDef="memberID">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Member ID </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.memID}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
           </ng-container>
 
           <!-- Member First Name Column -->
           <ng-container matColumnDef="memberFirstName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Member First Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.memFirstName}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
           </ng-container>
 
           <!-- Member LAst Name Column -->
           <ng-container matColumnDef="memberLastName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Member Last Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.memLastName}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
           </ng-container>
 
           <!-- BHCO Id -->
           <ng-container matColumnDef="bhcoID">
             <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO ID </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.bhcoID}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhco.id}} </mat-cell>
           </ng-container>
 
           <!-- BHCO First Name -->
           <ng-container matColumnDef="bhcoFirstName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO First Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.bhcoFirstName}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhco.firstname}} </mat-cell>
           </ng-container>
 
           <!-- BHCO Last Name -->
           <ng-container matColumnDef="bhcoLastName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO Last Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.bhcoLastName}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhco.lastname}} </mat-cell>
           </ng-container>
 
 
@@ -84,7 +87,7 @@
       </div>
       <br>
       <div class="col-sm-12">
-        <button mat-raised-button color="primary">Confirm</button>
+        <button mat-raised-button color="primary" (click)="unAssign()">Confirm</button>
       </div>
 
     </mat-card-content>
