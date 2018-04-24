@@ -42,6 +42,7 @@
             <mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()"
                             (change)="$event ? selection.toggle(row) : null"
+                            [(ngModel)]="row.isChosen"
                             [checked]="selection.isSelected(row)">
               </mat-checkbox>
             </mat-cell>
@@ -112,7 +113,7 @@
 
       <br>
       <div class="col-sm-12">
-        <button mat-raised-button color="primary">Confirm</button>
+        <button mat-raised-button color="primary" [disabled]="forms.invalid" (click)="assignMember()">Confirm</button>
       </div>
 
     </mat-card-content>

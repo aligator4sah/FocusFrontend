@@ -15,6 +15,7 @@ import {QuestionModelService} from "../service/question-model.service";
 
 export class CreateQuestionComponent implements OnInit {
   public createQuesForm: FormGroup;
+  public ansOptions: FormGroup;
 
   public description : InputAttributes = {name:'desp',min:4,max:90,placeholder:'Please input question description', type: 'text'};
   public hints : InputAttributes = {name:'hint',min:4,max:90,placeholder:'Please input question indication', type: 'text'};
@@ -27,6 +28,10 @@ export class CreateQuestionComponent implements OnInit {
   public selectCategory: SelectAttributes = {name: 'cat', roles: category, placeholder: 'Please select the question category'};
   public selectDomain: SelectAttributes = {name: 'domain', roles: domains, placeholder: 'Please select domain'};
   public inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 20, placeholder:'Please input subdomain name', type: 'text'};
+  public inputWeight: InputAttributes = {name:'weight', min: 1, max: 10, placeholder: 'Please input question weight',  type: 'text'};
+
+  public optkeyGroup: InputAttributes[] = [];
+  public optValueGroup: InputAttributes[] = [];
 
   despPara: string;
   hintPara: string;
@@ -38,6 +43,7 @@ export class CreateQuestionComponent implements OnInit {
   catPara: string;
   domainPara: string;
   subdomainPara: string;
+  weightPara: number;
 
   numbers: number[];
   questions: DemoQuestion[];
@@ -80,7 +86,8 @@ export class CreateQuestionComponent implements OnInit {
       domain:['',[Validators.required,Validators.minLength(4)]],
       subdomain: ['', [Validators.required, Validators.minLength(1)]],
       defaultAnsNo:['',[]],
-    })
+      weight: ['', [Validators.required, Validators.minLength(1)]],
+    });
 
     this.createQuesForm.controls["key"].valueChanges.debounceTime(200).subscribe((value)=>{
 
@@ -90,7 +97,6 @@ export class CreateQuestionComponent implements OnInit {
   getDescription(value:string){
     if(value){
       this.despPara = value;
-      //console.log("username:"+this.userNamePara);
     }
   }
 
@@ -122,17 +128,23 @@ export class CreateQuestionComponent implements OnInit {
     if (value) {
       this.ansNumPara = value;
       this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
+      for (let num of this.numbers) {
+          let inputKey: InputAttributes = {name: 'key', placeholder:'Answer Extent', type: 'number', max: 10, min: 1};
+          this.optkeyGroup.push(inputKey);
+          let inputValue: InputAttributes = {name: 'value', placeholder: 'Answer Description', type: 'text', min: 1, max: 30};
+          this.optValueGroup.push(inputValue);
+      }
     }
   }
 
   getCategory(value: string) {
     if (value) {
       this.catPara = value;
-    }
-    if (this.catPara === 'demographic') {
-      this.getDemoQuestions();
-    } else {
-      this.getQuestionnaire();
+      if (this.catPara === 'demographic') {
+        this.getDemoQuestions();
+      } else {
+        this.getQuestionnaire();
+      }
     }
   }
 
@@ -171,6 +183,14 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
+  getWeight(value: number) {
+    if(value) {
+      this.weightPara = value;
+    } else {
+      this.weightPara = -1;
+    }
+  }
+
    // getAns() {
    //  console.log(this.keyArray);
    //  for (var i = 1; i < this.ansNumPara; i++) {}
@@ -203,7 +223,8 @@ export class CreateQuestionComponent implements OnInit {
         questiontype: this.typePara,
         options: this.ansArray,
         domain: this.domainPara,
-        subdomain: this.subdomainPara
+        subdomain: this.subdomainPara,
+        weight: this.weightPara
       });
       this.demoService.addQuestionnaire(newQuestion)
         .subscribe(ques => this.questionnaires.push(ques));

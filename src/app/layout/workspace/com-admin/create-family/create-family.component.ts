@@ -32,7 +32,7 @@ export class CreateFamilyComponent implements OnInit {
   // public inputAddress2: InputAttributes = {name:'address2', min:4, max: 32, placeholder:'Address Two', type:'text'};
   public selectBlock :SelectAttributes = {name:'block',roles:this.blockRole,placeholder:'Select the Block'};
   public inputFamily : InputAttributes = {name:'family',min:4,max:32,placeholder:'Input Family Name',type:'text'};
-  public defaultBlock: SelectAttributes = {name:'dblock', roles: {}, placeholder:'No available blocks currently.'};
+  public defaultBlock: SelectAttributes = {name:'dblock', roles: [], placeholder:'No available blocks currently.'};
   public defaultFamily: defaultAttributes = {name: 'dfam', value: '', placeholder:'', type: 'text'};
   //
   blockPara : number;

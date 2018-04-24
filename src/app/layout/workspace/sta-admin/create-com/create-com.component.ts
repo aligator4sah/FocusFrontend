@@ -51,8 +51,8 @@ export class CreateComComponent implements OnInit {
   public userPhone: InputAttributes = {name: 'phone', min:8, max: 10, placeholder:'Phone', type:'text'};
   public userEmail: InputAttributes = {name: 'email', min: 8, max: 16, placeholder: 'Email', type: 'text'};
 
-  public defaultCity: SelectAttributes = {name: 'defaultCity', placeholder:'City', roles: {}};
-  public defaultCommunity: SelectAttributes = {name: 'defaultCom', placeholder: 'Community', roles: {}};
+  public defaultCity: SelectAttributes = {name: 'defaultCity', placeholder:'City', roles: []};
+  public defaultCommunity: SelectAttributes = {name: 'defaultCom', placeholder: 'Community', roles: []};
 
 
   //input value

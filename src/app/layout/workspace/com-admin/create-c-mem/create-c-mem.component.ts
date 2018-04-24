@@ -12,7 +12,7 @@ import { Employment} from '../../../../shared/shared-control/attributes';
 import { DatePipe } from '@angular/common';
 import {Member} from "../../../../model/User";
 import {UserService} from "../../../../service/user.service";
-import {Block, Family} from "../../../../model/location";
+import {Block, Family, LocInfo} from "../../../../model/location";
 import {ValidationService} from "../../../../shared/validation-service/validation.service";
 import {LocationService} from "../../../../service/location.service";
 
@@ -33,6 +33,12 @@ export class CreateCMemComponent implements OnInit {
   families: Family[];
   blockRole: roleNum[] = [];
   famRole: roleNum[] = [];
+  locationInfo: LocInfo;
+
+  statePara: string = "Pennsylvania";
+  countyPara: string;
+  cityPara: string;
+  communityPara: string;
 
   //front-end para
   //public blocks = Block;
@@ -45,9 +51,10 @@ export class CreateCMemComponent implements OnInit {
   public employmentS = Employment;
   //structure para
   public isLinear = true;
+  public isLoading = false;
   //validator para
-  public selectFamily: SelectAttributes = {name:'family',roles:this.familys,placeholder:'family'};
-  public selectBlock :SelectAttributes = {name:'block',roles:this.blocks,placeholder:'block'};
+  public selectFamily: SelectAttributes = {name:'family',roles:this.famRole,placeholder:'family'};
+  public selectBlock :SelectAttributes = {name:'block',roles:this.blockRole,placeholder:'block'};
   public userName : InputAttributes = {name:'username',min:4,max:32,placeholder:'username', type: 'text'};
 
   public firstName :InputAttributes = {name:'firstname',min:4,max:32,placeholder:'first name',type:'text'};
@@ -63,13 +70,13 @@ export class CreateCMemComponent implements OnInit {
   public matrialStatus :SelectAttributes = {name:'marital',roles:this.matrialS,placeholder:'marital status'};
   public educations: SelectAttributes = {name:'education',roles:this.educationS,placeholder:'education status'};
   public employments: SelectAttributes = {name:'employment',roles:this.employmentS,placeholder:'employment status'};
-  public defaultState: defaultAttributes = {name:'dState',value:'Pennsylvania',type:'text',placeholder:'state'};
-  public defaultCounty: defaultAttributes = {name:'dCounty',value:'Allegheny',type:'text',placeholder:'county'};
-  public defaultCity: defaultAttributes = {name:'dCity',value:'Pittsburgh',type:'text',placeholder:'city'};
-  public defaultCommunity: defaultAttributes = {name:'dCommunity',value:'North Oakland',type:'text',placeholder:'community'};
+  public defaultState: defaultAttributes = {name:'dState',value:this.statePara,type:'text',placeholder:'state'};
+  public defaultCounty: defaultAttributes = {name:'dCounty',value: "Allegheny",type:'text',placeholder:'county'};
+  public defaultCity: defaultAttributes = {name:'dCity',value:"Pittsburgh",type:'text',placeholder:'city'};
+  public defaultCommunity: defaultAttributes = {name:'dCommunity',value:"Shadyland",type:'text',placeholder:'community'};
   public defaultPassword: defaultAttributes = {name: 'dPassword', value: 'imHealthy@2018', type:'text', placeholder:'password'};
-  public defaultFamily: SelectAttributes = {name: 'deFamily', placeholder: 'Family', roles: {}};
-  public defaultBlock: SelectAttributes = {name: 'deBlock', placeholder: 'Block', roles: {}};
+  public defaultFamily: SelectAttributes = {name: 'deFamily', placeholder: 'Family', roles: []};
+  public defaultBlock: SelectAttributes = {name: 'deBlock', placeholder: 'Block', roles: []};
 
   //input value
   userNamePara: string;
@@ -85,10 +92,6 @@ export class CreateCMemComponent implements OnInit {
   datePara: string;
   addressOnePara: string;
   addressTwoPara: string;
-  cityPara = this.defaultCity.value;
-  statePara = this.defaultState.value;
-  countyPara = this.defaultCounty.value;
-  communityPara = this.defaultCommunity.value;
   racePara: string;
   matrialPara: string;
   empolymentPara: string;
@@ -116,11 +119,18 @@ export class CreateCMemComponent implements OnInit {
     //TODO: optional - get the member by community id
     this.getMembers();
     this. buildForm();
-    if (localStorage.length > 0) {
+    if (localStorage.length > 1) {
       this.locId = JSON.parse(localStorage.getItem('curUser')).location;
-      this.getBlocks(this.locId);
+      // this.adminId = JSON.parse(localStorage.getItem('curUser')).id;
+      this.locationInfo = JSON.parse(localStorage.getItem('curLoc'));
+      this.statePara = this.locationInfo.state;
+      console.log("LocInfor" + this.locationInfo.state);
+      //this.getLocation();
+      this.getBlocks();
     }
   }
+
+
 
   buildForm(): void {
     this.addressFormGroup = this.fb.group({
@@ -155,8 +165,8 @@ export class CreateCMemComponent implements OnInit {
   }
 
   /** get block and family information from server*/
-  getBlocks(loc: number) {
-      this.locService.getBlockByCommunity(loc)
+  getBlocks() {
+      this.locService.getBlockByCommunity(this.locId)
         .subscribe(blo => {
           this.blocks = blo;
           if (this.blocks.length > 0) {
@@ -168,6 +178,20 @@ export class CreateCMemComponent implements OnInit {
           }
         });
   }
+
+  // getLocation() {
+  //   this.locService.getCommunityInfo(this.adminId)
+  //     .subscribe(loc => {
+  //       this.locationInfo = loc;
+  //       this.statePara = this.locationInfo.state;
+  //       this.countyPara = this.locationInfo.county;
+  //       this.cityPara = this.locationInfo.city;
+  //       this.communityPara = this.locationInfo.community;
+  //       console.log(this.locationInfo);
+  //       console.log(this.locationInfo.state);
+  //       this.isLoading = true;
+  //     });
+  // }
 
   getFamilies() {
     if (this.blockPara != null) {

@@ -38,7 +38,7 @@ export class SysLoginComponent implements OnInit {
     location: 39,
   });
   public comAdmin = new CurrentUser({
-    id: 1,
+    id: 2,
     name: this.userNamePara,
     role: "Community Administrator",
     location: 11,

@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {API_URL} from "./http.service";
 import {catchError} from "rxjs/operators";
-import {Block, City, Community, County, Family} from "../model/location";
+import {Block, City, Community, County, Family, LocInfo} from "../model/location";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -55,9 +55,16 @@ export class LocationService {
   }
 
   getFamilyByBlock(blockId: number): Observable<Family[]> {
-    return this.http.get<Family[]>(API_URL + '/family/block' + blockId)
+    return this.http.get<Family[]>(API_URL + '/family/block/' + blockId)
       .pipe(
         catchError(this.handleError('getFamilyByBlock', []))
+      );
+  }
+
+  getCommunityInfo(comAdminId: number): Observable<LocInfo> {
+    return this.http.get<any>(API_URL + '/communityAdmin/communityRelatedInfo/' + comAdminId)
+      .pipe(
+        catchError(this.handleError('getCommunityRelatedInfo', []))
       );
   }
 

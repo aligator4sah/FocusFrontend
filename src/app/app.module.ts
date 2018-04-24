@@ -26,6 +26,7 @@ import {HttpErrorHandler} from "./service/http-error-handler.service";
 import { HttpService } from './service/http.service';
 import { QuestionModelService } from './service/question-model.service';
 import { LocationService } from './service/location.service';
+import {ChartsModule} from "ng2-charts/ng2-charts";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { LocationService } from './service/location.service';
     SysLoginComponent,
     BhcoLoginComponent,
     MemberLoginComponent,
-    ForgotPwdComponent
+    ForgotPwdComponent,
   ],
   imports: [
     RouterModule,
@@ -42,6 +43,7 @@ import { LocationService } from './service/location.service';
     LayoutModule,
     AppRoutingModule,
     HttpClientModule,
+    ChartsModule,
   ],
   providers: [
     QuestionControlService,

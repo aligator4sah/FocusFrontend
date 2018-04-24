@@ -13,7 +13,7 @@ const API_URL = environment.apiUrl;
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
     'Authorization': 'my-auth-token'
   })
 }
@@ -130,7 +130,9 @@ export class UserService {
   }
 
   /** PATCH assign and unassign member to bhco*/
-  assignBHCO(bhcoId: number, relation: any): Observable<any> {
+  assignBHCO(bhcoId: number, relation: number[]): Observable<any> {
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'token');
     return this.http.patch<any>(API_URL + '/assign/CommunityMember/' + bhcoId, relation, httpOptions)
       .pipe(
         catchError(this.handleError('assignBhco', bhcoId))

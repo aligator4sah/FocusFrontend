@@ -13,8 +13,9 @@
           <app-input-control-box [attrContent]="hints" (follow)="getHint($event)"></app-input-control-box>
         </div>
         <div *ngSwitchCase="'questionnaire'">
-          <app-select-control-box [attrContent]="selectDomain" (follow)="getDomain($event)" class="col-sm-6"></app-select-control-box>
-          <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
+          <app-select-control-box [attrContent]="selectDomain" (follow)="getDomain($event)" class="col-sm-4"></app-select-control-box>
+          <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-4"></app-input-control-box>
+          <app-input-control-box [attrContent]="inputWeight" (follow)="getWeight($event)" class="col-sm-4"></app-input-control-box>
         </div>
       </div>
 
@@ -34,7 +35,7 @@
            <app-input-control-box [attrContent]="inputKey" (follow)="getKey($event)" class="col-sm-6" ng-model-options="{ debounce: 800 }"></app-input-control-box>
            <app-input-control-box [attrContent]="inputValue" (follow)="getValue($event)" class="col-sm-6" ng-model-options="{ debounce: 800 }"></app-input-control-box>
          </div>
-          </div>
+        </div>
         <div *ngSwitchCase="'Dropdown List Question'">
           <div *ngFor="let num of numbers"class="full-width">
             <app-input-control-box [attrContent]="inputKey" (follow)="getKey($event)" class="col-sm-6"></app-input-control-box>

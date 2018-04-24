@@ -34,23 +34,23 @@ export class Block {
   id: number;
   block: string;
   community: number;
-  startStr: string;
-  endStr: string;
+  startstreet: string;
+  endstreet: string;
   zipcode: string;
 
   constructor(options: {
     id?: number;
     block?: string;
     community?: number;
-    startStr?: string;
-    endStr?: string;
+    startstreet?: string;
+    endstreet?: string;
     zipcode?: string
   } = {}) {
     this.id = options.id;
     this.block = options.block;
     this.community = options.community || -1;
-    this.startStr = options.startStr || '';
-    this.endStr = options.endStr || '';
+    this.startstreet = options.startstreet || '';
+    this.endstreet = options.endstreet || '';
     this.zipcode = options.zipcode || '';
   }
 }
@@ -68,4 +68,11 @@ export class Family {
     this.family = options.family;
     this.block = options.block || -1;
   }
+}
+
+export class LocInfo {
+  community: string;
+  city: string;
+  county: string;
+  state: string;
 }

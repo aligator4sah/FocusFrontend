@@ -23,8 +23,8 @@ export class CreateBlockComponent implements OnInit {
 
   public inputBlock : InputAttributes = {name: 'block', min:4, max:32, placeholder:'Block Name', type:"text"};
   // public selectStreet: SelectAttributes = {name: 'street', roles: this.blocks, placeholder:'Street Name'};
-  public inputStart: InputAttributes = {name: 'start', min:1, max:10,placeholder:'Start Street', type:'text'};
-  public inputEnd: InputAttributes = {name: 'end', min:1, max:10,placeholder:'End Street', type:'text'};
+  public inputStart: InputAttributes = {name: 'start', min:1, max:32,placeholder:'Start Street', type:'text'};
+  public inputEnd: InputAttributes = {name: 'end', min:1, max:32,placeholder:'End Street', type:'text'};
   public inputZipcode: InputAttributes = {name:'zipcode', min:5, max:5,placeholder:'Zipcode', type:'text'};
 
   // record the user inputs
@@ -92,8 +92,9 @@ export class CreateBlockComponent implements OnInit {
   addBlock() {
     const newBlock = new Block({
       block: this.blockPara,
-      startStr: this.startPara,
-      endStr: this.endPara,
+      startstreet: this.startPara,
+      endstreet: this.endPara,
+      zipcode: this.zipcodePara,
       community: this.locId,
     });
     this.locService.addBlock(newBlock)
