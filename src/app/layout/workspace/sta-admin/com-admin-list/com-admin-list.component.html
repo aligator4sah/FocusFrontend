@@ -19,7 +19,7 @@
       </div>
 
       <div class="example-container mat-elevation-z8">
-
+        <div *ngIf="dataSource">
         <mat-table [dataSource]="dataSource" matSort>
 
           <!-- username Column -->
@@ -69,7 +69,7 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;">
           </mat-row>
         </mat-table>
-
+        </div>
         <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
       </div>
 

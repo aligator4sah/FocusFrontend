@@ -25,6 +25,8 @@ export class ComAdminListComponent {
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.
    */
+
+  /**TODO: get community by all and by state */
   ngAfterViewInit() {
     this.getComAdmin();
   }

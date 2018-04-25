@@ -35,13 +35,13 @@ export class SysLoginComponent implements OnInit {
     id: 1,
     name: this.userNamePara,
     role: "State Administrator",
-    location: 39,
+    location: 2,
   });
   public comAdmin = new CurrentUser({
-    id: 4,
+    id: 1,
     name: this.userNamePara,
     role: "Community Administrator",
-    location: 4,
+    location: 1,
   });
 
   constructor(

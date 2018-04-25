@@ -20,7 +20,7 @@
 
 
       <div class="example-container mat-elevation-z8">
-
+        <div *ngIf="dataSource">
         <mat-table [dataSource]="dataSource" matSort>
 
           !-- Checkbox Column -->
@@ -43,8 +43,8 @@
 
           <!-- Member ID Column -->
           <ng-container matColumnDef="memberID">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Member ID </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Member Username </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
           </ng-container>
 
           <!-- Member First Name Column -->
@@ -61,8 +61,8 @@
 
           <!-- BHCO Id -->
           <ng-container matColumnDef="bhcoID">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO ID </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.bhco.id}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> BHCO Username </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.bhco.username}} </mat-cell>
           </ng-container>
 
           <!-- BHCO First Name -->
@@ -82,7 +82,7 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;">
           </mat-row>
         </mat-table>
-
+        </div>
         <mat-paginator [pageSizeOptions]="[6, 15, 25, 50]"></mat-paginator>
       </div>
       <br>

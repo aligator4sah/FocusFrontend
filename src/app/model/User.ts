@@ -57,7 +57,7 @@ export class Member extends User{
   addresstwo: string;
   family: string;
   block: string;
-  community: string;
+  community: any;
   city: string;
   county: string;
   state: string;
@@ -76,7 +76,7 @@ export class Member extends User{
       this.addresstwo = options['addresstwo'] || '';
       this.family = options['family'] || '';
       this.block = options['block'] || '';
-      this.community = options['community'] || '';
+      this.community = options['community'] || -1;
       this.city = options['city'] || '';
       this.county = options['county'] || '';
       this.state = options['state'] || '';
@@ -90,16 +90,16 @@ export class Member extends User{
 }
 
 export class Bhcos extends User{
-  communityid: number;
   community: string;
   city: string;
   county: string;
+  state: string;
   constructor(options: {} = {} ) {
     super(options);
-    this.communityid = options['communityid'] || -1;
     this.community = options['community'] || '';
     this.city = options['city'] || '';
     this.county = options['county'] || '';
+    this.state = options['state'] || '';
   }
 }
 

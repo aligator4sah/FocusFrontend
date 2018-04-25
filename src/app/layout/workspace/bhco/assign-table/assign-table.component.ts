@@ -18,8 +18,9 @@ import {of as observableOf} from 'rxjs/observable/of';
 })
 export class AssignTableComponent implements OnInit {
 
-  displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'zipcode', 'community', 'state'];
+  displayedColumns = [];
   dataSource = null;
+  curRole = JSON.parse(localStorage.getItem('curUser'));
 
   //TODO: change the dob display to age
 
@@ -35,11 +36,18 @@ export class AssignTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMember();
+    //this.getMember();
+    if (this.curRole.role === "Community Administrator") {
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block'];
+    } else if (this.curRole.role === "State Administrator") {
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
+    } else if (this.curRole.role === 'System Administrator') {
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'state']
+    }
   }
 
    getMember() {
-     this.userService.getMembers()
+     this.userService.getAllMembers()
        .subscribe(mems => {
          this.members = mems;
          console.log(this.members);

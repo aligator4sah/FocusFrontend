@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Block, defaultAttributes, InputAttributes, role, roleNum,
+import { defaultAttributes, InputAttributes, role, roleNum,
   SelectAttributes
 } from '../../../../shared/shared-control/attributes';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';

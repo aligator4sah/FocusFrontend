@@ -38,6 +38,8 @@ export class CreateComComponent implements OnInit {
   public userForm: FormGroup;
   public communityGroup: FormGroup;
   //validator para
+
+  /**TODO: get the state name by location id with state admin */
   public defaultState: defaultAttributes = {name:'dState',value:'Pennsylvania',type:'text',placeholder:'state'};
   //public selectStates : SelectAttributes = {name:'state',roles:this.states,placeholder:'state'};
   public selectCounty: SelectAttributes = {name:'county',roles:this.countyRole,placeholder:'county'};

@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 export class AssignMemberComponent implements OnInit {
   public forms: FormGroup;
   members: Member[];
-  elements: CheckOpt[] = [];
+  elements: CheckOpt[];
   bhcos: Bhcos[];
   candidate: roleNum[] = [];
   locId = null;
@@ -85,11 +85,7 @@ export class AssignMemberComponent implements OnInit {
   getMembers() {
     this.assignService.getUnassignedMem(this.locId)
       .subscribe(mems => {
-         this.members = mems
-        for (let member of this.members) {
-           const newElement = new CheckOpt(member);
-           this.elements.push(newElement);
-        }
+         this.elements = mems
         this.dataSource = new MatTableDataSource(this.elements);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -122,8 +118,7 @@ export class AssignMemberComponent implements OnInit {
       this.assignService.assignBHCO(this.assignedBhco, this.assignedMem)
         .subscribe(result => console.log(result));
       console.log(this.assignedMem + "MEMBER");
-     // window.location.reload();
-      this.router.navigateByUrl('assignMember');
+      //this.router.navigateByUrl('CommunityDashboard/assignMember');
   }
 }
 

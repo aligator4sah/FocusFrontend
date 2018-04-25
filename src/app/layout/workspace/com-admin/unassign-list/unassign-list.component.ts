@@ -55,11 +55,11 @@ export class UnassignListComponent implements OnInit{
   getMembers() {
     this.unassignService.getAssignedMem(this.locId)
       .subscribe(mems => {
-        this.members = mems
-        for (let member of this.members) {
-          const newElement = new CheckOpt(member);
-          this.elements.push(newElement);
-        }
+        this.elements = mems
+        // for (let member of this.members) {
+        //   const newElement = new CheckOpt(member);
+        //   this.elements.push(newElement);
+        // }
         this.dataSource = new MatTableDataSource(this.elements);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

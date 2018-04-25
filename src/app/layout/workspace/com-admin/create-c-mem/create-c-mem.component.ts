@@ -28,7 +28,7 @@ export class CreateCMemComponent implements OnInit {
   public otherFormGroup: FormGroup;
 
   // get blocks and family options from the server
-  public locId = null;
+  public locId = JSON.parse(localStorage.getItem('curUser')).location;
   blocks: Block[];
   families: Family[];
   blockRole: roleNum[] = [];
@@ -48,7 +48,6 @@ export class CreateCMemComponent implements OnInit {
   public employmentS = Employment;
   //structure para
   public isLinear = true;
-  public isLoading = false;
   //validator para
   public selectFamily: SelectAttributes = {name:'family',roles:this.famRole,placeholder:'family'};
   public selectBlock :SelectAttributes = {name:'block',roles:this.blockRole,placeholder:'block'};
@@ -113,13 +112,12 @@ export class CreateCMemComponent implements OnInit {
   ){ }
 
   ngOnInit() {
-    //TODO: optional - get the member by community id
-    this.getMembers();
     this. buildForm();
-    if (localStorage.length > 1) {
-      this.locId = JSON.parse(localStorage.getItem('curUser')).location;
+    if (this.locId != null) {
+      this.getMembers();
       this.getBlocks();
     }
+    //console.log(this.locationInfo);
   }
 
 
@@ -187,13 +185,13 @@ export class CreateCMemComponent implements OnInit {
     }
   }
 
+  getMembers(): void {
+    this.userService.getMemberByCom(this.locId)
+      .subscribe(members => this.members = members);
+  }
+
 
   /** get user input and pass the value to the backend*/
-  getUserName(value:string){
-    if(value){
-      this.userNamePara = value;
-    }
-  }
 
   getBlock(value:number){
     if(value){
@@ -215,6 +213,12 @@ export class CreateCMemComponent implements OnInit {
           this.familyTextPara = fami.viewValue;
         }
       }
+    }
+  }
+
+  getUserName(value:string){
+    if(value){
+      this.userNamePara = value;
     }
   }
 
@@ -298,12 +302,6 @@ export class CreateCMemComponent implements OnInit {
     }
   }
 
-  //http service
-  getMembers(): void {
-     this.userService.getMembers()
-       .subscribe(members => this.members = members);
-  }
-
 
   addMember(): void {
     const comMember = new Member({
@@ -320,7 +318,7 @@ export class CreateCMemComponent implements OnInit {
       addresstwo: this.addressTwoPara,
       family: this.familyTextPara,
       block: this.blockTextPara,
-      community: this.communityPara,
+      community: this.locId,
       city: this.cityPara,
       county: this.countyPara,
       state: this.statePara,

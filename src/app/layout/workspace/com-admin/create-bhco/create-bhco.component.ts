@@ -12,7 +12,8 @@ import {UserService} from "../../../../service/user.service";
 })
 export class CreateBhcoComponent implements OnInit {
   //form group para
-  public locId = null;
+  public locId = JSON.parse(localStorage.getItem('curUser')).location;
+  public location = JSON.parse(localStorage.getItem('curLoc'));
   public registerForm : FormGroup;
   //validator para
   public userName : InputAttributes = {name:'username',min:4,max:32,placeholder:'username', type: 'text'};
@@ -44,14 +45,10 @@ export class CreateBhcoComponent implements OnInit {
   ngOnInit() {
     this.getBhcos();
     this.buildForm();
-    if (localStorage.length > 0) {
-      this.locId = JSON.parse(localStorage.getItem('curUser')).location;
-    }
   }
 
-  // TODO: optional - get bhcos by community id
   getBhcos(): void {
-      this.userService.getBhcos()
+      this.userService.getBhcoByCom(this.locId)
         .subscribe(bhcos => this.bhcos = bhcos);
   }
 
@@ -118,7 +115,10 @@ export class CreateBhcoComponent implements OnInit {
       lastname: this.lastNamePara,
       email: this.emailPara,
       phone: this.phonePara,
-      communityid: this.locId,
+      community: this.location.community,
+      city: this.location.city,
+      county: this.location.county,
+      state: this.location.state,
     });
 
     this.userService.addBhco(newBhco)

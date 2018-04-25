@@ -12,10 +12,11 @@ import {LocationService} from "../../../../service/location.service";
 })
 export class BhcoListComponent implements OnInit{
 
-  displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'city', 'community'];
+  //displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'city', 'community'];
+  displayedColumns = [];
   dataSource = null;
 
-  adminId = null;
+  curRole = JSON.parse(localStorage.getItem('curUser'));
   locInfo: LocInfo;
 
   bhcos: Bhcos[];
@@ -32,9 +33,18 @@ export class BhcoListComponent implements OnInit{
 
   ngOnInit() {
     if (localStorage.length > 0) {
-      this.adminId = JSON.parse(localStorage.getItem('curUser')).id;
       this.getLocInfor();
     }
+
+    if (this.curRole.role === "Community Administrator") {
+      this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email'];
+    } else if (this.curRole.role === "State Administrator") {
+      this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'community', 'city'];
+    } else {
+      this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'community', 'city', 'state']
+    }
+
+
   }
   /**
    * Set the paginator and sort after the view init since this component will
@@ -45,9 +55,10 @@ export class BhcoListComponent implements OnInit{
   }
 
   getLocInfor() {
-    this.locService.getCommunityInfo(this.adminId)
+    this.locService.getCommunityInfo(this.curRole.id)
       .subscribe(loc => {
         this.locInfo = loc;
+        console.log(this.locInfo);
         localStorage.setItem('curLoc', JSON.stringify(this.locInfo));
       });
   }
@@ -59,12 +70,33 @@ export class BhcoListComponent implements OnInit{
   }
 
   getBhco() {
-    return this.bhcoService.getBhcos()
-      .subscribe(bhco =>
-      {this.bhcos = bhco
-        this.dataSource = new MatTableDataSource(this.bhcos);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    if (this.curRole.role === "System Administrator") {
+      return this.bhcoService.getBhcos()
+        .subscribe(bhco =>
+        {this.bhcos = bhco
+          this.dataSource = new MatTableDataSource(this.bhcos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+
+    } else if (this.curRole.role === "State Administrator") {
+      return this.bhcoService.getBhcoByState(this.curRole.location)
+        .subscribe(bhco => {
+          this.bhcos = bhco
+          this.dataSource = new MatTableDataSource(this.bhcos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+
+    } else {
+      return this.bhcoService.getBhcoByCom(this.curRole.location)
+        .subscribe(bhco => {
+          this.bhcos = bhco
+          this.dataSource = new MatTableDataSource(this.bhcos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+    }
+
   }
 }

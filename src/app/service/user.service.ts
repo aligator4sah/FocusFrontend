@@ -38,17 +38,47 @@ export class UserService {
       );
   }
 
-  getMembers (): Observable<Member[]> {
+  /** GET get members according top different levels of admin */
+  getAllMembers (): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMember')
       .pipe(
         catchError(this.handleError('getMembers', []))
       );
   }
 
+  getMembersByState(stateId: number): Observable<Member[]> {
+    return this.http.get<Member[]>(API_URL + '/communityMemberByState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByState', []))
+      );
+  }
+
+  getMemberByCom(comId: number): Observable<Member[]> {
+    return this.http.get<Member[]>(API_URL + '/communityMemberByCommunity/' + comId)
+      .pipe(
+        catchError(this.handleError('getMemberByCommunity', []))
+      );
+  }
+
+  /**GET get bhco according to different levels of admin */
   getBhcos (): Observable<Bhcos[]> {
     return this.http.get<Bhcos[]>(API_URL + '/bhco')
       .pipe(
         catchError(this.handleError('getBhco', []))
+      );
+  }
+
+  getBhcoByState(staId: number): Observable<Bhcos[]> {
+    return this.http.get<Bhcos[]>(API_URL + '/Bhco/State/' + staId)
+      .pipe(
+        catchError(this.handleError('getBhcoByState', []))
+      );
+  }
+
+  getBhcoByCom(comId: number): Observable<Bhcos[]> {
+    return this.http.get<Bhcos[]>(API_URL + '/Bhco/Community/' + comId)
+      .pipe(
+        catchError(this.handleError('getBhcoByCommunity', []))
       );
   }
 
@@ -67,15 +97,15 @@ export class UserService {
   }
 
   /** GET assigned and unassigned member*/
-  getUnassignedMem(locId: number): Observable<Member[]> {
-    return this.http.get<Member[]>(API_URL + '/unAssignedCommunityMember/' + locId)
+  getUnassignedMem(locId: number): Observable<any[]> {
+    return this.http.get<any[]>(API_URL + '/unAssignedCommunityMember/' + locId)
       .pipe(
         catchError(this.handleError('getUnassigned', []))
       );
   }
 
-  getAssignedMem(locId: number): Observable<Member[]> {
-    return this.http.get<Member[]>(API_URL + '/AssignedCommunityMember/' + locId)
+  getAssignedMem(locId: number): Observable<any[]> {
+    return this.http.get<any[]>(API_URL + '/AssignedCommunityMember/' + locId)
       .pipe(
         catchError(this.handleError('getAssignedMem', []))
       );

@@ -66,7 +66,6 @@ export class CreateBlockComponent implements OnInit {
   getBlock(value:string){
     if(value){
       this.blockPara = value;
-      console.log("block:"+this.blockPara);
     }
   }
 
