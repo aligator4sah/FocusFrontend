@@ -67,15 +67,15 @@ export class UserService {
   }
 
   /** GET assigned and unassigned member*/
-  getUnassignedMem(): Observable<Member[]> {
-    return this.http.get<Member[]>(API_URL + '/unAssignedCommunityMember')
+  getUnassignedMem(locId: number): Observable<Member[]> {
+    return this.http.get<Member[]>(API_URL + '/unAssignedCommunityMember/' + locId)
       .pipe(
         catchError(this.handleError('getUnassigned', []))
       );
   }
 
-  getAssignedMem(): Observable<Member[]> {
-    return this.http.get<Member[]>(API_URL + '/AssignedCommunityMember')
+  getAssignedMem(locId: number): Observable<Member[]> {
+    return this.http.get<Member[]>(API_URL + '/AssignedCommunityMember/' + locId)
       .pipe(
         catchError(this.handleError('getAssignedMem', []))
       );

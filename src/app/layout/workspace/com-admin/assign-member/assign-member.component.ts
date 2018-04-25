@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from "../../../../service/user.service";
 import {Bhcos, CheckOpt, Member} from "../../../../model/User";
 import {baseBuildCommandOptions} from "@angular/cli/commands/build";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-assign-member',
@@ -18,7 +19,7 @@ export class AssignMemberComponent implements OnInit {
   elements: CheckOpt[] = [];
   bhcos: Bhcos[];
   candidate: roleNum[] = [];
-  flag: boolean = false;
+  locId = null;
   assignedBhco: number;
   assignedMem: number[] = [];
 
@@ -33,7 +34,9 @@ export class AssignMemberComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public fb: FormBuilder,
-              private assignService: UserService) {
+              private assignService: UserService,
+              private router: Router
+  ) {
 
   }
 
@@ -42,6 +45,7 @@ export class AssignMemberComponent implements OnInit {
     this.forms = this.fb.group({
       'bhco': ['', [Validators.required]]
     })
+    this.locId = JSON.parse(localStorage.getItem('curUser')).location;
     this.getBhcos();
   }
 
@@ -79,7 +83,7 @@ export class AssignMemberComponent implements OnInit {
   }
 
   getMembers() {
-    this.assignService.getUnassignedMem()
+    this.assignService.getUnassignedMem(this.locId)
       .subscribe(mems => {
          this.members = mems
         for (let member of this.members) {
@@ -109,17 +113,6 @@ export class AssignMemberComponent implements OnInit {
       }
   }
 
-  getMemberId(value: number) {
-    if (value && this.flag === true) {
-      this.assignedMem.push(value);
-      console.log(this.assignedMem);
-    } else if (value && this.flag === false) {
-      if (this.assignedMem.length > 0) {
-        this.assignedMem.pop();
-      }
-    }
-  }
-
   assignMember() {
       for (let opt of this.elements) {
         if (opt.isChosen == true) {
@@ -129,7 +122,8 @@ export class AssignMemberComponent implements OnInit {
       this.assignService.assignBHCO(this.assignedBhco, this.assignedMem)
         .subscribe(result => console.log(result));
       console.log(this.assignedMem + "MEMBER");
-      window.location.reload();
+     // window.location.reload();
+      this.router.navigateByUrl('assignMember');
   }
 }
 

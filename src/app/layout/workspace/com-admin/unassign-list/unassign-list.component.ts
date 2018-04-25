@@ -10,7 +10,7 @@ import {UserService} from "../../../../service/user.service";
   templateUrl: './unassign-list.component.html',
   styleUrls: ['./unassign-list.component.css']
 })
-export class UnassignListComponent {
+export class UnassignListComponent implements OnInit{
 
   displayedColumns = ['select', 'memberID', 'memberFirstName', 'memberLastName', 'bhcoID', 'bhcoFirstName', 'bhcoLastName'];
   dataSource = null;
@@ -19,6 +19,7 @@ export class UnassignListComponent {
   members: Member[];
   elements: CheckOpt[] = [];
   unassignMem: number[] = [];
+  locId = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -28,6 +29,9 @@ export class UnassignListComponent {
   ) {
   }
 
+  ngOnInit() {
+    this.locId = JSON.parse(localStorage.getItem('curUser')).location;
+  }
   /**
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.
@@ -49,7 +53,7 @@ export class UnassignListComponent {
   }
 
   getMembers() {
-    this.unassignService.getAssignedMem()
+    this.unassignService.getAssignedMem(this.locId)
       .subscribe(mems => {
         this.members = mems
         for (let member of this.members) {

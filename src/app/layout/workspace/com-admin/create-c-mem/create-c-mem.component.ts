@@ -33,18 +33,15 @@ export class CreateCMemComponent implements OnInit {
   families: Family[];
   blockRole: roleNum[] = [];
   famRole: roleNum[] = [];
-  locationInfo: LocInfo;
+  locationInfo: LocInfo = JSON.parse(localStorage.getItem('curLoc'));
 
-  statePara: string = "Pennsylvania";
-  countyPara: string;
-  cityPara: string;
-  communityPara: string;
+  statePara: string = this.locationInfo.state;
+  countyPara: string = this.locationInfo.county;
+  cityPara: string = this.locationInfo.city;
+  communityPara: string = this.locationInfo.community;
 
   //front-end para
-  //public blocks = Block;
-  public familys = Family;
   public gender = Gender;
-  public states = States;
   public races = Race;
   public matrialS = MaritalStatus;
   public educationS = Education;
@@ -71,9 +68,9 @@ export class CreateCMemComponent implements OnInit {
   public educations: SelectAttributes = {name:'education',roles:this.educationS,placeholder:'education status'};
   public employments: SelectAttributes = {name:'employment',roles:this.employmentS,placeholder:'employment status'};
   public defaultState: defaultAttributes = {name:'dState',value:this.statePara,type:'text',placeholder:'state'};
-  public defaultCounty: defaultAttributes = {name:'dCounty',value: "Allegheny",type:'text',placeholder:'county'};
-  public defaultCity: defaultAttributes = {name:'dCity',value:"Pittsburgh",type:'text',placeholder:'city'};
-  public defaultCommunity: defaultAttributes = {name:'dCommunity',value:"Shadyland",type:'text',placeholder:'community'};
+  public defaultCounty: defaultAttributes = {name:'dCounty',value: this.countyPara,type:'text',placeholder:'county'};
+  public defaultCity: defaultAttributes = {name:'dCity',value:this.cityPara,type:'text',placeholder:'city'};
+  public defaultCommunity: defaultAttributes = {name:'dCommunity',value:this.communityPara,type:'text',placeholder:'community'};
   public defaultPassword: defaultAttributes = {name: 'dPassword', value: 'imHealthy@2018', type:'text', placeholder:'password'};
   public defaultFamily: SelectAttributes = {name: 'deFamily', placeholder: 'Family', roles: []};
   public defaultBlock: SelectAttributes = {name: 'deBlock', placeholder: 'Block', roles: []};
@@ -121,11 +118,6 @@ export class CreateCMemComponent implements OnInit {
     this. buildForm();
     if (localStorage.length > 1) {
       this.locId = JSON.parse(localStorage.getItem('curUser')).location;
-      // this.adminId = JSON.parse(localStorage.getItem('curUser')).id;
-      this.locationInfo = JSON.parse(localStorage.getItem('curLoc'));
-      this.statePara = this.locationInfo.state;
-      console.log("LocInfor" + this.locationInfo.state);
-      //this.getLocation();
       this.getBlocks();
     }
   }
@@ -178,20 +170,6 @@ export class CreateCMemComponent implements OnInit {
           }
         });
   }
-
-  // getLocation() {
-  //   this.locService.getCommunityInfo(this.adminId)
-  //     .subscribe(loc => {
-  //       this.locationInfo = loc;
-  //       this.statePara = this.locationInfo.state;
-  //       this.countyPara = this.locationInfo.county;
-  //       this.cityPara = this.locationInfo.city;
-  //       this.communityPara = this.locationInfo.community;
-  //       console.log(this.locationInfo);
-  //       console.log(this.locationInfo.state);
-  //       this.isLoading = true;
-  //     });
-  // }
 
   getFamilies() {
     if (this.blockPara != null) {
