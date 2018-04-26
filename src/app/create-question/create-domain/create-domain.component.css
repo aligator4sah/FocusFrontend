@@ -1,0 +1,39 @@
+.domain-section {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+a {
+  color: #673ab7;
+}
+
+a::before {
+  content: "";
+  background: #673ab7;
+  transition: transform .5s;
+  transform: scaleX(0);
+}
+
+a:hover::before {
+  transform: scaleX(1);
+}
+
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

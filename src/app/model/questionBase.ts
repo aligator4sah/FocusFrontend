@@ -101,3 +101,34 @@ export class DropdownQuestion extends QuestionBase<string> {
   }
 }
 
+export class Domain {
+  id: number;
+  domain: string;
+
+  constructor(options: {
+    id?: number,
+    domain?: string,
+  } = {}) {
+    this.id = options.id;
+    this.domain = options.domain;
+  }
+}
+
+export class Subdomain {
+  id: number;
+  subdomain: string;
+  isolate: boolean;
+  domainId: number;
+
+  constructor(options: {
+    id?: number,
+    subdomain?: string,
+    isolate?: boolean,
+    domainId?: number,
+  } = {}) {
+    this.id = options.id;
+    this.subdomain = options.subdomain;
+    this.isolate = options.isolate || false;
+    this.domainId = options.domainId || -1;
+  }
+}

@@ -5,6 +5,7 @@ import {SHARED_FORM_DIRECTIVES} from "@angular/forms/src/directives";
 import {SharedModuleModule} from "../shared/shared-module/shared-module.module";
 import {ControlBoxModule} from "../shared/shared-module/control-box.module";
 import {RouterModule} from "@angular/router";
+import {CreateDomainComponent} from "./create-domain/create-domain.component";
 
 @NgModule({
   imports: [
@@ -12,11 +13,13 @@ import {RouterModule} from "@angular/router";
     SharedModuleModule,
     ControlBoxModule,
     RouterModule.forChild([
-      {path: '', component: CreateQuestionComponent}
+      {path: '', component: CreateQuestionComponent},
+      {path: 'createDomain', component: CreateDomainComponent}
     ])
   ],
   declarations: [
     CreateQuestionComponent,
+    CreateDomainComponent,
     ],
   exports: [
     CreateQuestionComponent,

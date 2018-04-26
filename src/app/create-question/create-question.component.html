@@ -1,3 +1,6 @@
+<div class="header">
+  <button mat-raised-button color="primary" (click)="createDomain()" class="col-sm-12"> Create Domain</button>
+</div>
 <mat-card class="input-part">
   <mat-card-header><h2> Input Question Part</h2></mat-card-header>
   <mat-card-content>
@@ -29,17 +32,27 @@
           <app-input-control-box [attrContent]="ansNumber" (follow)="getAnsNumber($event)" class="col-sm-4"></app-input-control-box>
         </ng-template>
       </div>
+
+      <div [formGroup]="ansGroup">
       <div [ngSwitch]= "typePara" class="full-width">
         <div *ngSwitchCase="'Radio Button Question'">
-         <div *ngFor="let num of numbers"class="col-sm-12">
-           <app-input-control-box [attrContent]="inputKey" (follow)="getKey($event)" class="col-sm-6" ng-model-options="{ debounce: 800 }"></app-input-control-box>
-           <app-input-control-box [attrContent]="inputValue" (follow)="getValue($event)" class="col-sm-6" ng-model-options="{ debounce: 800 }"></app-input-control-box>
-         </div>
+          <div *ngFor="let opt of options" class="col-sm-12">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Extent" [(ngModel)]="opt.key" formControlName="ansKey">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Desp" [(ngModel)]="opt.value" formControlName="ansValue">
+            </mat-form-field>
+          </div>
         </div>
         <div *ngSwitchCase="'Dropdown List Question'">
-          <div *ngFor="let num of numbers"class="full-width">
-            <app-input-control-box [attrContent]="inputKey" (follow)="getKey($event)" class="col-sm-6"></app-input-control-box>
-            <app-input-control-box [attrContent]="inputValue" (follow)="getValue($event)" class="col-sm-6"></app-input-control-box>
+          <div *ngFor="let opt of options" class="col-sm-12">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Extent" [(ngModel)]="opt.key" formControlName="ansKey">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Desp" [(ngModel)]="opt.value" formControlName="ansValue">
+            </mat-form-field>
           </div>
         </div>
         <div *ngSwitchCase="'Text Input Question'">
@@ -48,6 +61,8 @@
           </div>
         </div>
       </div>
+      </div>
+
     </form>
   </mat-card-content>
 </mat-card>
@@ -81,16 +96,15 @@
       <div><label>Answer Options</label></div>
       <div [ngSwitch]= "typePara" class="col-sm-12">
         <div *ngSwitchCase="'Radio Button Question'">
-          <div class="col-sm-12">
-            <div *ngFor="let quesKey of keyArray" class="col-sm-6"><label>Answer Extent:</label> {{ quesKey }}</div>
-            <div *ngFor="let quesValue of valueArray" class="col-sm-6" ng-model-options="{ debounce: 800 }"><label>Answer Description</label>{{ quesValue }}</div>
+          <div *ngFor="let opt of options" class="col-sm-12">
+            <div class="col-sm-6"><label>Answer Extent: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.key }}</span></div>
+            <div class="col-sm-6"><label>Answer Description: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.value }}</span></div>
           </div>
         </div>
         <div *ngSwitchCase="'Dropdown List Question'">
-          <div *ngFor="let num of numbers"class="col-sm-12">
-            <!--<app-input-control-box [attrContent]="inputKey" (follow)="getKey($event)" class="col-sm-6"></app-input-control-box>-->
-            <!--<app-input-control-box [attrContent]="inputValue" (follow)="getValue($event)" class="col-sm-6"></app-input-control-box>-->
-          <!---->
+          <div *ngFor="let opt of options" class="col-sm-12">
+            <div class="col-sm-6"><label>Answer Extent: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.key }}</span></div>
+            <div class="col-sm-6"><label>Answer Description: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.value }}</span></div>
           </div>
         </div>
         <div *ngSwitchCase="'Text Input Question'">

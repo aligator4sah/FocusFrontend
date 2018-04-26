@@ -37,24 +37,54 @@ export class AssignTableComponent implements OnInit {
 
   ngOnInit() {
     //this.getMember();
-    if (this.curRole.role === "Community Administrator") {
-      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block'];
-    } else if (this.curRole.role === "State Administrator") {
+    if (this.curRole.role === "State Administrator") {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
     } else if (this.curRole.role === 'System Administrator') {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'state']
+    } else {
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block'];
     }
   }
 
    getMember() {
-     this.userService.getAllMembers()
-       .subscribe(mems => {
-         this.members = mems;
-         console.log(this.members);
-         this.dataSource = new MatTableDataSource(this.members);
-         this.dataSource.paginator = this.paginator
-         this.dataSource.sort = this.sort
-       });
+    if (this.curRole.role === "System Administrator") {
+      this.userService.getAllMembers()
+        .subscribe(mems => {
+          this.members = mems;
+          // console.log(this.members);
+          // for (let mem of this.members) {
+          //   console.log(mem.community);
+          // }
+          this.dataSource = new MatTableDataSource(this.members);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+    } else if (this.curRole.role === "State Administrator") {
+      this.userService.getMembersByState(this.curRole.location)
+        .subscribe(mems => {
+        this.members = mems;
+        this.dataSource = new MatTableDataSource(this.members);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        });
+    } else if (this.curRole.role === "Community Administrator") {
+      this.userService.getMemberByCom(this.curRole.location)
+        .subscribe(mems => {
+          this.members = mems;
+          this.dataSource = new MatTableDataSource(this.members);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+    } else if (this.curRole.role === "bhco") {
+        this.userService.getMemberByBhco(this.curRole.location)
+          .subscribe(mems => {
+            this.members = mems;
+            this.dataSource = new MatTableDataSource(this.members);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          });
+    }
+
    }
 
   /**

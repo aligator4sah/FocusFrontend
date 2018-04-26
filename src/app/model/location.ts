@@ -76,3 +76,9 @@ export class LocInfo {
   county: string;
   state: string;
 }
+
+
+export class ComInfo {
+  id: number;
+  community: string;
+}

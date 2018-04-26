@@ -92,7 +92,7 @@
           <!-- Community Column -->
           <ng-container matColumnDef="community">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Community </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.community}} </mat-cell>
+            <mat-cell *matCellDef="let row"> <div *ngIf="row.community">{{row.community.community}} </div></mat-cell>
           </ng-container>
 
           <!-- City Column -->

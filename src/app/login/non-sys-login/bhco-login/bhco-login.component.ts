@@ -24,7 +24,7 @@ export class BhcoLoginComponent implements OnInit {
     id: 2,
     name: this.userNamePara,
     role: "bhco",
-    location: 2
+    location: 1
   })
 
   constructor(

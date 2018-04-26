@@ -46,6 +46,7 @@ export class UserService {
       );
   }
 
+  /** ATTENTION: the following input ID represents the current role's location ID*/
   getMembersByState(stateId: number): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMemberByState/' + stateId)
       .pipe(
@@ -58,6 +59,13 @@ export class UserService {
       .pipe(
         catchError(this.handleError('getMemberByCommunity', []))
       );
+  }
+
+  getMemberByBhco(bhcoId: number): Observable<Member[]> {
+    return this.http.get<Member[]>(API_URL + '/communityMember/Bhco/' + bhcoId).
+      pipe(
+        catchError(this.handleError('getMemberByBhco', []))
+    );
   }
 
   /**GET get bhco according to different levels of admin */
@@ -86,6 +94,13 @@ export class UserService {
     return this.http.get<CommunityAdmin[]>(API_URL + '/communityAdmin')
       .pipe(
         catchError(this.handleError('getComAdmin', []))
+      );
+  }
+
+  getComAdminByState(stateId: number): Observable<CommunityAdmin[]> {
+    return this.http.get<CommunityAdmin[]>(API_URL + '/communityAdmin/state/' + stateId)
+      .pipe(
+        catchError(this.handleError('getComAdminByState', []))
       );
   }
 

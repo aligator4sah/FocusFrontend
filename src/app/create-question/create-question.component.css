@@ -21,3 +21,8 @@
   font-size: 18px;
   color: #673ab7;
 }
+
+.header {
+  top: 10%;
+  left: 25px;
+}

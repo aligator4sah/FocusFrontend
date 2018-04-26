@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {defaultAttributes, InputAttributes, SelectAttributes} from "../shared/shared-control/attributes";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {defaultAttributes, InputAttributes, roleNum, SelectAttributes} from "../shared/shared-control/attributes";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/debounceTime'
-import {DemoQuestion, Questionnare} from "../model/questionBase";
+import {DemoQuestion, Domain, Questionnare} from "../model/questionBase";
 import {QuestionModelService} from "../service/question-model.service";
+import {debounceTime} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-question',
@@ -15,7 +17,10 @@ import {QuestionModelService} from "../service/question-model.service";
 
 export class CreateQuestionComponent implements OnInit {
   public createQuesForm: FormGroup;
-  public ansOptions: FormGroup;
+  public ansGroup: FormGroup;
+
+  options: options[] = [];
+  domainRole: roleNum[] = [];
 
   public description : InputAttributes = {name:'desp',min:4,max:90,placeholder:'Please input question description', type: 'text'};
   public hints : InputAttributes = {name:'hint',min:4,max:90,placeholder:'Please input question indication', type: 'text'};
@@ -23,38 +28,36 @@ export class CreateQuestionComponent implements OnInit {
   public type :SelectAttributes = {name:'types',roles: questionType, placeholder:'Please Select question type'};
   public ansNumber: InputAttributes = {name: 'ansNo', min:1, max: 20, placeholder: 'Please input the number of answers', type: 'number'};
   public defaultAnsNo: defaultAttributes = {name: 'defaultAnsNo', value: '0', placeholder: 'No answer number needed', type: 'text'};
-  public inputKey: InputAttributes = {name: 'key', min: 4, max: 20, placeholder: 'Please input answer extent', type: 'number'};
-  public inputValue: InputAttributes = {name: 'value', min: 4, max: 20, placeholder: 'PLease input answer description', type: 'text'};
+
   public selectCategory: SelectAttributes = {name: 'cat', roles: category, placeholder: 'Please select the question category'};
-  public selectDomain: SelectAttributes = {name: 'domain', roles: domains, placeholder: 'Please select domain'};
+  public selectDomain: SelectAttributes = {name: 'domain', roles: this.domainRole, placeholder: 'Please select domain'};
   public inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 20, placeholder:'Please input subdomain name', type: 'text'};
   public inputWeight: InputAttributes = {name:'weight', min: 1, max: 10, placeholder: 'Please input question weight',  type: 'text'};
-
-  public optkeyGroup: InputAttributes[] = [];
-  public optValueGroup: InputAttributes[] = [];
 
   despPara: string;
   hintPara: string;
   orderPara: number;
   typePara: string;
   ansNumPara: number;
-  keyPara: string;
-  valuePara: string;
   catPara: string;
   domainPara: string;
   subdomainPara: string;
   weightPara: number;
 
   numbers: number[];
+  domains: Domain[];
   questions: DemoQuestion[];
   questionnaires: Questionnare[];
+
+
 
   confirm: boolean = false;
   needAns: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private demoService: QuestionModelService
+    private demoService: QuestionModelService,
+    private router: Router
   ) {
 
   }
@@ -89,6 +92,7 @@ export class CreateQuestionComponent implements OnInit {
       weight: ['', [Validators.required, Validators.minLength(1)]],
     });
 
+    this.ansGroup = this.fb.group({});
     this.createQuesForm.controls["key"].valueChanges.debounceTime(200).subscribe((value)=>{
 
     })
@@ -129,11 +133,10 @@ export class CreateQuestionComponent implements OnInit {
       this.ansNumPara = value;
       this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
       for (let num of this.numbers) {
-          let inputKey: InputAttributes = {name: 'key', placeholder:'Answer Extent', type: 'number', max: 10, min: 1};
-          this.optkeyGroup.push(inputKey);
-          let inputValue: InputAttributes = {name: 'value', placeholder: 'Answer Description', type: 'text', min: 1, max: 30};
-          this.optValueGroup.push(inputValue);
+          let opt = {key: '', value: ''};
+          this.options.push(opt);
       }
+      this.ansGroup = new FormGroup({ansKey: new FormControl(), ansValue: new FormControl()});
     }
   }
 
@@ -144,6 +147,7 @@ export class CreateQuestionComponent implements OnInit {
         this.getDemoQuestions();
       } else {
         this.getQuestionnaire();
+        this.getDomains();
       }
     }
   }
@@ -164,25 +168,6 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-  ansArray: answers[] = [];
-
-  keyArray: string[] = [];
-   getKey(value: string) {
-     if(value) {
-       this.keyPara = value;
-       this.keyArray.push(this.keyPara);
-     }
-
-   }
-
-  valueArray: string[] = [];
-  getValue(value: string) {
-    if (value) {
-      this.valuePara = value;
-      this.valueArray.push(this.valuePara)
-    }
-  }
-
   getWeight(value: number) {
     if(value) {
       this.weightPara = value;
@@ -191,27 +176,19 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-   // getAns() {
-   //  console.log(this.keyArray);
-   //  for (var i = 1; i < this.ansNumPara; i++) {}
-   //       let ans : answers;
-   //        ans.setKey(this.keyArray[i]);
-   //        ans.setValue(this.valueArray[i]);
-   //        this.ansArray.push(ans);
-   //        console.log(this.ansArray);
-   //  }
 
   addQues(): void {
-    console.log(this.keyArray);
-    console.log(this.valueArray);
+    // console.log(this.keyArray);
+    // console.log(this.valueArray);
     //this.getAns();
+    console.log(this.options);
     if (this.catPara === 'demographic') {
       const newDemoQues = new DemoQuestion({
         label: this.despPara,
         order: this.orderPara,
         questiontype: this.typePara,
         placeholder: this.hintPara,
-        options: this.ansArray,
+        options: this.options,
       });
       this.demoService.addDemoQues(newDemoQues)
         .subscribe(ques => this.questions.push(ques));
@@ -221,7 +198,7 @@ export class CreateQuestionComponent implements OnInit {
         label: this.despPara,
         order: this.orderPara,
         questiontype: this.typePara,
-        options: this.ansArray,
+        options: this.options,
         domain: this.domainPara,
         subdomain: this.subdomainPara,
         weight: this.weightPara
@@ -237,6 +214,22 @@ export class CreateQuestionComponent implements OnInit {
     reset() {
       //this.createQuesForm.reset();
         window.location.reload();
+    }
+
+    getDomains() {
+      this.demoService.getDomain()
+        .subscribe(dom => {
+          this.domains = dom;
+          for (let domain of this.domains) {
+            let role = new roleNum({value: domain.id, viewValue: domain.domain});
+            this.domainRole.push(role);
+          }
+        });
+
+    }
+
+    createDomain() {
+      this.router.navigateByUrl('/createQuestion/createDomain')
     }
 
 }
@@ -260,23 +253,7 @@ export const domains = [
   {value: 'Socio-ecnomic', viewValue: 'Socio-ecnomic domain'}
 ]
 
-export class answers {
+export class options {
   key: string;
   value: string;
-
-  constructor(options: {
-    key?: string;
-    value?: string;
-  } = {}) {
-    this.key = options.key || '';
-    this.value = options.value || '';
-  }
-
-  setKey(key: string) {
-    this.key = key;
-  }
-
-  setValue(value: string) {
-    this.value = value;
-  }
 }

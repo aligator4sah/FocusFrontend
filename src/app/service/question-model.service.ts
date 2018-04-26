@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {HandleError, HttpErrorHandler} from "./http-error-handler.service";
 import {Observable} from "rxjs/Observable";
-import {DemoQuestion, QuestionBase, Questionnare} from "../model/questionBase";
+import {DemoQuestion, Domain, QuestionBase, Questionnare} from "../model/questionBase";
 import {API_URL} from "./http.service";
 import {catchError} from "rxjs/operators";
 import {ObjectUnsubscribedError} from "rxjs/Rx";
@@ -41,6 +41,14 @@ export class QuestionModelService {
       );
   }
 
+  /** GET domain and subdomain*/
+  getDomain(): Observable<Domain[]> {
+    return this.http.get<Domain[]>(API_URL + '/domain')
+      .pipe(
+        catchError(this.handleError('getDomains', []))
+      );
+  }
+
   getQuesByDomain(domain: string): Observable<Questionnare[]> {
     return this.http.get<Questionnare[]>(API_URL + '/questionnaire/${domain}')
       .pipe(
@@ -75,6 +83,13 @@ export class QuestionModelService {
     return this.http.post<Questionnare>(API_URL + '/questionnaire', ques, httpOptions)
       .pipe(
         catchError(this.handleError('addQuestionnaire', ques))
+      );
+  }
+
+  addDomain(domain: Domain): Observable<any> {
+    return this.http.post<any>(API_URL + '/domain', domain, httpOptions)
+      .pipe(
+        catchError(this.handleError('addDomain', domain))
       );
   }
 

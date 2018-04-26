@@ -1,3 +1,5 @@
+import {ComInfo} from "./location";
+
 export class User {
   id: number;
   username: string;
@@ -76,7 +78,7 @@ export class Member extends User{
       this.addresstwo = options['addresstwo'] || '';
       this.family = options['family'] || '';
       this.block = options['block'] || '';
-      this.community = options['community'] || -1;
+      this.community = options['community'] || [];
       this.city = options['city'] || '';
       this.county = options['county'] || '';
       this.state = options['state'] || '';
