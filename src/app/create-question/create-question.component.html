@@ -1,8 +1,19 @@
 <div class="header">
-  <button mat-raised-button color="primary" (click)="createDomain()" class="col-sm-12"> Create Domain</button>
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <span class="title-icon"><mat-icon>assignment_turned_in</mat-icon></span>
+      <span class="title">Question Management</span>
+      <span class="example-spacer"></span>
+      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><mat-icon class="example-icon" (click)="createDomain()">settings</mat-icon></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
+
+<div class="container">
 <mat-card class="input-part">
-  <mat-card-header><h2> Input Question Part</h2></mat-card-header>
+  <mat-card-header><h3> Input Question</h3></mat-card-header>
+  <mat-divider></mat-divider>
+  <br><br>
   <mat-card-content>
     <form [formGroup]="createQuesForm">
       <div class="col-sm-12">
@@ -38,20 +49,20 @@
         <div *ngSwitchCase="'Radio Button Question'">
           <div *ngFor="let opt of options" class="col-sm-12">
             <mat-form-field class="col-sm-6">
-              <input matInput placeholder="Extent" [(ngModel)]="opt.key" formControlName="ansKey">
+              <input matInput placeholder="Answer Extent" [(ngModel)]="opt.key" formControlName="ansKey" type="number">
             </mat-form-field>
             <mat-form-field class="col-sm-6">
-              <input matInput placeholder="Desp" [(ngModel)]="opt.value" formControlName="ansValue">
+              <input matInput placeholder="Answer Description" [(ngModel)]="opt.value" formControlName="ansValue">
             </mat-form-field>
           </div>
         </div>
         <div *ngSwitchCase="'Dropdown List Question'">
           <div *ngFor="let opt of options" class="col-sm-12">
             <mat-form-field class="col-sm-6">
-              <input matInput placeholder="Extent" [(ngModel)]="opt.key" formControlName="ansKey">
+              <input matInput placeholder="Answer Extent" [(ngModel)]="opt.key" formControlName="ansKey" type="number">
             </mat-form-field>
             <mat-form-field class="col-sm-6">
-              <input matInput placeholder="Desp" [(ngModel)]="opt.value" formControlName="ansValue">
+              <input matInput placeholder="Answer Description" [(ngModel)]="opt.value" formControlName="ansValue">
             </mat-form-field>
           </div>
         </div>
@@ -69,42 +80,43 @@
 
 <br> <br>
 <mat-card class="confirm-part">
-  <mat-card-header><h2>Confirmation Part</h2></mat-card-header>
+  <mat-card-header><h3>Confirmation Part</h3></mat-card-header>
+  <mat-divider></mat-divider>
+  <br><br>
   <mat-card-content>
     <div classs="col-sm-12">
-      <p><label>Question Description: &nbsp; &nbsp;</label><span class="confirm-info">{{ despPara }}</span></p>
+      <label class="confirm-info">Question Description:</label>
+      <p>{{ despPara }}</p>
     </div>
     <div [ngSwitch]="catPara">
       <div *ngSwitchCase="'demographic'" class="col-sm-12">
-        <p><label>Question Indication: &nbsp; &nbsp;</label><span class="confirm-info"> {{ hintPara }}</span></p>
+        <label class="confirm-info">Question Indication:</label>
+        <p>{{ hintPara }}</p>
       </div>
       <div *ngSwitchCase="'questionnaire'" class="col-sm-12">
-        <div class="col-sm-6"><label>Question Domian: &nbsp; &nbsp;</label><span class="confirm-info"> {{ domainPara }}</span></div>
-        <div class="col-sm-6"><label>Question Subdomain: &nbsp; &nbsp;</label><span class="confirm-info"> {{ subdomainPara }}</span></div>
+        <div class="col-sm-6"><label class="confirm-info">Question Domian: &nbsp; &nbsp;</label><span> {{ domainPara }}</span></div>
+        <div class="col-sm-6"><label class="confirm-info">Question Subdomain: &nbsp; &nbsp;</label><span> {{ subdomainPara }}</span></div>
       </div>
-    </div>
-    <br><br>
-    <div class="col-sm-12">
-      <div><label>Question Order: &nbsp; &nbsp; </label> <span class="confirm-info"> {{ orderPara }}</span></div>
     </div>
     <br>
     <div class="col-sm-12">
-      <div><label> Quesdtion Type: &nbsp; &nbsp;</label><span class="confirm-info"> {{ typePara}}</span></div>
+      <div class="col-sm-6"><label class="confirm-info">Question Order: &nbsp; &nbsp; </label> <span> {{ orderPara }}</span></div>
+      <div class="col-sm-6"><label class="confirm-info"> Quesdtion Type: &nbsp; &nbsp;</label><span> {{ typePara}}</span></div>
     </div>
     <br><br>
     <div class="col-sm-12">
-      <div><label>Answer Options</label></div>
+      <div><label class="confirm-info">Answer Options</label></div>
       <div [ngSwitch]= "typePara" class="col-sm-12">
         <div *ngSwitchCase="'Radio Button Question'">
           <div *ngFor="let opt of options" class="col-sm-12">
-            <div class="col-sm-6"><label>Answer Extent: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.key }}</span></div>
-            <div class="col-sm-6"><label>Answer Description: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.value }}</span></div>
+            <div class="col-sm-6"><label class="confirm-info">Answer Extent: &nbsp; &nbsp;</label><span>{{ opt.key }}</span></div>
+            <div class="col-sm-6"><label class="confirm-info">Answer Description: &nbsp; &nbsp;</label><span>{{ opt.value }}</span></div>
           </div>
         </div>
         <div *ngSwitchCase="'Dropdown List Question'">
           <div *ngFor="let opt of options" class="col-sm-12">
-            <div class="col-sm-6"><label>Answer Extent: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.key }}</span></div>
-            <div class="col-sm-6"><label>Answer Description: &nbsp; &nbsp;</label><span class="confirm-info">{{ opt.value }}</span></div>
+            <div class="col-sm-6"><label class="confirm-info">Answer Extent: &nbsp; &nbsp;</label><span>{{ opt.key }}</span></div>
+            <div class="col-sm-6"><label class="confirm-info">Answer Description: &nbsp; &nbsp;</label><span>{{ opt.value }}</span></div>
           </div>
         </div>
         <div *ngSwitchCase="'Text Input Question'">
@@ -121,8 +133,8 @@
 <br><br>
 <div class="button-group">
   <button mat-raised-button color="primary" (click)="addQues()">Confirm</button>
-  <button mat-raised-button color="accent" (click)="reset()">Reset</button>
-  <button mat-raised-button (click)="reset()">New Question</button>
+  <button mat-raised-button color="accent" (click)="reset()">New Question</button>
+  <button mat-raised-button (click)="reset()">Question List</button>
 </div>
-
+</div>
 

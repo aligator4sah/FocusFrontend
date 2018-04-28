@@ -1,35 +1,85 @@
-<div class="domain-section">
-<h2> Domain and Subdomain List</h2>
-  <br><br>
-  <mat-accordion class="example-headers-align">
-    <div *ngIf="domains">
-      <div *ngFor="let dom of domains">
-        <mat-expansion-panel hideToggle="true" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ dom.domain }}
-            </mat-panel-title>
-            <mat-panel-description>
-              Expand to check the subdomain
-              <mat-icon>delete</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+<div class="header">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <span class="title-icon"><a routerLink="/createQuestion"><mat-icon>assignment_turned_in</mat-icon></a></span>
+      <span class="title">Question Management</span>
+      <span class="example-spacer"></span>
+      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><mat-icon class="example-icon" (click)="createDomain()">settings</mat-icon></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
 
-          <!-- get the subdomain content-->
+<div class="container">
+  <mat-card class="input-part">
+    <mat-card-header><h3>Domain and Subdomain List</h3></mat-card-header>
+    <mat-divider></mat-divider>
+    <br><br>
+    <mat-card-content>
+      <mat-accordion class="example-headers-align">
+        <div *ngIf="domains">
+          <div *ngFor="let dom of domains">
+            <mat-expansion-panel hideToggle="true" >
+              <mat-expansion-panel-header (click)="getSubdomains(dom.id)">
+                <mat-panel-title>
+                  {{ dom.domain }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Expand to check the subdomain
+                  <mat-icon>delete</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngIf="existSubdom; else newSubdomain">
+                <mat-list *ngFor="let sub of subdomains">
+                  <mat-list-item>
+                    <span>{{ sub.subdomain }}</span>
+                    <span class="example-spacer"></span>
+                    <mat-icon class="example-icon">insert_drive_file</mat-icon>
+                    <mat-icon class="example-icon">delete</mat-icon>
+                  </mat-list-item>
+                </mat-list>
+                <div *ngIf="newSub" class="full-width">
+                  <form [formGroup]="subdomGroup">
+                    <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
+                    <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+                  </form>
+                </div>
+                <mat-action-row>
+                  <button mat-button color="primary" (click)="!newSub">Create New Subdomain</button>
+                  <button mat-button color="accent" (click)="nextStep()">Next</button>
+                </mat-action-row>
+              </div>
+              <ng-template #newSubdomain>
+                <form [formGroup]="subdomGroup">
+                  <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
+                  <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+                </form>
+                <mat-action-row>
+                  <button mat-button color="primary" (click)="nextStep()">Next</button>
+                </mat-action-row>
+              </ng-template>
 
-        </mat-expansion-panel>
+              <!-- get the subdomain content-->
+
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </mat-accordion>
+    </mat-card-content>
+    <mat-card-footer>
+      <br>
+      <div class="createDomain">
+      <button mat-raised-button color="accent" (click)="needNew()">Create New Domain</button>
+      <br><br>
+      <div *ngIf="newDomain" class="full-width">
+        <form [formGroup]="domGroup">
+          <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
+          <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+        </form>
       </div>
-    </div>
-  </mat-accordion>
-  <br>
-  <button mat-raised-button color="accent" (click)="needNew()">Create New Domain</button>
-  <br><br>
-  <div *ngIf="newDomain" class="full-width">
-    <form [formGroup]="domGroup">
-    <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
-      <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
-    </form>
-  </div>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>
 
 <br><br><br>
 <mat-accordion class="example-headers-align">
@@ -102,4 +152,3 @@
 
 </mat-accordion>
 
-</div>

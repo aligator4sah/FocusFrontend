@@ -6,11 +6,13 @@ import {SharedModuleModule} from "../shared/shared-module/shared-module.module";
 import {ControlBoxModule} from "../shared/shared-module/control-box.module";
 import {RouterModule} from "@angular/router";
 import {CreateDomainComponent} from "./create-domain/create-domain.component";
+import {MatTooltipModule} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModuleModule,
+    MatTooltipModule,
     ControlBoxModule,
     RouterModule.forChild([
       {path: '', component: CreateQuestionComponent},
@@ -26,6 +28,7 @@ import {CreateDomainComponent} from "./create-domain/create-domain.component";
     SharedModuleModule,
     ControlBoxModule,
     CommonModule,
+    MatTooltipModule
   ]
 })
 export class CreateQuestionModule { }

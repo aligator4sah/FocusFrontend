@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {HandleError, HttpErrorHandler} from "./http-error-handler.service";
 import {Observable} from "rxjs/Observable";
-import {DemoQuestion, Domain, QuestionBase, Questionnare} from "../model/questionBase";
+import {DemoQuestion, Domain, QuestionBase, Questionnare, Subdomain} from "../model/questionBase";
 import {API_URL} from "./http.service";
 import {catchError} from "rxjs/operators";
 import {ObjectUnsubscribedError} from "rxjs/Rx";
@@ -46,6 +46,13 @@ export class QuestionModelService {
     return this.http.get<Domain[]>(API_URL + '/domain')
       .pipe(
         catchError(this.handleError('getDomains', []))
+      );
+  }
+
+  getSubdomainByDomain(domId: number): Observable<Subdomain[]> {
+    return this.http.get<Subdomain[]>(API_URL + '/subDomain/' + domId)
+      .pipe(
+        catchError(this.handleError('getDomainBySubdomain', []))
       );
   }
 

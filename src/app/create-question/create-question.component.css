@@ -1,8 +1,24 @@
+.container {
+  margin-top: 6%;
+  margin-left: 5%;
+}
+
 .input-part {
   width: 90%;
-  top: 20px;
   overflow: auto;
   left: 25px;
+  margin-top: 10px;
+}
+
+.title-icon {
+  left: 20px;
+  padding-left: 20px;
+  top: 14px;
+  margin-top: 10px;
+}
+
+.title {
+  margin-left: 10px;
 }
 
 .confirm-part {
@@ -18,11 +34,26 @@
 }
 
 .confirm-info {
-  font-size: 18px;
+  font-size: 16px;
   color: #673ab7;
+  margin-left: 3px;
+}
+
+p {
+  font-size: 14px;
+  margin-left: 3px;
 }
 
 .header {
-  top: 10%;
-  left: 25px;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }
