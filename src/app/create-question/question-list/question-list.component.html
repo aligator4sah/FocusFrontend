@@ -1,0 +1,27 @@
+<div class="header">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <span class="title-icon"><a routerLink="/createQuestion"><mat-icon>assignment_turned_in</mat-icon></a></span>
+      <span class="title">Question Management</span>
+      <span class="example-spacer"></span>
+      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><a routerLink="/createQuestion/createDomain"><mat-icon class="example-icon">settings</mat-icon></a></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<div class="container">
+  <mat-card class="input-part">
+    <mat-card-header><h3>Question List</h3></mat-card-header>
+    <mat-divider></mat-divider>
+    <br><br>
+    <mat-card-content>
+
+    </mat-card-content>
+    <mat-card-footer>
+      <br>
+      <div class="createDomain">
+        <button mat-raised-button color="accent" >Back</button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

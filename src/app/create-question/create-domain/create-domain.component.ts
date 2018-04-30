@@ -4,6 +4,7 @@ import {QuestionService} from "../../shared/shared-control/question.service";
 import {QuestionModelService} from "../../service/question-model.service";
 import {InputAttributes} from "../../shared/shared-control/attributes";
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-domain',
@@ -52,6 +53,7 @@ export class CreateDomainComponent implements OnInit {
   }
 
   getSubdomains(domId: number) {
+    this.subdomains = [];
     this.domService.getSubdomainByDomain(domId)
       .subscribe(sub => {
         this.subdomains = sub;
@@ -78,6 +80,10 @@ export class CreateDomainComponent implements OnInit {
     this.newDomain = !this.newDomain;
   }
 
+  needNewSubdomain() {
+    this.newSub = !this.newSub;
+  }
+
   addDomain() {
       const newDomain = new Domain({
         domain: this.domainPara,
@@ -90,7 +96,20 @@ export class CreateDomainComponent implements OnInit {
       this.newDomain = false;
   }
 
+  addSubdomain(domId: number) {
+    const newSubdomain = new Subdomain({
+      subdomain: this.subdomainPara,
+      domainId: domId,
+    });
+    this.domService.addSubdomain(domId, newSubdomain)
+      .subscribe(sub => this.subdomains.push(sub));
+    this.subdomGroup.reset();
+    this.newSub = false;
+  }
 
+  getSubdomId(subId: number) {
+    localStorage.setItem('curSub', 'sub');
+  }
 
   /** parameter used for later*/
   step = 0;

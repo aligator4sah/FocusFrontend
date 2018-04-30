@@ -4,7 +4,7 @@
       <span class="title-icon"><mat-icon>assignment_turned_in</mat-icon></span>
       <span class="title">Question Management</span>
       <span class="example-spacer"></span>
-      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><mat-icon class="example-icon" (click)="createDomain()">settings</mat-icon></span>
+      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><a routerLink="/createQuestion/createDomain"><mat-icon class="example-icon">settings</mat-icon></a></span>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
@@ -28,7 +28,7 @@
         </div>
         <div *ngSwitchCase="'questionnaire'">
           <app-select-control-box [attrContent]="selectDomain" (follow)="getDomain($event)" class="col-sm-4"></app-select-control-box>
-          <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-4"></app-input-control-box>
+          <app-select-control-box [attrContent]="selectSubdomain" (follow)="getSubdomain($event)" class="col-sm-4"></app-select-control-box>
           <app-input-control-box [attrContent]="inputWeight" (follow)="getWeight($event)" class="col-sm-4"></app-input-control-box>
         </div>
       </div>
@@ -94,8 +94,8 @@
         <p>{{ hintPara }}</p>
       </div>
       <div *ngSwitchCase="'questionnaire'" class="col-sm-12">
-        <div class="col-sm-6"><label class="confirm-info">Question Domian: &nbsp; &nbsp;</label><span> {{ domainPara }}</span></div>
-        <div class="col-sm-6"><label class="confirm-info">Question Subdomain: &nbsp; &nbsp;</label><span> {{ subdomainPara }}</span></div>
+        <div class="col-sm-6"><label class="confirm-info">Question Domian: &nbsp; &nbsp;</label><span> {{ domTextPara }}</span></div>
+        <div class="col-sm-6"><label class="confirm-info">Question Subdomain: &nbsp; &nbsp;</label><span> {{ subdomTextPara }}</span></div>
       </div>
     </div>
     <br>

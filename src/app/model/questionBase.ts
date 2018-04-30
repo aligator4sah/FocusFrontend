@@ -28,13 +28,13 @@ export class DemoQuestion extends Question {
 }
 
 export class Questionnare extends Question {
-  domain: string;
-  subdomain: string;
+  domain: number;
+  subdomain: number;
   weight: number;
   constructor(options: {} = {}) {
     super(options);
-    this.domain = options['domain'] || '';
-    this.subdomain = options['subdomain'] || '';
+    this.domain = options['domain'] || -1;
+    this.subdomain = options['subdomain'] || -1;
     this.weight = options["weight"] || -1;
   }
 }

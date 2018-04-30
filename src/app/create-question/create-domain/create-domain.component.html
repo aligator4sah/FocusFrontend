@@ -4,7 +4,7 @@
       <span class="title-icon"><a routerLink="/createQuestion"><mat-icon>assignment_turned_in</mat-icon></a></span>
       <span class="title">Question Management</span>
       <span class="example-spacer"></span>
-      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><mat-icon class="example-icon" (click)="createDomain()">settings</mat-icon></span>
+      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><a routerLink="/createQuestion/createDomain"><mat-icon class="example-icon">settings</mat-icon></a></span>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
@@ -25,7 +25,7 @@
                 </mat-panel-title>
                 <mat-panel-description>
                   Expand to check the subdomain
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon>library_add</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div *ngIf="existSubdom; else newSubdomain">
@@ -33,25 +33,25 @@
                   <mat-list-item>
                     <span>{{ sub.subdomain }}</span>
                     <span class="example-spacer"></span>
-                    <mat-icon class="example-icon">insert_drive_file</mat-icon>
+                    <a routerLink="/createQuestion/questionList"><mat-icon class="example-icon" (click)="getSubdomId(sub.id)">insert_drive_file</mat-icon></a>
                     <mat-icon class="example-icon">delete</mat-icon>
                   </mat-list-item>
                 </mat-list>
                 <div *ngIf="newSub" class="full-width">
                   <form [formGroup]="subdomGroup">
-                    <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
-                    <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+                    <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-12"></app-input-control-box>
+                    <button mat-button color="primary" (click)="addSubdomain(dom.id)">Submit</button>
                   </form>
                 </div>
                 <mat-action-row>
-                  <button mat-button color="primary" (click)="!newSub">Create New Subdomain</button>
+                  <button mat-button color="primary" (click)="needNewSubdomain()">Create New Subdomain</button>
                   <button mat-button color="accent" (click)="nextStep()">Next</button>
                 </mat-action-row>
               </div>
               <ng-template #newSubdomain>
                 <form [formGroup]="subdomGroup">
-                  <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
-                  <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+                  <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-12"></app-input-control-box>
+                  <button mat-button color="primary" (click)="addSubdomain(dom.id)">Submit</button>
                 </form>
                 <mat-action-row>
                   <button mat-button color="primary" (click)="nextStep()">Next</button>

@@ -100,6 +100,16 @@ export class QuestionModelService {
       );
   }
 
+  /**PATCH: add a new subdomain to the list */
+  addSubdomain(domId: number, subdomain: Subdomain): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', 'token');
+    return this.http.patch<any>(API_URL + '/subDomain/' + domId, subdomain, httpOptions)
+      .pipe (
+        catchError(this.handleError('addSubdomain', []))
+      );
+  }
+
+
   /**PUT: update question des or ans on the server*/
   updateQues(id: number): Observable<{}> {
     httpOptions.headers = httpOptions.headers.set(

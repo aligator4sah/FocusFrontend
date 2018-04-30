@@ -4,7 +4,7 @@ import {defaultAttributes, InputAttributes, roleNum, SelectAttributes} from "../
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/debounceTime'
-import {DemoQuestion, Domain, Questionnare} from "../model/questionBase";
+import {DemoQuestion, Domain, Questionnare, Subdomain} from "../model/questionBase";
 import {QuestionModelService} from "../service/question-model.service";
 import {debounceTime} from "rxjs/operators";
 import {Router} from "@angular/router";
@@ -21,6 +21,7 @@ export class CreateQuestionComponent implements OnInit {
 
   options: options[] = [];
   domainRole: roleNum[] = [];
+  subdomainRole: roleNum[] = [];
 
   public description : InputAttributes = {name:'desp',min:4,max:90,placeholder:'Please input question description', type: 'text'};
   public hints : InputAttributes = {name:'hint',min:4,max:90,placeholder:'Please input question indication', type: 'text'};
@@ -30,8 +31,9 @@ export class CreateQuestionComponent implements OnInit {
   public defaultAnsNo: defaultAttributes = {name: 'defaultAnsNo', value: '0', placeholder: 'No answer number needed', type: 'text'};
 
   public selectCategory: SelectAttributes = {name: 'cat', roles: category, placeholder: 'Please select the question category'};
-  public selectDomain: SelectAttributes = {name: 'domain', roles: this.domainRole, placeholder: 'Please select domain'};
-  public inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 20, placeholder:'Please input subdomain name', type: 'text'};
+  public selectDomain: SelectAttributes = {name: 'domain', roles: this.domainRole, placeholder: 'Please select the domain'};
+  public selectSubdomain: SelectAttributes = {name: 'subdomain', roles: this.subdomainRole, placeholder: "Please select the subdomain"};
+  //public inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 20, placeholder:'Please input subdomain name', type: 'text'};
   public inputWeight: InputAttributes = {name:'weight', min: 1, max: 10, placeholder: 'Please input question weight',  type: 'text'};
 
   despPara: string;
@@ -40,12 +42,15 @@ export class CreateQuestionComponent implements OnInit {
   typePara: string;
   ansNumPara: number;
   catPara: string;
-  domainPara: string;
-  subdomainPara: string;
+  domainPara: number;
+  domTextPara: string;
+  subdomainPara: number;
+  subdomTextPara: string;
   weightPara: number;
 
   numbers: number[];
   domains: Domain[];
+  subdomains: Subdomain[];
   questions: DemoQuestion[];
   questionnaires: Questionnare[];
 
@@ -152,19 +157,30 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-  getSubdomain(value: string) {
+  getSubdomain(value: number) {
     if (this.catPara === 'questionnaire' && value) {
       this.subdomainPara = value;
+      for (let role of this.subdomainRole) {
+        if (role.value === this.subdomainPara) {
+          this.subdomTextPara = role.viewValue;
+        }
+      }
     } else {
-      this.subdomainPara = '';
+      this.subdomainPara = -1;
     }
   }
 
-  getDomain(value: string) {
+  getDomain(value: number) {
     if (this.catPara === 'questionnaire' && value) {
       this.domainPara = value;
+      this.getSubdomains(this.domainPara);
+      for (let role of this.domainRole) {
+        if (role.value === this.domainPara) {
+          this.domTextPara = role.viewValue;
+        }
+      }
     } else {
-      this.domainPara = '';
+      this.domainPara = -1;
     }
   }
 
@@ -190,6 +206,7 @@ export class CreateQuestionComponent implements OnInit {
         placeholder: this.hintPara,
         options: this.options,
       });
+      console.log(newDemoQues);
       this.demoService.addDemoQues(newDemoQues)
         .subscribe(ques => this.questions.push(ques));
 
@@ -203,6 +220,7 @@ export class CreateQuestionComponent implements OnInit {
         subdomain: this.subdomainPara,
         weight: this.weightPara
       });
+      console.log(newQuestion);
       this.demoService.addQuestionnaire(newQuestion)
         .subscribe(ques => this.questionnaires.push(ques));
     }
@@ -225,12 +243,19 @@ export class CreateQuestionComponent implements OnInit {
             this.domainRole.push(role);
           }
         });
-
     }
 
-    createDomain() {
-      this.router.navigateByUrl('/createQuestion/createDomain')
+    getSubdomains(domId: number) {
+      this.demoService.getSubdomainByDomain(domId)
+        .subscribe(sub => {
+          this.subdomains = sub;
+          for (let subdom of this.subdomains) {
+            let role = new roleNum({value: subdom.id, viewValue: subdom.subdomain});
+            this.subdomainRole.push(role);
+          }
+        });
     }
+
 
 }
 
