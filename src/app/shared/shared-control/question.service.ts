@@ -1,10 +1,50 @@
 import { Injectable } from '@angular/core';
-import {QuestionBase, RadioQuestion} from '../../model/questionBase';
+import {DemoQuestion, QuestionBase, RadioQuestion} from '../../model/questionBase';
 import { DropdownQuestion } from '../../model/questionBase';
 import { TextboxQuestion } from '../../model/questionBase';
+import {QuestionModelService} from "../../service/question-model.service";
 
 @Injectable()
 export class QuestionService {
+  constructor(private quesService: QuestionModelService) {}
+
+  getDemoQues(): QuestionBase<any>[]{
+    let questions: QuestionBase<any>[] = [];
+    let demoques: DemoQuestion[];
+    this.quesService.getDemoQsuestions()
+      .subscribe(que => {
+          demoques = que;
+          for (let question of demoques) {
+            if (question.questiontype === "Radio Button Question") {
+              let radioQues = new RadioQuestion({
+                key: question.id,
+                order: question.id,
+                label: question.label,
+                options: question.options,
+              });
+              questions.push(radioQues);
+            } else if (question.questiontype === "Text Input Question") {
+              let textQue = new TextboxQuestion({
+                key: question.id,
+                order: question.id,
+                label: question.label,
+                description: question.placeholder
+              });
+              questions.push(textQue);
+            } else if (question.questiontype === "Dropdown List Question") {
+              let dropQues = new DropdownQuestion({
+                key: question.id,
+                order: question.id,
+                label: question.label,
+                options: question.options,
+              });
+              questions.push(dropQues);
+            }
+          }
+      })
+    return questions.sort((a, b) => a.order - b.order);
+  }
+
   getHealthq() {
     let question: QuestionBase<any>[] = [
       new RadioQuestion({

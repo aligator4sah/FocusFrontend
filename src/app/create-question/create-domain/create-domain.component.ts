@@ -37,6 +37,7 @@ export class CreateDomainComponent implements OnInit {
   ngOnInit() {
     this.getDomains();
     this.buildForm();
+    localStorage.removeItem('curSub');
   }
 
   buildForm(): void {
@@ -107,8 +108,12 @@ export class CreateDomainComponent implements OnInit {
     this.newSub = false;
   }
 
-  getSubdomId(subId: number) {
-    localStorage.setItem('curSub', 'sub');
+  getSubdomId(subId: any) {
+    localStorage.setItem('curSub', JSON.stringify(subId));
+  }
+
+  goback() {
+    window.history.back();
   }
 
   /** parameter used for later*/

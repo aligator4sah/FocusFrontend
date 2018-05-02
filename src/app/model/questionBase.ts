@@ -28,8 +28,8 @@ export class DemoQuestion extends Question {
 }
 
 export class Questionnare extends Question {
-  domain: number;
-  subdomain: number;
+  domain: any;
+  subdomain: any;
   weight: number;
   constructor(options: {} = {}) {
     super(options);
@@ -47,8 +47,8 @@ export class QuestionBase<T> {
   required: boolean;
   order: number;
   controlType: string;
-  domain: string;
-  subdomain: string;
+  domain: any;
+  subdomain: any;
   description: string;
   constructor(options: {
     value?: T,
@@ -57,8 +57,8 @@ export class QuestionBase<T> {
     required?: boolean,
     order?: number,
     controlType?: string
-    domain?: string,
-    subdomain?: string,
+    domain?: any,
+    subdomain?: any,
     description?: string
   } = {}) {
     this.value = options.value;

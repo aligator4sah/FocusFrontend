@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuestionListComponent } from './question-list.component';
+import { QuestionTableComponent } from './question-table.component';
 import {SharedModuleModule} from "../../shared/shared-module/shared-module.module";
 import {ControlBoxModule} from "../../shared/shared-module/control-box.module";
 import {RouterModule} from "@angular/router";
+import {Question} from "../../model/questionBase";
 
 @NgModule({
   imports: [
@@ -11,13 +12,13 @@ import {RouterModule} from "@angular/router";
     SharedModuleModule,
     ControlBoxModule,
     RouterModule.forChild([
-      {path: '', component: QuestionListComponent}
+      {path: '', component: QuestionTableComponent}
     ])
   ],
-  declarations: [QuestionListComponent],
+  declarations: [QuestionTableComponent],
   exports: [
     RouterModule,
-    QuestionListComponent
+    QuestionTableComponent
   ]
 })
-export class QuestionListModule { }
+export class QuestionTableModule { }

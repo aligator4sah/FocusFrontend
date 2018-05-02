@@ -56,6 +56,13 @@ export class QuestionModelService {
       );
   }
 
+  getQuestionBySubdomain(subdomId: number): Observable<Questionnare[]> {
+    return this.http.get<Questionnare[]>(API_URL + '/questionnaire/subDomain/' + subdomId)
+      .pipe(
+        catchError(this.handleError('getQuestionBySubdomain', []))
+      );
+  }
+
   getQuesByDomain(domain: string): Observable<Questionnare[]> {
     return this.http.get<Questionnare[]>(API_URL + '/questionnaire/${domain}')
       .pipe(

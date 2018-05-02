@@ -10,11 +10,15 @@ import {QuestionService} from '../../../../shared/shared-control/question.servic
   styleUrls: ['./demographic.component.css']
 })
 export class DemographicComponent implements OnInit {
+  // curMember = JSON.parse(localStorage.getItem('curMember'));
+
   questions: QuestionBase<any>[] = [];
+
   form: FormGroup;
   payLoad = '';
 
-  constructor(service: QuestionService, private qcs: QuestionControlService) {
+  constructor(private service: QuestionService,
+              private qcs: QuestionControlService) {
    this.questions = service.getQuestions();
   }
 
@@ -22,6 +26,7 @@ export class DemographicComponent implements OnInit {
   ngOnInit() {
     //this.loadQuestions(this.questionsServe);
     this.form = this.qcs.toFormGroup(this.questions);
+    //this.questions = this.service.getDemoQues();
   }
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);

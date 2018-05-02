@@ -1,3 +1,3 @@
-<mat-radio-group [id]="attrContent.name"  [formControl]="control" class="form-full-width">
+<mat-radio-group [formControl]="control" class="full-width">
   <mat-radio-button *ngFor="let val of attrContent.options" [value]="val.key" class="radio-button">{{val.value}}</mat-radio-button> &nbsp; &nbsp;
 </mat-radio-group>

@@ -1,0 +1,132 @@
+<div class="container">
+  <mat-card class="input-part">
+    <mat-card-header><h3>Question Table</h3></mat-card-header>
+    <mat-divider></mat-divider>
+    <br><br>
+    <mat-card-content>
+      <mat-tab-group>
+        <!--Demographic question list -->
+        <mat-tab label="Demographic">
+
+          <div class="example-header">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+          </div>
+
+          <div class="example-container mat-elevation-z8">
+            <div *ngIf="dataSource1">
+              <mat-table [dataSource]="dataSource1" matSort>
+
+                <!-- demo question order -->
+                <ng-container matColumnDef="order">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Order </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+                </ng-container>
+
+                <!--demo question desp -->
+                <ng-container matColumnDef="label">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.label}} </mat-cell>
+                </ng-container>
+
+                <!--demo question type -->
+                <ng-container matColumnDef="quesType">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.questiontype}} </mat-cell>
+                </ng-container>
+
+                <!-- demo question options -->
+                <ng-container matColumnDef="options">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Options</mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                      <mat-list>
+                        <mat-list-item *ngFor="let opt of row.options">
+                          {{ opt.value }}
+                        </mat-list-item>
+                      </mat-list>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns1;">
+                </mat-row>
+              </mat-table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 15, 25, 50]"></mat-paginator>
+          </div>
+
+        </mat-tab>
+        <!--Questionnaire question list -->
+        <mat-tab label="Questionnaire">
+          <br>
+          <div class="example-header">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+          </div>
+
+          <div class="example-container mat-elevation-z8">
+            <div *ngIf="dataSource1">
+              <mat-table [dataSource]="dataSource2" matSort>
+
+                <!-- questionnaire order -->
+                <ng-container matColumnDef="order">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Order </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.id}}</mat-cell>
+                </ng-container>
+
+                <!--questionnaire desp -->
+                <ng-container matColumnDef="label">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.label}} </mat-cell>
+                </ng-container>
+
+                <!--questionnaire type -->
+                <ng-container matColumnDef="quesType">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.questiontype}} </mat-cell>
+                </ng-container>
+
+                <!--questionnaire weight -->
+                <ng-container matColumnDef="weight">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.weight}} </mat-cell>
+                </ng-container>
+
+                <!--questionnaire domain -->
+                <ng-container matColumnDef="domain">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Domain </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.domain.domain}} </mat-cell>
+                </ng-container>
+
+                <!--questionnaire subdomain -->
+                <ng-container matColumnDef="subdomain">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Subdomain </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.subdomain.subdomain}} </mat-cell>
+                </ng-container>
+
+                <!-- questionnaire options -->
+                <ng-container matColumnDef="options">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Options </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-list>
+                      <mat-list-item *ngFor="let opt of row.options">
+                        {{ opt.value }}
+                      </mat-list-item>
+                    </mat-list>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns2;">
+                </mat-row>
+              </mat-table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 15, 25, 50]"></mat-paginator>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

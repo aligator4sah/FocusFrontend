@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionModelService} from "../../service/question-model.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {defaultAttributes, InputAttributes, roleNum, SelectAttributes} from "../shared/shared-control/attributes";
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/operator/debounceTime'
-import {DemoQuestion, Domain, Questionnare, Subdomain} from "../model/questionBase";
-import {QuestionModelService} from "../service/question-model.service";
-import {debounceTime} from "rxjs/operators";
+import {defaultAttributes, InputAttributes, roleNum, SelectAttributes} from "../../shared/shared-control/attributes";
+import {DemoQuestion, Domain, Questionnare, Subdomain} from "../../model/questionBase";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-create-question',
-  templateUrl: './create-question.component.html',
-  styleUrls: ['./create-question.component.css']
+  selector: 'app-input-question',
+  templateUrl: './input-question.component.html',
+  styleUrls: ['./input-question.component.css']
 })
 
-export class CreateQuestionComponent implements OnInit {
+export class InputQuestionComponent implements OnInit {
   public createQuesForm: FormGroup;
   public ansGroup: FormGroup;
 
@@ -138,8 +134,8 @@ export class CreateQuestionComponent implements OnInit {
       this.ansNumPara = value;
       this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
       for (let num of this.numbers) {
-          let opt = {key: '', value: ''};
-          this.options.push(opt);
+        let opt = {key: '', value: ''};
+        this.options.push(opt);
       }
       this.ansGroup = new FormGroup({ansKey: new FormControl(), ansValue: new FormControl()});
     }
@@ -227,35 +223,34 @@ export class CreateQuestionComponent implements OnInit {
 
     this.confirm = true;
     // this.createQuesForm.reset();
-    }
+  }
 
-    reset() {
-      //this.createQuesForm.reset();
-        window.location.reload();
-    }
+  reset() {
+    //this.createQuesForm.reset();
+    window.location.reload();
+  }
 
-    getDomains() {
-      this.demoService.getDomain()
-        .subscribe(dom => {
-          this.domains = dom;
-          for (let domain of this.domains) {
-            let role = new roleNum({value: domain.id, viewValue: domain.domain});
-            this.domainRole.push(role);
-          }
-        });
-    }
+  getDomains() {
+    this.demoService.getDomain()
+      .subscribe(dom => {
+        this.domains = dom;
+        for (let domain of this.domains) {
+          let role = new roleNum({value: domain.id, viewValue: domain.domain});
+          this.domainRole.push(role);
+        }
+      });
+  }
 
-    getSubdomains(domId: number) {
-      this.demoService.getSubdomainByDomain(domId)
-        .subscribe(sub => {
-          this.subdomains = sub;
-          for (let subdom of this.subdomains) {
-            let role = new roleNum({value: subdom.id, viewValue: subdom.subdomain});
-            this.subdomainRole.push(role);
-          }
-        });
-    }
-
+  getSubdomains(domId: number) {
+    this.demoService.getSubdomainByDomain(domId)
+      .subscribe(sub => {
+        this.subdomains = sub;
+        for (let subdom of this.subdomains) {
+          let role = new roleNum({value: subdom.id, viewValue: subdom.subdomain});
+          this.subdomainRole.push(role);
+        }
+      });
+  }
 
 }
 
@@ -274,3 +269,4 @@ export class options {
   key: string;
   value: string;
 }
+

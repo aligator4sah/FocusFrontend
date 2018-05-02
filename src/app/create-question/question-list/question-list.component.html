@@ -1,27 +1,41 @@
-<div class="header">
-  <mat-toolbar color="accent">
-    <mat-toolbar-row>
-      <span class="title-icon"><a routerLink="/createQuestion"><mat-icon>assignment_turned_in</mat-icon></a></span>
-      <span class="title">Question Management</span>
-      <span class="example-spacer"></span>
-      <span matTooltip="Create Domains" [matTooltipPosition]="'left'"><a routerLink="/createQuestion/createDomain"><mat-icon class="example-icon">settings</mat-icon></a></span>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</div>
-
 <div class="container">
   <mat-card class="input-part">
-    <mat-card-header><h3>Question List</h3></mat-card-header>
+    <mat-card-header><h3>{{subdomName}} Question List</h3></mat-card-header>
     <mat-divider></mat-divider>
     <br><br>
     <mat-card-content>
+      <mat-accordion class="example-headers-align">
+        <div *ngIf="questions">
+          <div *ngFor="let ques of questions">
+            <mat-expansion-panel hideToggle="true" >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ ques.label }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Weight:&nbsp;{{ques.weight}}
+                  <mat-icon>delete</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item *ngFor="let opt of ques.options">
+                    <p matLine>Answer Options: &nbsp; <span>{{ opt.value }}</span></p>
+                  </mat-list-item>
+                </mat-list>
+              <mat-action-row>
+                <button mat-button color="primary">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </mat-accordion>
 
     </mat-card-content>
     <mat-card-footer>
-      <br>
       <div class="createDomain">
-        <button mat-raised-button color="accent" >Back</button>
+        <button mat-raised-button color="accent" (click)="goback()">Back</button>
       </div>
+      <br>
     </mat-card-footer>
   </mat-card>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {DropdownQuestion, QuestionBase, RadioQuestion, TextboxQuestion} from '../../../../../model/questionBase';
-import { FormGroup } from '@angular/forms';
+import {FormBuilder, FormGroup, Validator} from '@angular/forms';
 import {InputAttributes, RadioAttributes, SelectAttributes} from '../../../../../shared/shared-control/attributes';
 
 @Component({
@@ -16,8 +16,19 @@ export class DemoQuestionComponent implements OnInit {
     return this.form.controls[this.question.key].valid;
   }
 
+  constructor(
+    private fb: FormBuilder,
+  ) {
+
+  }
+
   ngOnInit() {
     console.log();
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+    });
   }
 
   createInputAttr(): InputAttributes {

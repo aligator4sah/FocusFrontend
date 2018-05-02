@@ -28,6 +28,7 @@ export class AssignTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   members: Member[];
+  curMem: Member;
 
   constructor(
    private userService: UserService
@@ -37,6 +38,9 @@ export class AssignTableComponent implements OnInit {
 
   ngOnInit() {
     //this.getMember();
+    if (localStorage.getItem('curMember') != null) {
+      localStorage.removeItem('curMember');
+    }
     if (this.curRole.role === "State Administrator") {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
     } else if (this.curRole.role === 'System Administrator') {
@@ -99,5 +103,11 @@ export class AssignTableComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  saveMember(userId: number) {
+    this.userService.getMemberById(userId)
+      .subscribe(mem => this.curMem = mem);
+    localStorage.setItem('curMember', JSON.stringify(this.curMem));
   }
 }
