@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {DropdownQuestion, QuestionBase, RadioQuestion, TextboxQuestion} from '../../../../../model/questionBase';
-import {FormBuilder, FormGroup, Validator} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validator} from '@angular/forms';
 import {InputAttributes, RadioAttributes, SelectAttributes} from '../../../../../shared/shared-control/attributes';
+import 'rxjs/add/operator/debounceTime';
+import {fn} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-demo-question',
@@ -11,6 +13,12 @@ import {InputAttributes, RadioAttributes, SelectAttributes} from '../../../../..
 export class DemoQuestionComponent implements OnInit {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
+  @Output() getAns = new EventEmitter<AnswerItem>();
+
+  textAns: string;
+  selectAns: string;
+  radioAns: string;
+  userid = JSON.parse(localStorage.getItem('curMem')).id;
 
   get isValid() {
     return this.form.controls[this.question.key].valid;
@@ -19,42 +27,77 @@ export class DemoQuestionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
   ) {
+    function handler(){
+
+    }
+    // this.form.controls["aaa"].valueChanges.subscribe(handler)
+    // this.form.controls["bbb"].valueChanges.subscribe(handler)
+  }
+
+  buildForm() {
+   //  this.form = this.fb.group({textQue: [''], selectQue: [''], radioQue: ['']});
+
+   // this.form.controls["textQue"].valueChanges.debounceTime(200).subscribe((value) => {this.textAns = value});
+
+    //this.getTextAnswer();
 
   }
 
   ngOnInit() {
-    console.log();
+    this.buildForm();
   }
 
-  buildForm() {
-    this.form = this.fb.group({
-    });
-  }
 
-  createInputAttr(): InputAttributes {
-    return {
-      name: this.question.key,
-      min: 0,
-      max: 50,
-      placeholder: '',
-      type: (<TextboxQuestion>this.question).type
+
+  getTextAnswer(text: string) {
+    console.log(typeof(text));
+    if (typeof this.textAns !== "undefined") {
+     let ansItem = new AnswerItem({
+        userid: this.userid,
+        questionid: parseInt(this.question.key),
+        answer: this.textAns,
+      });
+      console.log(this.textAns);
+      this.getAns.emit(ansItem);
     }
   }
 
-  createSelectAttr():SelectAttributes{
-    return {
-      name: this.question.key,
-      roles: (<DropdownQuestion>this.question).options,
-      placeholder: ''
+  getSelectAnswer(select: string) {
+    if (typeof select !== "undefined") {
+      console.log(select);
+      let ansItem = new AnswerItem({
+        userid: this.userid,
+        questionid: parseInt(this.question.key),
+        answer: select,
+      });
+      this.getAns.emit(ansItem);
     }
   }
 
-  createRadioAttr():RadioAttributes{
-    return {
-      name: this.question.key,
-      options: (<RadioQuestion>this.question).options
+  getRadioAnswer() {
+    if (typeof this.radioAns !== "undefined") {
+      let ansItem = new AnswerItem({
+        userid: this.userid,
+        questionid: parseInt(this.question.key),
+        answer: this.radioAns,
+      });
+      this.getAns.emit(ansItem);
     }
   }
 
+}
 
+export class AnswerItem {
+  userid: number;
+  questionid: number;
+  answer: string;
+  constructor(options: {
+    userid?: number,
+    questionid?: number,
+    answer?: string,
+  } = {}) {
+    this.userid = options.userid;
+    this.questionid = options.questionid;
+    this.answer = options.answer;
+  }
 }

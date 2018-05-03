@@ -1,14 +1,28 @@
 <div [formGroup]="form">
   <div class="col-sm-12">
-    <label [attr.for]="question.key">{{question.label}}</label>
+    <label [attr.for]="question.key">{{question.key + ". "+ question.label}}</label>
   </div>
 
   <ng-container [ngSwitch]="question.controlType">
-    <app-input-control-box *ngSwitchCase="'textbox'" [attrContent]="createInputAttr()"></app-input-control-box>
-    <app-select-control-box *ngSwitchCase="'dropdown'" [attrContent]="createSelectAttr()"></app-select-control-box>
-    <app-radio-control-box *ngSwitchCase="'radiobutton'" [attrContent]="createRadioAttr()"></app-radio-control-box>
+    <mat-form-field *ngSwitchCase="'textbox'" class="col-sm-12">
+      <input matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'dropdown'" class="col-sm-12">
+      <mat-select>
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">
+          {{ opt.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-radio-group class="col-sm-12" *ngSwitchCase="'radiobutton'">
+      <mat-radio-button class="radio-button" *ngFor="let opt of question.options" [value]="opt.key">
+        {{opt.value}}
+      </mat-radio-button>
+    </mat-radio-group>
+
   </ng-container>
 
-  <!--<div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
 </div>
 

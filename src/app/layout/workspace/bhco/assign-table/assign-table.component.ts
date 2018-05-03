@@ -105,9 +105,4 @@ export class AssignTableComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  saveMember(userId: number) {
-    this.userService.getMemberById(userId)
-      .subscribe(mem => this.curMem = mem);
-    localStorage.setItem('curMember', JSON.stringify(this.curMem));
-  }
 }

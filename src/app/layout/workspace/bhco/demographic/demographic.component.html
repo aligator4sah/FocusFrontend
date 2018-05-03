@@ -3,9 +3,9 @@
   <mat-card class="com-member-info">
     <mat-card-header>
       <div class="col-sm-12">
-        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> John Smith </b></p>
-        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> Male </b></p>
-        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> 03-14-1993 </b></p>
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{ curMember.name }} </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{curMember.gender}} </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{curMember.dob}} </b></p>
       </div>
     </mat-card-header>
   </mat-card>
@@ -22,11 +22,10 @@
       <br>
 
         <!-- form group 1-->
-        <h4> Home Information </h4>
         <!--Questions container-->
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
           <div *ngFor="let question of questions" class="col-sm-12">
-            <app-demo-question [question]="question" [form]="form"></app-demo-question>
+            <app-demo-question [question]="question" [form]="form" (getAns)="getEachAns($event)"></app-demo-question>
           </div>
           <div class="col-sm-12">
             <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Submit</button>
