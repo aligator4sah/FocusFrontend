@@ -15,7 +15,8 @@ export class InputQuestionComponent implements OnInit {
   public createQuesForm: FormGroup;
   public ansGroup: FormGroup;
 
-  options: options[] = [];
+  options: Options[] = [];
+
   domainRole: roleNum[] = [];
   subdomainRole: roleNum[] = [];
 
@@ -29,7 +30,6 @@ export class InputQuestionComponent implements OnInit {
   public selectCategory: SelectAttributes = {name: 'cat', roles: category, placeholder: 'Please select the question category'};
   public selectDomain: SelectAttributes = {name: 'domain', roles: this.domainRole, placeholder: 'Please select the domain'};
   public selectSubdomain: SelectAttributes = {name: 'subdomain', roles: this.subdomainRole, placeholder: "Please select the subdomain"};
-  //public inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 20, placeholder:'Please input subdomain name', type: 'text'};
   public inputWeight: InputAttributes = {name:'weight', min: 1, max: 10, placeholder: 'Please input question weight',  type: 'text'};
 
   despPara: string;
@@ -44,13 +44,10 @@ export class InputQuestionComponent implements OnInit {
   subdomTextPara: string;
   weightPara: number;
 
-  numbers: number[];
   domains: Domain[];
   subdomains: Subdomain[];
   questions: DemoQuestion[];
   questionnaires: Questionnare[];
-
-
 
   confirm: boolean = false;
   needAns: boolean = false;
@@ -92,11 +89,10 @@ export class InputQuestionComponent implements OnInit {
       defaultAnsNo:['',[]],
       weight: ['', [Validators.required, Validators.minLength(1)]],
     });
-
     this.ansGroup = this.fb.group({});
-    this.createQuesForm.controls["key"].valueChanges.debounceTime(200).subscribe((value)=>{
-
-    })
+    this.createQuesForm.controls['ansNo'].valueChanges.subscribe(value => {
+      this.getAnsNumber(value);
+    });
   }
 
   getDescription(value:string){
@@ -130,15 +126,35 @@ export class InputQuestionComponent implements OnInit {
   }
 
   getAnsNumber(value: number) {
-    if (value) {
-      this.ansNumPara = value;
-      this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
-      for (let num of this.numbers) {
-        let opt = {key: '', value: ''};
-        this.options.push(opt);
-      }
-      this.ansGroup = new FormGroup({ansKey: new FormControl(), ansValue: new FormControl()});
+    this.options = [];
+    let id = 0;
+    while (value > 0 && id < value) {
+      let opt = {key: id, eid: 'Q' + id, point: id + 1, value: ''};
+      this.options.push(opt);
+      id++;
     }
+    let group = {};
+    this.options.forEach(opt => {
+      group[opt.key] = [opt.point, Validators.required];
+      group[opt.eid] = ['', Validators.required];
+    });
+    this.ansGroup = this.fb.group(group);
+    console.log(this.ansGroup.value);
+
+    for (let opt of this.options) {
+      this.ansGroup.controls[opt.key].valueChanges.subscribe(value => opt.point = value);
+      this.ansGroup.controls[opt.eid].valueChanges.subscribe(value => opt.value = value);
+    }
+    // if (value) {
+    //   this.ansNumPara = value;
+    //   this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
+    //   console.log(this.numbers);
+    //   for (let num of this.numbers) {
+    //     let opt = {key: 1, value: '', point: 0};
+    //     this.options.push(opt);
+    //   }
+    //   this.ansGroup = new FormGroup({ansKey: new FormControl(), ansValue: new FormControl()});
+    // }
   }
 
   getCategory(value: string) {
@@ -227,7 +243,7 @@ export class InputQuestionComponent implements OnInit {
 
   reset() {
     //this.createQuesForm.reset();
-    window.location.reload();
+     window.location.reload();
   }
 
   getDomains() {
@@ -265,8 +281,16 @@ export const category = [
   {value: 'questionnaire', viewValue: 'questionnaire'},
 ];
 
-export class options {
-  key: string;
+export class Options {
+  key: number;
+  eid: string;
   value: string;
+  point: number;
 }
 
+
+export class AnsOpt {
+  key: number;
+  point: number;
+  value: string;
+}

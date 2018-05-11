@@ -25,7 +25,7 @@
         <!--Questions container-->
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
           <div *ngFor="let question of questions" class="col-sm-12">
-            <app-demo-question [question]="question" [form]="form" (getAns)="getEachAns($event)"></app-demo-question>
+            <app-demo-question [question]="question" [form]="form"></app-demo-question>
           </div>
           <div class="col-sm-12">
             <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Submit</button>

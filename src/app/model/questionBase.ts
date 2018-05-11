@@ -41,6 +41,7 @@ export class Questionnare extends Question {
 
 
 export class QuestionBase<T> {
+  id: number
   value: T;
   key: string;
   label: string;
@@ -51,6 +52,7 @@ export class QuestionBase<T> {
   subdomain: any;
   description: string;
   constructor(options: {
+    id?: number,
     value?: T,
     key?: string,
     label?: string,
@@ -61,10 +63,11 @@ export class QuestionBase<T> {
     subdomain?: any,
     description?: string
   } = {}) {
+    this.id = options.id || 1;
     this.value = options.value;
     this.key = options.key || '';
     this.label = options.label || '';
-    this.required = !!options.required;
+    this.required = options.required || false;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.domain = options.domain || '';
@@ -104,13 +107,19 @@ export class DropdownQuestion extends QuestionBase<string> {
 export class Domain {
   id: number;
   domain: string;
+  maxScore: number;
+  minScore: number;
 
   constructor(options: {
     id?: number,
     domain?: string,
+    maxScore?: number,
+    minScore?: number,
   } = {}) {
     this.id = options.id;
     this.domain = options.domain;
+    this.maxScore = options.maxScore || 0;
+    this.minScore = options.minScore || 0;
   }
 }
 

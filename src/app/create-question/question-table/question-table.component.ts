@@ -15,8 +15,10 @@ export class QuestionTableComponent implements OnInit {
   displayedColumns2 =['order', 'label', 'domain', 'subdomain', 'weight', 'quesType', 'options'];
   dataSource2 = null;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator1: MatPaginator;
+  @ViewChild(MatPaginator) paginator2: MatPaginator;
+  @ViewChild(MatSort) sort1: MatSort;
+  @ViewChild(MatSort) sort2: MatSort;
 
   demoQues: DemoQuestion[];
   questionnaire: Questionnare[];
@@ -31,8 +33,8 @@ export class QuestionTableComponent implements OnInit {
       .subscribe(ques => {
         this.questionnaire = ques;
         this.dataSource2 = new MatTableDataSource(this.questionnaire);
-        this.dataSource2.paginator = this.paginator;
-        this.dataSource2.sort = this.sort;
+        this.dataSource2.paginator = this.paginator2;
+        this.dataSource2.sort = this.sort2;
       });
   }
 
@@ -42,8 +44,8 @@ export class QuestionTableComponent implements OnInit {
       {
         this.demoQues = ques;
         this.dataSource1 = new MatTableDataSource(this.demoQues);
-        this.dataSource1.paginator = this.paginator;
-        this.dataSource1.sort = this.sort;
+        this.dataSource1.paginator = this.paginator1;
+        this.dataSource1.sort = this.sort1;
       });
   }
 

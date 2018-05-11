@@ -5,18 +5,18 @@
 
   <ng-container [ngSwitch]="question.controlType">
     <mat-form-field *ngSwitchCase="'textbox'" class="col-sm-12">
-      <input matInput type="text">
+      <input matInput type="text" [formControlName]="question.key">
     </mat-form-field>
 
     <mat-form-field *ngSwitchCase="'dropdown'" class="col-sm-12">
-      <mat-select>
+      <mat-select [formControlName]="question.key">
         <mat-option *ngFor="let opt of question.options" [value]="opt.key">
           {{ opt.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-radio-group class="col-sm-12" *ngSwitchCase="'radiobutton'">
+    <mat-radio-group class="col-sm-12" *ngSwitchCase="'radiobutton'" [formControlName]="question.key">
       <mat-radio-button class="radio-button" *ngFor="let opt of question.options" [value]="opt.key">
         {{opt.value}}
       </mat-radio-button>

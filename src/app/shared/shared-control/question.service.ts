@@ -15,25 +15,29 @@ export class QuestionService {
       .subscribe(que => {
           demoques = que;
           for (let question of demoques) {
+            const quesKey = 'Q' + String(question.id);
             if (question.questiontype === "Radio Button Question") {
-              let radioQues = new RadioQuestion({
-                key: question.id,
+              const radioQues = new RadioQuestion({
+                id: question.id,
+                key: quesKey,
                 order: question.id,
                 label: question.label,
                 options: question.options,
               });
               questions.push(radioQues);
             } else if (question.questiontype === "Text Input Question") {
-              let textQue = new TextboxQuestion({
-                key: question.id,
+              const textQue = new TextboxQuestion({
+                id: question.id,
+                key: quesKey,
                 order: question.id,
                 label: question.label,
                 description: question.placeholder
               });
               questions.push(textQue);
             } else if (question.questiontype === "Dropdown List Question") {
-              let dropQues = new DropdownQuestion({
-                key: question.id,
+              const dropQues = new DropdownQuestion({
+                id: question.id,
+                key: quesKey,
                 order: question.id,
                 label: question.label,
                 options: question.options,

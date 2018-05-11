@@ -28,16 +28,23 @@ export class DemographicComponent implements OnInit {
   ngOnInit() {
     //this.loadQuestions(this.questionsServe);
     this.questions = this.service.getDemoQues();
+    //this.questions = this.service.getQuestions();
     this.form = this.qcs.toFormGroup(this.questions);
     console.log(this.curMember);
-    this.getAnswers();
+    //this.getAnswers();
   }
+
 
   getAnswers() {
       for (let ques of this.questions) {
         this.form.controls[ques.key].valueChanges.subscribe(value => {
-            this.answerArray.push(value);
-            console.log(value);
+            let item = new AnswerItem({
+              userid: this.curMember.id,
+              questionid: parseInt(ques.key),
+              answer: value,
+            });
+            this.answerArray.push(item);
+            console.log(item);
           }
         );
       }
@@ -45,15 +52,7 @@ export class DemographicComponent implements OnInit {
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-    console.log(this.answerArray);
-  }
-
-  getEachAns(answer: AnswerItem) {
-      if (answer) {
-        console.log("Single answer" + answer);
-        this.answerArray.push(answer);
-        console.log(this.answerArray)
-      }
+    //console.log(this.answerArray);
   }
 
 }
@@ -63,4 +62,14 @@ export class AnswerItem {
   userid: number;
   questionid: number;
   answer: string;
+  constructor(options: {
+    userid?: number,
+    questionid?: number,
+    answer?: string,
+  } = {}) {
+    this.userid = options.userid;
+    this.questionid = options.questionid;
+    this.answer = options.answer;
+  }
+
 }
