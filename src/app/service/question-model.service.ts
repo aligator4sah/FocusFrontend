@@ -107,6 +107,14 @@ export class QuestionModelService {
       );
   }
 
+  /** POST: add user demographic answer to the database**/
+  addUserDemo(answers: any[]): Observable<any> {
+    return this.http.post<any>(API_URL + '/userDemographic', answers, httpOptions)
+      .pipe(
+        catchError(this.handleError('addUserDemographic', answers))
+      );
+  }
+
   /**PATCH: add a new subdomain to the list */
   addSubdomain(domId: number, subdomain: Subdomain): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'token');

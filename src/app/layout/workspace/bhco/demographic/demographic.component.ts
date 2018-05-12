@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {QuestionBase} from '../../../../model/questionBase';
+import {DemoQuestion, QuestionBase} from '../../../../model/questionBase';
 import {QuestionControlService} from '../../../../shared/shared-control/question-control.service';
 import {QuestionService} from '../../../../shared/shared-control/question.service';
+import {QuestionModelService} from "../../../../service/question-model.service";
 
 @Component({
   selector: 'app-demographic',
@@ -12,47 +13,55 @@ import {QuestionService} from '../../../../shared/shared-control/question.servic
 export class DemographicComponent implements OnInit {
   curMember = JSON.parse(localStorage.getItem('curMem'));
 
-  questions: QuestionBase<any>[] = [];
-  answerArray: any[] = [];
-  answer: string;
-
+  /**Initialize the question and questionn form */
+  questions: DemoQuestion[] = [];
   form: FormGroup;
+
+  answers: AnswerItem[] = [];
+  answer: string;
+  isSubmitted: any;
   payLoad = '';
 
-  constructor(private service: QuestionService,
-              private qcs: QuestionControlService) {
-   //this.questions = service.getQuestions();
-  }
+  constructor(
+    private queService: QuestionModelService,
+    private fb: FormBuilder
+  ) {}
 
 
   ngOnInit() {
-    //this.loadQuestions(this.questionsServe);
-    this.questions = this.service.getDemoQues();
-    //this.questions = this.service.getQuestions();
-    this.form = this.qcs.toFormGroup(this.questions);
-    console.log(this.curMember);
-    //this.getAnswers();
+      this.getDemoQuestions();
+      this.form = this.fb.group({});
   }
 
-
-  getAnswers() {
-      for (let ques of this.questions) {
-        this.form.controls[ques.key].valueChanges.subscribe(value => {
-            let item = new AnswerItem({
-              userid: this.curMember.id,
-              questionid: parseInt(ques.key),
-              answer: value,
-            });
-            this.answerArray.push(item);
-            console.log(item);
-          }
-        );
-      }
+  getDemoQuestions() {
+    this.queService.getDemoQsuestions().subscribe(ques => {
+      this.questions = ques;
+      let group: any = {};
+      this.questions.forEach(ques => {
+        group[ques.id] = ['', Validators.required];
+        const ans = new AnswerItem({
+          userid: this.curMember.id,
+          questionid: ques.id,
+        });
+        this.answers.push(ans);
+      });
+      this.form = this.fb.group(group);
+      this.answers.forEach(ans => {
+        this.form.controls[ans.questionid].valueChanges.subscribe(value => ans.answer = value);
+      })
+    });
   }
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
+    console.log(this.answers);
     //console.log(this.answerArray);
+    this.queService.addUserDemo(this.answers).subscribe(value => {
+        this.isSubmitted = value;
+      }
+    )
+
+    console.log(this.isSubmitted);
   }
 
 }
@@ -67,9 +76,9 @@ export class AnswerItem {
     questionid?: number,
     answer?: string,
   } = {}) {
-    this.userid = options.userid;
-    this.questionid = options.questionid;
-    this.answer = options.answer;
+    this.userid = options.userid || 0;
+    this.questionid = options.questionid || 0;
+    this.answer = options.answer || '';
   }
 
 }

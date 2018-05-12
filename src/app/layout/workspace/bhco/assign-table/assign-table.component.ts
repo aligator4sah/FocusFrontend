@@ -80,7 +80,7 @@ export class AssignTableComponent implements OnInit {
           this.dataSource.sort = this.sort;
         });
     } else if (this.curRole.role === "bhco") {
-        this.userService.getMemberByBhco(this.curRole.location)
+        this.userService.getMemberByBhco(this.curRole.id)
           .subscribe(mems => {
             this.members = mems;
             this.dataSource = new MatTableDataSource(this.members);

@@ -145,16 +145,6 @@ export class InputQuestionComponent implements OnInit {
       this.ansGroup.controls[opt.key].valueChanges.subscribe(value => opt.point = value);
       this.ansGroup.controls[opt.eid].valueChanges.subscribe(value => opt.value = value);
     }
-    // if (value) {
-    //   this.ansNumPara = value;
-    //   this.numbers = Array.apply(null, {length: this.ansNumPara}).map(Number.call, Number);
-    //   console.log(this.numbers);
-    //   for (let num of this.numbers) {
-    //     let opt = {key: 1, value: '', point: 0};
-    //     this.options.push(opt);
-    //   }
-    //   this.ansGroup = new FormGroup({ansKey: new FormControl(), ansValue: new FormControl()});
-    // }
   }
 
   getCategory(value: string) {
@@ -271,9 +261,9 @@ export class InputQuestionComponent implements OnInit {
 }
 
 export const questionType = [
-  {value: 'Radio Button Question', viewValue:'Radio Button Question'},
-  {value: 'Text Input Question', viewValue:'Text Input Question'},
-  {value: 'Dropdown List Question', viewValue:'Dropdown List Question'},
+  {value: 'radioButton', viewValue:'Radio Button Question'},
+  {value: 'textBox', viewValue:'Text Input Question'},
+  {value: 'dropDown', viewValue:'Dropdown List Question'},
 ];
 
 export const category = [

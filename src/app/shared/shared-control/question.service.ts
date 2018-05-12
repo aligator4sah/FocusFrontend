@@ -10,42 +10,41 @@ export class QuestionService {
 
   getDemoQues(): QuestionBase<any>[]{
     let questions: QuestionBase<any>[] = [];
-    let demoques: DemoQuestion[];
+
     this.quesService.getDemoQsuestions()
       .subscribe(que => {
-          demoques = que;
-          for (let question of demoques) {
-            const quesKey = 'Q' + String(question.id);
-            if (question.questiontype === "Radio Button Question") {
-              const radioQues = new RadioQuestion({
-                id: question.id,
-                key: quesKey,
-                order: question.id,
-                label: question.label,
-                options: question.options,
-              });
-              questions.push(radioQues);
-            } else if (question.questiontype === "Text Input Question") {
-              const textQue = new TextboxQuestion({
-                id: question.id,
-                key: quesKey,
-                order: question.id,
-                label: question.label,
-                description: question.placeholder
-              });
-              questions.push(textQue);
-            } else if (question.questiontype === "Dropdown List Question") {
-              const dropQues = new DropdownQuestion({
-                id: question.id,
-                key: quesKey,
-                order: question.id,
-                label: question.label,
-                options: question.options,
-              });
-              questions.push(dropQues);
-            }
+        que.forEach(qe => {
+          const queKey = 'Q' + qe.id;
+          if (qe.questiontype === "Radio Button Question") {
+            const radioQ = new RadioQuestion({
+              id: qe.id,
+              key: queKey,
+              order: qe.id,
+              label: qe.label,
+              options: qe.options,
+            });
+            questions.push(radioQ);
+          } else if (qe.questiontype === "Dropdown List Question") {
+            const dropQ = new DropdownQuestion({
+              id: qe.id,
+              key: queKey,
+              order: qe.id,
+              label: qe.label,
+              options: qe.options,
+            });
+            questions.push(dropQ);
+          } else {
+            const textQ = new TextboxQuestion({
+              id: qe.id,
+              key: queKey,
+              order: qe.id,
+              label: qe.label,
+              description: qe.placeholder
+            });
+            questions.push(textQ);
           }
-      })
+        });
+      });
     return questions.sort((a, b) => a.order - b.order);
   }
 

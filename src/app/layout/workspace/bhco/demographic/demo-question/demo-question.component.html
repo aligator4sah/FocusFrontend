@@ -1,23 +1,23 @@
 <div [formGroup]="form">
   <div class="col-sm-12">
-    <label [attr.for]="question.key">{{question.key + ". "+ question.label}}</label>
+    <label [attr.for]="question.id">{{question.id + ". "+ question.label}}</label>
   </div>
 
-  <ng-container [ngSwitch]="question.controlType">
-    <mat-form-field *ngSwitchCase="'textbox'" class="col-sm-12">
-      <input matInput type="text" [formControlName]="question.key">
+  <ng-container [ngSwitch]="question.questiontype">
+    <mat-form-field *ngSwitchCase="'textBox'" class="col-sm-12">
+      <input matInput type="text" [formControlName]="question.id">
     </mat-form-field>
 
-    <mat-form-field *ngSwitchCase="'dropdown'" class="col-sm-12">
-      <mat-select [formControlName]="question.key">
-        <mat-option *ngFor="let opt of question.options" [value]="opt.key">
+    <mat-form-field *ngSwitchCase="'dropDown'" class="col-sm-12">
+      <mat-select [formControlName]="question.id">
+        <mat-option *ngFor="let opt of question.options" [value]="opt.value">
           {{ opt.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-radio-group class="col-sm-12" *ngSwitchCase="'radiobutton'" [formControlName]="question.key">
-      <mat-radio-button class="radio-button" *ngFor="let opt of question.options" [value]="opt.key">
+    <mat-radio-group class="col-sm-12" *ngSwitchCase="'radioButton'" [formControlName]="question.id">
+      <mat-radio-button class="radio-button" *ngFor="let opt of question.options" [value]="opt.value">
         {{opt.value}}
       </mat-radio-button>
     </mat-radio-group>
