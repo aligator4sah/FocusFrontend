@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {HandleError, HttpErrorHandler} from "./http-error-handler.service";
 import {Observable} from "rxjs/Observable";
-import {DemoQuestion, Domain, QuestionBase, Questionnare, Subdomain} from "../model/questionBase";
+import {DemoQuestion, Domain, QuestionBase, Questionnare, Session, Subdomain} from "../model/questionBase";
 import {API_URL} from "./http.service";
 import {catchError} from "rxjs/operators";
 import {ObjectUnsubscribedError} from "rxjs/Rx";
@@ -112,6 +112,13 @@ export class QuestionModelService {
     return this.http.post<any>(API_URL + '/userDemographic', answers, httpOptions)
       .pipe(
         catchError(this.handleError('addUserDemographic', answers))
+      );
+  }
+
+  addUserAnswer(session: Session): Observable<any> {
+    return this.http.post<any>(API_URL + '/session', session, httpOptions)
+      .pipe(
+        catchError(this.handleError('addUserAnswer', session))
       );
   }
 

@@ -142,6 +142,37 @@ export class Subdomain {
   }
 }
 
+export class Answer {
+  qid: number;
+  answer: string;
+  constructor(options: {
+    qid?: number,
+    answer?: string,
+  } = {}) {
+    this.qid = options.qid;
+    this.answer = options.answer;
+  }
+}
+
+export class Session {
+  id: number;
+  userid: number;
+  answer: any[];
+  createdate: string;
+  updatedate: string;
+  constructor(options: {
+    id?: number,
+    userid?: number,
+    answer?: any[],
+    createdate?: string,
+    updatedate?: string,
+  } = {}) {
+    this.id = options.id;
+    this.userid = options.userid;
+    this.createdate = options.createdate || '';
+    this.updatedate = options.updatedate || '';
+  }
+}
 
 export class questionList {
   selectedDomain: any;

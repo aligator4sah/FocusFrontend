@@ -23,8 +23,7 @@ export class DemoQuestionComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    //console.log(this.form.value);
-    console.log(this.question.label);
+
   }
 
 }

@@ -10,12 +10,7 @@ import {QuestionModelService} from "../../../service/question-model.service";
 })
 export class BhcoLevelComponent implements OnInit {
   domains: Domain[] = [];
-
   questions: any[];
-  foodQuestion: any[];
-  drugQuestion: any[];
-  healthQuestion: any[];
-  mobilityQuestion: any[];
 
   constructor(
     private service: QuestionService,
@@ -25,13 +20,7 @@ export class BhcoLevelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.questions = this.service.getQuestions();
-    this.foodQuestion = this.service.getFoodq();
-    this.drugQuestion = this.service.getDrugq();
-    this.healthQuestion = this.service.getHealthq();
-    this.mobilityQuestion = this.service.getMobilityq();
     this.getDomains();
-
   }
 
   getDomains() {
