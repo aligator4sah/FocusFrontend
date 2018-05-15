@@ -18,6 +18,7 @@ export class IndividualAnalysisComponent implements OnInit{
     this.queService.getScore(this.curSession).subscribe(value => {
       this.scoreInfo = value;
       console.log(this.scoreInfo);
+      this.createGraph();
     });
   }
 
@@ -26,14 +27,19 @@ export class IndividualAnalysisComponent implements OnInit{
   responsive: true
   };
 
-  public barChartLabels:string[] = ['Physical', 'Behavioral', 'Relational', 'Spiritual', 'SOCIO-Economic', 'Overall'];
+  //public barChartLabels:string[] = ['Physical', 'Behavioral', 'Relational', 'Spiritual', 'SOCIO-Economic', 'Overall'];
+  public barChartLabels:string[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
 
-  public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55], label: 'Member A'},
-    {data: [28, 48, 40, 19, 86, 27], label: 'Community Average'}
-  ];
+  dataArray: number[] = [];
+
+  public barChartData:any[] = [{data: this.dataArray}];
+
+  // public barChartData:any[] = [
+  //   {data: [65, 59, 80, 81, 56, 55], label: 'Member A'},
+  //   {data: [28, 48, 40, 19, 86, 27], label: 'Community Average'}
+  // ];
 
   public radarChartLabels:string[] = ['Physical', 'Behavioral', 'Relational', 'Spiritual', 'SOCIO-Economic', 'Overall'];
 
@@ -68,6 +74,13 @@ export class IndividualAnalysisComponent implements OnInit{
     clone1[0].data = data;
     this.barChartData = clone;
     this.radarChartData = clone1;
+  }
+
+  createGraph() {
+    this.scoreInfo.forEach(score => {
+      this.barChartLabels.push(score.domain);
+      this.dataArray.push(score.score);
+    });
   }
 
 }
