@@ -1,4 +1,5 @@
 import {BhcoLevelComponent} from './bhco-level.component';
+import {DomainListModule} from "../../workspace/bhco/questionnaire/domain-list/domain-list.module";
 
 export const bhcoWorkSpaceRoutes = [
   {
@@ -8,8 +9,7 @@ export const bhcoWorkSpaceRoutes = [
       {path: '', redirectTo: 'assign', pathMatch: 'full'},
       {path: 'socialNetwork', loadChildren: '../../workspace/bhco/social-network/social-network.module#SocialNetworkModule'},
       {path: 'demographic', loadChildren: '../../workspace/bhco/demographic/demographic.module#DemographicModule'},
-      {path: 'physical-domain', loadChildren: '../../workspace/bhco/questionnaire/physical-domain/physical-domain.module#PhysicalDomainModule'},
-      {path: 'behavioral-domain', loadChildren: '../../workspace/bhco/questionnaire/behavioral-domain/behavioral-domain.module#BehavioralDomainModule'},
+      {path: 'questionnaire/:id', loadChildren: '../../workspace/bhco/questionnaire/physical-domain/physical-domain.module#PhysicalDomainModule'},
       {path: 'assign', loadChildren: '../../workspace/bhco/assign-table/assign-table.module#AssignTableModule'},
       {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
       {path: 'resetPassword', loadChildren: '../../workspace/profile/reset-password/reset-password.module#ResetPasswordModule'},
@@ -18,6 +18,7 @@ export const bhcoWorkSpaceRoutes = [
       {path: 'question-ans', loadChildren: '../../workspace/bhco/questionnaire-ans/questionnaire-ans.module#QuestionnaireAnsModule'},
       {path: 'individual-analysis', loadChildren: "../../workspace/bhco/individual-analysis/individual-analysis.module#IndividualAnalysisModule"},
       {path: 'detail/:id', loadChildren:"../../workspace/bhco/member-detail/member-detail.module#MemberDetailModule"},
+      {path: 'domain-list', loadChildren: "../../workspace/bhco/questionnaire/domain-list/domain-list.module#DomainListModule"},
       ]
   }
 ];

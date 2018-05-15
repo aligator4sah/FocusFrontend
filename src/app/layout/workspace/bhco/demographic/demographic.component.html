@@ -32,11 +32,15 @@
             <button mat-raised-button color="accent">Reset</button>
           </div>
         </form>
-
+        <br>
         <div *ngIf="payLoad" class="form-row">
           <strong>Saved the following values</strong><br>
           {{payLoad}}
         </div>
+        <div *ngIf="isUpload">
+          <strong>Demographic for {{curMember.username}} has been submitted successfully.</strong>
+        </div>
+
     </mat-card-content>
 
   </mat-card>

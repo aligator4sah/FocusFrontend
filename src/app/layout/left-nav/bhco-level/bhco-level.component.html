@@ -31,41 +31,19 @@
 
           <mat-expansion-panel class="panel-format">
             <mat-expansion-panel-header>
-              <mat-panel-title> <a routerLink="session" routerLinkActive="active">
+              <mat-panel-title> <a routerLink="domain-list" routerLinkActive="active">
                 <mat-icon class="main-icon">assignment</mat-icon> &nbsp;
                 <span class="main-menu"> <h4>&nbsp; Questionnaire </h4> </span></a>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <a routerLink="physical-domain" routerLinkActive="active">
-            <button mat-menu-item color="white">
-              <mat-icon>assignment</mat-icon>
-              <span>Physical</span>
-            </button>
-            </a>
-            <a routerLink="behavioral-domain" routerLinkActive="active">
-              <button mat-menu-item color="white">
-                <mat-icon>assignment</mat-icon>
-                <span>Behavioral</span>
-              </button>
-            </a>
-            <a routerLink="questionnaire" routerLinkActive="active">
-              <button mat-menu-item color="white">
-                <mat-icon>assignment</mat-icon>
-                <span>Relational</span>
-              </button>
-            </a>
-            <a routerLink="questionnaire" routerLinkActive="active">
-              <button mat-menu-item color="white">
-                <mat-icon>assignment</mat-icon>
-                <span>Spiritual</span>
-              </button>
-            </a>
-            <a routerLink="questionnaire" routerLinkActive="active">
-              <button mat-menu-item color="white">
-                <mat-icon>assignment</mat-icon>
-                <span>SOCIO-Economic</span>
-              </button>
-            </a>
+            <div *ngIf="domains">
+              <a routerLink="questionnaire/{{dom.id}}" routerLinkActive="active" *ngFor="let dom of domains" (click)="selectDom(dom)">
+                <button mat-menu-item color="white">
+                  <mat-icon>assignment</mat-icon>
+                  <span>{{dom.domain}}</span>
+                </button>
+              </a>
+            </div>
           </mat-expansion-panel>
 
           <mat-expansion-panel class="panel-format">

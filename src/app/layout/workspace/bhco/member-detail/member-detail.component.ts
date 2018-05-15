@@ -65,7 +65,7 @@ export class MemberDetailComponent implements OnInit {
  }
 
  startQues() {
-    this.router.navigateByUrl('/BhcoDashboard/physical-domain');
+    this.router.navigateByUrl('/BhcoDashboard/domain-list');
  }
 
  startSocial() {

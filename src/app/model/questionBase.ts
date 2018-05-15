@@ -141,3 +141,9 @@ export class Subdomain {
     this.domainId = options.domainId || -1;
   }
 }
+
+
+export class questionList {
+  selectedDomain: any;
+  resultSubdomains: any;
+}

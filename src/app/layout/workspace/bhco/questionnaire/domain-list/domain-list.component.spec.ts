@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BehavioralDomainComponent } from './behavioral-domain.component';
+import { DomainListComponent } from './domain-list.component';
 
-describe('BehavioralDomainComponent', () => {
-  let component: BehavioralDomainComponent;
-  let fixture: ComponentFixture<BehavioralDomainComponent>;
+describe('DomainListComponent', () => {
+  let component: DomainListComponent;
+  let fixture: ComponentFixture<DomainListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BehavioralDomainComponent ]
+      declarations: [ DomainListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BehavioralDomainComponent);
+    fixture = TestBed.createComponent(DomainListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

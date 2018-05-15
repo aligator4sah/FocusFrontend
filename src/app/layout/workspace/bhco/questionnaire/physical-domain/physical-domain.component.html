@@ -1,28 +1,40 @@
-
 <div class="workspace-container mid-position">
   <h3 class="workspace-title">Questionnaire</h3>
   <mat-card class="com-member-info">
     <mat-card-header>
       <div class="col-sm-12">
-        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> John Smith </b></p>
-        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> Male </b></p>
-        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> 03-22-2018 </b></p>
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{member.name}} </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{member.gender}} </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{member.dob}} </b></p>
       </div>
     </mat-card-header>
   </mat-card>
   <!--<mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>-->
   <br>
   <mat-card class="system-card">
-    <mat-card-header >
-      <div class="col-sm-12">
-        <mat-card-title>Physical Domain Questionnaire</mat-card-title>
+    <mat-card-header>
+      <div class="col-sm-12" *ngIf="domain">
+        <mat-card-title>{{questions.selectedDomain.domain}} Domain Questionnaire</mat-card-title>
       </div>
     </mat-card-header>
     <mat-divider> </mat-divider>
     <mat-card-content>
       <br>
 
-      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" [formGroup]="form">
+        <mat-step [stepControl]="subdomain.subdomain" *ngFor="let subdomain of subdomainList">
+          <form [formControlName]="subdomain.subdomain">
+            <ng-template matStepLabel> {{subdomain.subdomain + 'Subdomain'}}</ng-template>
+            <div *ngFor="let question of subdomain.questionnaire" class="col-sm-12">
+              <app-demo-question [question]="question" [form]="subdomain.subdomain"></app-demo-question>
+            </div>
+          </form>
+          <div class="col-sm-12">
+            <button type="submit" matStepperNext mat-raised-button color="primary">Next</button>
+            <button mat-raised-button color="accent"> Reset </button>
+          </div>
+        </mat-step>
+
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Health Subdomain (9)</ng-template>

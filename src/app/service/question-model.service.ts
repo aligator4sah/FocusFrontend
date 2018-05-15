@@ -63,8 +63,8 @@ export class QuestionModelService {
       );
   }
 
-  getQuesByDomain(domain: string): Observable<Questionnare[]> {
-    return this.http.get<Questionnare[]>(API_URL + '/questionnaire/${domain}')
+  getQuesByDomain(domId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/questionnaire/domain/' + domId)
       .pipe(
         catchError(this.handleError('getQuesByDomain', []))
       );

@@ -21,6 +21,7 @@ export class DemographicComponent implements OnInit {
   answer: string;
   isSubmitted: any;
   payLoad = '';
+  isUpload : boolean = false;
 
   constructor(
     private queService: QuestionModelService,
@@ -54,14 +55,14 @@ export class DemographicComponent implements OnInit {
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-    console.log(this.answers);
+    // console.log(this.answers);
     //console.log(this.answerArray);
     this.queService.addUserDemo(this.answers).subscribe(value => {
         this.isSubmitted = value;
       }
-    )
+    );
 
-    console.log(this.isSubmitted);
+    this.isUpload = true;
   }
 
 }
