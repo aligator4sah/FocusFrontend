@@ -143,14 +143,23 @@ export class Subdomain {
 }
 
 export class Answer {
-  qid: number;
+  questionid: number;
   answer: string;
+  domain: string;
+  weight: number;
+  point: number;
   constructor(options: {
-    qid?: number,
+    questionid?: number,
     answer?: string,
+    domain?: string,
+    weight?: number,
+    point?: number,
   } = {}) {
-    this.qid = options.qid;
-    this.answer = options.answer;
+    this.questionid = options.questionid;
+    this.answer = options.answer || "";
+    this.domain = options.domain;
+    this.weight = options.weight;
+    this.point = options.point || 1;
   }
 }
 
@@ -169,6 +178,7 @@ export class Session {
   } = {}) {
     this.id = options.id;
     this.userid = options.userid;
+    this.answer = options.answer;
     this.createdate = options.createdate || '';
     this.updatedate = options.updatedate || '';
   }

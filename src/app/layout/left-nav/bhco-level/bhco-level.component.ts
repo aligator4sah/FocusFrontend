@@ -11,16 +11,19 @@ import {QuestionModelService} from "../../../service/question-model.service";
 export class BhcoLevelComponent implements OnInit {
   domains: Domain[] = [];
   questions: any[];
+  existMem : boolean = false;
 
   constructor(
     private service: QuestionService,
     private queService: QuestionModelService
   ) {
-
   }
 
   ngOnInit() {
     this.getDomains();
+    if (localStorage.getItem('curMem') != null) {
+      this.existMem = true;
+    }
   }
 
   getDomains() {
