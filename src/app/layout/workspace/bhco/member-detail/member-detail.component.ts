@@ -1,8 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { Location } from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import { UserService} from "../../../../service/user.service";
 import {Member} from "../../../../model/User";
+import {Session} from "../../../../model/questionBase";
+import {QuestionModelService} from "../../../../service/question-model.service";
 
 @Component({
   selector: 'app-member-detail',
@@ -11,6 +13,9 @@ import {Member} from "../../../../model/User";
 })
 export class MemberDetailComponent implements OnInit {
   @Input() member: Member;
+
+  curDate: any;
+  curSession: any;
 
   // Doughnut
   public doughnutChartLabels:string[] = ['Finished', 'Unfinished'];
@@ -38,8 +43,10 @@ export class MemberDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private memService: UserService,
+    private queService: QuestionModelService,
     private location: Location,
     private router: Router,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit() {
@@ -60,13 +67,29 @@ export class MemberDetailComponent implements OnInit {
     this.location.back();
  }
 
+ getCurDate() {
+    let date = Date.now();
+    return this.datePipe.transform(date, "yyyy-MM-dd HH:mm a z':'+0900")
+ }
+
  startDemo() {
     this.router.navigateByUrl('/BhcoDashboard/demographic')
  }
 
  startQues() {
-    this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    this.curDate = this.getCurDate();
+    const session = new Session({
+      userid: this.member.id,
+      createdate: this.curDate
+    });
+    this.queService.addSession(session).subscribe(value => {
+      this.curSession = value;
+      // console.log(this.curSession);
+      localStorage.setItem('curSession', JSON.stringify(this.curSession));
+      this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    });
  }
+
 
  startSocial() {
     this.router.navigateByUrl('/BhcoDashboard/socialNetwork');

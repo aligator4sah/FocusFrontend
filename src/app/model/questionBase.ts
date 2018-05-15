@@ -178,7 +178,7 @@ export class Session {
   } = {}) {
     this.id = options.id;
     this.userid = options.userid;
-    this.answer = options.answer;
+    this.answer = options.answer || [];
     this.createdate = options.createdate || '';
     this.updatedate = options.updatedate || '';
   }

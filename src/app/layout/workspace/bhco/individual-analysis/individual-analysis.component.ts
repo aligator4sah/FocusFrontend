@@ -1,11 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionModelService} from "../../../../service/question-model.service";
 
 @Component({
   selector: 'app-individual-analysis',
   templateUrl: './individual-analysis.component.html',
   styleUrls: ['./individual-analysis.component.css']
 })
-export class IndividualAnalysisComponent {
+export class IndividualAnalysisComponent implements OnInit{
+
+
+  curSession = JSON.parse(localStorage.getItem('curSession')).id;
+  scoreInfo: any;
+
+  constructor(private queService: QuestionModelService) {}
+
+  ngOnInit() {
+    this.queService.getScore(this.curSession).subscribe(value => {
+      this.scoreInfo = value;
+      console.log(this.scoreInfo);
+    });
+  }
 
   public barChartOptions:any = {
   scaleShowVerticalLines: false,

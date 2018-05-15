@@ -85,6 +85,13 @@ export class QuestionModelService {
     );
   }
 
+  getScore(sessionId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/session/score/' + sessionId)
+      .pipe(
+        catchError(this.handleError('getScore', []))
+      );
+  }
+
   /** POST: add a new demographic question to the database*/
   addDemoQues(ques: DemoQuestion): Observable<DemoQuestion> {
     return this.http.post<DemoQuestion>(API_URL + '/demographic', ques, httpOptions)
@@ -115,10 +122,17 @@ export class QuestionModelService {
       );
   }
 
-  addUserAnswer(session: Session): Observable<any> {
-    return this.http.post<any>(API_URL + '/session', session, httpOptions)
+  addUserAnswer(session: Session, sessionId: number): Observable<any> {
+    return this.http.patch<any>(API_URL + '/session/addSession/' + sessionId, session, httpOptions)
       .pipe(
         catchError(this.handleError('addUserAnswer', session))
+      );
+  }
+
+  addSession(session: Session): Observable<any> {
+    return this.http.post<any>(API_URL + '/session', session, httpOptions)
+      .pipe(
+        catchError(this.handleError('createSession', session))
       );
   }
 

@@ -14,6 +14,7 @@ export class PhysicalDomainComponent implements OnInit {
   @Input() domain: Domain;
 
   member = JSON.parse(localStorage.getItem('curMem'));
+  sessionId = JSON.parse(localStorage.getItem('curSession')).id;
   curDom: string;
   questions: any;
   subdomainList: any[];
@@ -23,8 +24,6 @@ export class PhysicalDomainComponent implements OnInit {
   isLinear: true;
   payLoad = '';
 
-  sessionDate = null;
-  curDate = Date.now();
   returnValue: any;
   isSubmitted : boolean = false;
 
@@ -32,7 +31,6 @@ export class PhysicalDomainComponent implements OnInit {
     private route: ActivatedRoute,
     private queService: QuestionModelService,
     private fb: FormBuilder,
-    private datePipe: DatePipe
     ) {}
 
   ngOnInit() {
@@ -92,7 +90,6 @@ export class PhysicalDomainComponent implements OnInit {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
     console.log(this.answers);
-    this.sessionDate = this.datePipe.transform(this.curDate, "yyyy-MM-dd HH:mm a z':'+0900");
     // convert the answer array to the right array format
     this.answers.forEach(ans => {
       const ansSession = new SessionAns({
@@ -104,13 +101,13 @@ export class PhysicalDomainComponent implements OnInit {
       this.finalAns.push(ansSession);
     });
     const session = new Session({
+      id: this.sessionId,
       userid: this.member.id,
       answer: this.finalAns,
-      createdate: this.sessionDate,
     });
     console.log(session);
     //post the value to the back end
-    this.queService.addUserAnswer(session).subscribe(value => this.returnValue = value);
+    this.queService.addUserAnswer(session, this.sessionId).subscribe(value => this.returnValue = value);
     this.isSubmitted = true;
   }
 }

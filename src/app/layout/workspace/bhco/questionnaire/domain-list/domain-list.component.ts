@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {QuestionModelService} from "../../../../../service/question-model.service";
-import {Domain} from "../../../../../model/questionBase";
+import {Domain, Session} from "../../../../../model/questionBase";
 import {Router} from "@angular/router";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -14,13 +15,16 @@ export class DomainListComponent implements OnInit {
   member = JSON.parse(localStorage.getItem('curMem'));
   domains: Domain[];
 
+  sessionInfo = localStorage.getItem('curSession');
+
   constructor(
     private domService: QuestionModelService,
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getDomains();
+     console.log(this.sessionInfo);
   }
 
   getDomains() {
