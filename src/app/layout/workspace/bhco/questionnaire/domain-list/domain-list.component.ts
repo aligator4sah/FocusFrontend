@@ -34,7 +34,7 @@ export class DomainListComponent implements OnInit {
   }
 
   back() {
-    this.router.navigateByUrl('/member-detail');
+    this.router.navigateByUrl('/BhcoDashboard/detail/'+this.member.id);
   }
 
 

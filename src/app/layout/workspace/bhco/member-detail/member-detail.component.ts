@@ -51,6 +51,7 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getMemberId();
+    localStorage.removeItem('curSession');
   }
 
   getMemberId(): void {

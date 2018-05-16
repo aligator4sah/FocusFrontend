@@ -34,8 +34,8 @@
             </div>
           </div>
           <div class="col-sm-12">
-            <button type="submit" matStepperNext mat-raised-button color="primary">Next</button>
-            <button  matStepperPrevious mat-raised-button color="accent"> Reset </button>
+            <button  matStepperNext mat-raised-button color="primary">Next</button>
+            <button  matStepperPrevious mat-raised-button color="accent"> Previous </button>
           </div>
           </form>
         </mat-step>
@@ -45,18 +45,16 @@
           <div class="col-sm-12">
             <p class="confirm">Congratulations, you have finished all the questions in this domain.</p>
             <div *ngIf="isSubmitted" class="col-sm-12">
-              <p class="confirm">A new session has been created on <strong class="time">{{ sessionDate }}</strong></p>
+              <p class="confirm">Your answers have been submitted.</p>
             </div>
             <br>
             <div class="col-sm-12">
               <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
-              <button mat-raised-button color="accent"> Reset </button>
+              <button mat-raised-button color="accent" (click)="backList()"> Continue </button>
             </div>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
-
-
     </mat-card-content>
   </mat-card>
 </div>

@@ -38,9 +38,7 @@ export class AssignTableComponent implements OnInit {
 
   ngOnInit() {
     //this.getMember();
-    if (localStorage.getItem('curMember') != null) {
-      localStorage.removeItem('curMember');
-    }
+    localStorage.removeItem('curMem');
     if (this.curRole.role === "State Administrator") {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
     } else if (this.curRole.role === 'System Administrator') {

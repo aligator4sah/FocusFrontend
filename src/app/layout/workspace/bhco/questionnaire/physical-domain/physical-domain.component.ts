@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Answer, Domain, Session} from '../../../../../model/questionBase';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {QuestionModelService} from "../../../../../service/question-model.service";
 import {DatePipe} from "@angular/common";
 
@@ -31,6 +31,7 @@ export class PhysicalDomainComponent implements OnInit {
     private route: ActivatedRoute,
     private queService: QuestionModelService,
     private fb: FormBuilder,
+    private router: Router,
     ) {}
 
   ngOnInit() {
@@ -110,7 +111,13 @@ export class PhysicalDomainComponent implements OnInit {
     this.queService.addUserAnswer(session, this.sessionId).subscribe(value => this.returnValue = value);
     this.isSubmitted = true;
   }
+
+   backList() {
+    this.router.navigateByUrl('/BhcoDashboard/domain-list')
+   }
 }
+
+
 
 // session answer class defined for calculate point
 export class SessionAns {

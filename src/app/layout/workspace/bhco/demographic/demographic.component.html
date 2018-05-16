@@ -29,7 +29,7 @@
           </div>
           <div class="col-sm-12">
             <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Submit</button>
-            <button mat-raised-button color="accent">Reset</button>
+            <button mat-raised-button color="accent" (click)="back()">Back</button>
           </div>
         </form>
         <br>

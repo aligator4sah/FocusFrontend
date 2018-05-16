@@ -25,3 +25,12 @@
 .com-member-detail-item {
   padding-left: 15px;
 }
+
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

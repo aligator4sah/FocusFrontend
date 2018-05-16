@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {QuestionModelService} from "../../../../service/question-model.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-individual-analysis',
@@ -8,46 +9,64 @@ import {QuestionModelService} from "../../../../service/question-model.service";
 })
 export class IndividualAnalysisComponent implements OnInit{
 
-
   curSession = JSON.parse(localStorage.getItem('curSession')).id;
   scoreInfo: any;
+  dataArray: number[] = [];
 
-  constructor(private queService: QuestionModelService) {}
+  /** bar chart definition*/
+  public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabels:string[] = [];
+  public barChartType:string = 'bar';
+  public barChartLegend:boolean = true;
+  public barChartData:any[] = [{data: this.dataArray, label: 'Individual'}];
+
+  /**radar chart definition */
+  public radarChartLabels:string[] = [];
+  public radarChartType:string = 'radar';
+  public radarChartData:any = [{data: this.dataArray, label: 'Individual'}];
+
+
+  /** chart style and color definition**/
+  public barChartColors:Array<any> = [
+    { // dark grey
+      backgroundColor: '#89C7B6',
+      borderColor: '#89C7B6',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+  ];
+
+  public radarChartColors:Array<any> = [
+    { // dark grey
+      backgroundColor: '#FFD57E',
+      borderColor: '#FFD57E',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+  ];
+
+
+  constructor(
+    private queService: QuestionModelService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.queService.getScore(this.curSession).subscribe(value => {
       this.scoreInfo = value;
+      console.log(this.curSession);
       console.log(this.scoreInfo);
       this.createGraph();
     });
   }
 
-  public barChartOptions:any = {
-  scaleShowVerticalLines: false,
-  responsive: true
-  };
-
-  //public barChartLabels:string[] = ['Physical', 'Behavioral', 'Relational', 'Spiritual', 'SOCIO-Economic', 'Overall'];
-  public barChartLabels:string[] = [];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
-
-  dataArray: number[] = [];
-
-  public barChartData:any[] = [{data: this.dataArray}];
-
-  // public barChartData:any[] = [
-  //   {data: [65, 59, 80, 81, 56, 55], label: 'Member A'},
-  //   {data: [28, 48, 40, 19, 86, 27], label: 'Community Average'}
-  // ];
-
-  public radarChartLabels:string[] = ['Physical', 'Behavioral', 'Relational', 'Spiritual', 'SOCIO-Economic', 'Overall'];
-
-  public radarChartData:any = [
-    {data: [65, 59, 90, 81, 56, 55], label: 'Member A'},
-    {data: [28, 48, 40, 19, 96, 27], label: 'Community Average'}
-  ];
-  public radarChartType:string = 'radar';
 
   // events
   public chartClicked(e:any):void {
@@ -79,8 +98,13 @@ export class IndividualAnalysisComponent implements OnInit{
   createGraph() {
     this.scoreInfo.forEach(score => {
       this.barChartLabels.push(score.domain);
+      this.radarChartLabels.push(score.domain);
       this.dataArray.push(score.score);
     });
+  }
+
+  backList() {
+    this.router.navigateByUrl('/BhcoDashboard/domain-list');
   }
 
 }

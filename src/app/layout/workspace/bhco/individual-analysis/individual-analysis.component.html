@@ -26,6 +26,7 @@
                     [labels]="barChartLabels"
                     [options]="barChartOptions"
                     [legend]="barChartLegend"
+                    [colors]="barChartColors"
                     [chartType]="barChartType"
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>
@@ -37,6 +38,7 @@
           <canvas baseChart
                   [datasets]="radarChartData"
                   [labels]="radarChartLabels"
+                  [colors]="radarChartColors"
                   [chartType]="radarChartType"
                   (chartHover)="chartHovered($event)"
                   (chartClick)="chartClicked($event)"></canvas>
@@ -44,7 +46,11 @@
         </div>
       </div>
       <br>
-      <button mat-raised-button color="primary" (click)="randomize()">Others</button>
+      <div class="col-sm-12">
+        <button mat-raised-button color="primary" (click)="randomize()">Others</button>
+        <button mat-raised-button color="accent" (click)="backList()">Back</button>
+      </div>
+
       <br><br>
 
       <!--<div class="bottom-table">-->

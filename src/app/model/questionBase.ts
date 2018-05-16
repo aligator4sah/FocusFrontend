@@ -159,7 +159,7 @@ export class Answer {
     this.answer = options.answer || "";
     this.domain = options.domain;
     this.weight = options.weight;
-    this.point = options.point || 1;
+    this.point = options.point || 0;
   }
 }
 

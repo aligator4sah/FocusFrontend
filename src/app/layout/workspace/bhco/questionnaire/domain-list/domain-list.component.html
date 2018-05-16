@@ -20,7 +20,16 @@
     <mat-card-content>
       <br>
       <mat-nav-list>
-        <a mat-list-item routerLink="/BhcoDashboard/questionnaire/{{dom.id}}" *ngFor="let dom of domains"> {{ dom.domain }} </a>
+        <a mat-list-item routerLink="/BhcoDashboard/questionnaire/{{dom.id}}" *ngFor="let dom of domains">
+          <span>{{ dom.domain + ' Domain'}} </span>
+          <span class="example-spacer"></span>
+          <mat-icon class="example-icon">create</mat-icon>
+        </a>
+        <a mat-list-item routerLink="/BhcoDashboard/individual-analysis">
+          <span>Summary Visualization</span>
+          <span class="example-spacer"></span>
+          <mat-icon class="example-icon">assessment</mat-icon>
+        </a>
       </mat-nav-list>
       <br>
       <button mat-raised-button color="accent" (click)="back()">Back</button>

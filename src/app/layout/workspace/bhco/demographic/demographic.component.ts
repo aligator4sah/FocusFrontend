@@ -4,6 +4,7 @@ import {DemoQuestion, QuestionBase} from '../../../../model/questionBase';
 import {QuestionControlService} from '../../../../shared/shared-control/question-control.service';
 import {QuestionService} from '../../../../shared/shared-control/question.service';
 import {QuestionModelService} from "../../../../service/question-model.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-demographic',
@@ -25,7 +26,8 @@ export class DemographicComponent implements OnInit {
 
   constructor(
     private queService: QuestionModelService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {}
 
 
@@ -65,6 +67,9 @@ export class DemographicComponent implements OnInit {
     this.isUpload = true;
   }
 
+  back() {
+   this.router.navigateByUrl('/BhcoDashboard/detail/'+this.curMember.id);
+  }
 }
 
 
