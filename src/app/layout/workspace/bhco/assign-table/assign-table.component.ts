@@ -103,4 +103,8 @@ export class AssignTableComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  reload() {
+
+  }
+
 }

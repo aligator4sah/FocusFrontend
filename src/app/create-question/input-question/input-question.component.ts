@@ -14,6 +14,7 @@ import {Router} from "@angular/router";
 export class InputQuestionComponent implements OnInit {
   public createQuesForm: FormGroup;
   public ansGroup: FormGroup;
+  isLinear: boolean=false;
 
   options: Options[] = [];
 
@@ -77,7 +78,7 @@ export class InputQuestionComponent implements OnInit {
   buildForm(): void {
     this.createQuesForm = this.fb.group({
       desp: ['', [Validators.required]],
-      hint:['',[Validators.required,Validators.minLength(4)]],
+      hint:[''],
       ord:['',[Validators.required,Validators.minLength(1)]],
       types:['',[Validators.required,Validators.minLength(4)]],
       cat:['',[Validators.required,Validators.minLength(4)]],
@@ -118,7 +119,7 @@ export class InputQuestionComponent implements OnInit {
   getType(value: string) {
     if (value) {
       this.typePara = value;
-      if (this.typePara === "Text Input Question") {
+      if (this.typePara === "textBox") {
         this.needAns = true;
         this.ansNumPara = 0;
       }

@@ -62,6 +62,27 @@
             </a>
           </mat-expansion-panel>
 
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title> <a routerLink="question-table" routerLinkActive="active">
+                <mat-icon class="main-icon">build</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Management</h4> </span> </a>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a routerLink="input-question" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <mat-icon>note_add</mat-icon>
+                <span> Questions</span>
+              </button>
+            </a>
+            <a routerLink="domain-list" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <mat-icon>note_add</mat-icon>
+                <span>Domains</span>
+              </button>
+            </a>
+          </mat-expansion-panel>
+
 
           <mat-expansion-panel class="panel-format">
             <mat-expansion-panel-header>

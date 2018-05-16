@@ -1,9 +1,11 @@
-<div class="container">
-  <mat-card class="input-part">
-    <mat-card-header><h3>Domain and Subdomain List</h3></mat-card-header>
-    <mat-divider></mat-divider>
-    <br><br>
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Question Management</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Domain and Subdomain List</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
+      <!-- Domain List-->
       <mat-accordion class="example-headers-align">
         <div *ngIf="domains">
           <div *ngFor="let dom of domains">
@@ -23,7 +25,7 @@
                   <mat-list-item>
                     <span>{{ sub.subdomain }}</span>
                     <span class="example-spacer"></span>
-                    <a routerLink="/createQuestion/questionList"><mat-icon class="example-icon" (click)="getSubdomId(sub)">insert_drive_file</mat-icon></a>
+                    <a routerLink="/SysDashboard/question-list"><mat-icon class="example-icon" (click)="getSubdomId(sub)">insert_drive_file</mat-icon></a>
                     <mat-icon class="example-icon">delete</mat-icon>
                   </mat-list-item>
                 </mat-list>
@@ -52,19 +54,21 @@
         </div>
       </mat-accordion>
     </mat-card-content>
+
     <mat-card-footer>
       <br>
       <div class="createDomain">
-      <button mat-raised-button color="accent" (click)="needNew()">Create New Domain</button>
+        <button mat-raised-button color="accent" (click)="needNew()">Create New Domain</button>
         <button mat-raised-button color="primary" (click)="goback()">Back</button>
-      <br><br>
-      <div *ngIf="newDomain" class="full-width">
-        <form [formGroup]="domGroup">
-          <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
-          <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
-        </form>
-      </div>
+        <br><br>
+        <div *ngIf="newDomain" class="full-width">
+          <form [formGroup]="domGroup">
+            <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
+            <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+          </form>
+        </div>
       </div>
     </mat-card-footer>
   </mat-card>
 </div>
+

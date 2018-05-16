@@ -1,13 +1,13 @@
-<div class="container">
-  <mat-card class="input-part">
-    <mat-card-header><h3>Question Table</h3></mat-card-header>
-    <mat-divider></mat-divider>
-    <br><br>
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Question Management</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Question Table</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <mat-tab-group>
         <!--Demographic question list -->
         <mat-tab label="Demographic">
-
           <div class="example-header">
             <mat-form-field>
               <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -40,11 +40,11 @@
                 <ng-container matColumnDef="options">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Options</mat-header-cell>
                   <mat-cell *matCellDef="let row">
-                      <mat-list>
-                        <mat-list-item *ngFor="let opt of row.options">
-                          {{ opt.value }}
-                        </mat-list-item>
-                      </mat-list>
+                    <mat-list>
+                      <mat-list-item *ngFor="let opt of row.options">
+                        {{ opt.value }}
+                      </mat-list-item>
+                    </mat-list>
                   </mat-cell>
                 </ng-container>
 

@@ -1,9 +1,11 @@
-<div class="container">
-  <mat-card class="input-part">
-    <mat-card-header><h3>{{subdomName}} Question List</h3></mat-card-header>
-    <mat-divider></mat-divider>
-    <br><br>
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Question Management</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>{{subdomName}} Question List</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
+      <!-- question list belong to specific subdomain-->
       <mat-accordion class="example-headers-align">
         <div *ngIf="questions">
           <div *ngFor="let ques of questions">
@@ -17,11 +19,11 @@
                   <mat-icon>delete</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-                <mat-list>
-                  <mat-list-item *ngFor="let opt of ques.options">
-                    <p matLine>Answer Options: &nbsp; <span>{{ opt.value }}</span></p>
-                  </mat-list-item>
-                </mat-list>
+              <mat-list>
+                <mat-list-item *ngFor="let opt of ques.options">
+                  <p matLine>Answer Options: &nbsp; <span>{{ opt.value }}</span></p>
+                </mat-list-item>
+              </mat-list>
               <mat-action-row>
                 <button mat-button color="primary">Next</button>
               </mat-action-row>
@@ -29,13 +31,14 @@
           </div>
         </div>
       </mat-accordion>
-
     </mat-card-content>
+
     <mat-card-footer>
       <div class="createDomain">
         <button mat-raised-button color="accent" (click)="goback()">Back</button>
       </div>
       <br>
     </mat-card-footer>
+
   </mat-card>
 </div>

@@ -11,7 +11,7 @@ import {QuestionModelService} from "../../../service/question-model.service";
 export class BhcoLevelComponent implements OnInit {
   domains: Domain[] = [];
   questions: any[];
-  existMem : boolean = false;
+  existMem : boolean = true;
 
   constructor(
     private service: QuestionService,

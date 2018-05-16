@@ -19,7 +19,6 @@ export class DomainListComponent implements OnInit {
 
   constructor(
     private domService: QuestionModelService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -34,7 +33,7 @@ export class DomainListComponent implements OnInit {
   }
 
   back() {
-    this.router.navigateByUrl('/BhcoDashboard/detail/'+this.member.id);
+    window.history.back();
   }
 
 
