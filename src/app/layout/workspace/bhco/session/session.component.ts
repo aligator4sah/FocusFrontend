@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {Question} from "../../../../model/questionBase";
+import {QuestionModelService} from "../../../../service/question-model.service";
 
 @Component({
   selector: 'app-session',
@@ -7,16 +9,42 @@ import {Router} from '@angular/router';
   styleUrls: ['./session.component.css']
 })
 export class SessionComponent implements OnInit {
-  public sessions = SESSION_DATA;
+  //public sessions = SESSION_DATA;
+  sessions: any[];
+  member = JSON.parse(localStorage.getItem('curMem'));
 
-  constructor(public router: Router) { }
+  constructor(
+    private queService: QuestionModelService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    localStorage.removeItem('curSession');
+    this.getSessions();
   }
 
-  newSession() {
-    this.router.navigateByUrl("/BhcoDashboard/questionnaire")
+  back() {
+    window.history.back();
   }
+
+  getSessions() {
+    this.queService.getSessionByUserId(this.member.id)
+      .subscribe(value => this.sessions = value);
+  }
+
+  // TODO: subscibe the session list to the updated list after deletion
+  deleteSession(sessionId: number) {
+    this.queService.deleteSessionById(sessionId)
+      .subscribe(value => this.sessions = value);
+  }
+
+  startSession(session: any) {
+    localStorage.setItem('curSession', JSON.stringify(session));
+    this.router.navigateByUrl('/BhcoDashboard/domain-list');
+  }
+
+
+  // TODO: get the number of finished questions for each session
 
 }
 

@@ -13,7 +13,7 @@ const httpOptions = {
       'Authorization': 'my-auth-token'
     }
   )
-}
+};
 
 @Injectable()
 export class QuestionModelService {
@@ -67,6 +67,15 @@ export class QuestionModelService {
     return this.http.get<any>(API_URL + '/questionnaire/domain/' + domId)
       .pipe(
         catchError(this.handleError('getQuesByDomain', []))
+      );
+  }
+
+
+  /**GET: all sessions by user id **/
+  getSessionByUserId(userId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/session/user/' + userId)
+      .pipe(
+        catchError(this.handleError('getSessionByUserId', []))
       );
   }
 
@@ -145,7 +154,6 @@ export class QuestionModelService {
       );
   }
 
-
   /**PUT: update question des or ans on the server*/
   updateQues(id: number): Observable<{}> {
     httpOptions.headers = httpOptions.headers.set(
@@ -155,6 +163,14 @@ export class QuestionModelService {
     return this.http.put<any>(API_URL + '/demographic/${id}', id, httpOptions)
       .pipe(
         catchError(this.handleError('updateQuestions', id))
+      );
+  }
+
+
+  deleteSessionById(sessionId: number): Observable<any> {
+    return this.http.delete(API_URL + '/session/' + sessionId, httpOptions)
+      .pipe(
+        catchError(this.handleError<any>('deleteHero'))
       );
   }
 

@@ -16,8 +16,7 @@ export class BhcoLevelComponent implements OnInit {
   constructor(
     private service: QuestionService,
     private queService: QuestionModelService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.getDomains();

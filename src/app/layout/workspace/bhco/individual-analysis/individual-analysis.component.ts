@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 })
 export class IndividualAnalysisComponent implements OnInit{
 
+  member = JSON.parse(localStorage.getItem('curMem'));
   curSession = JSON.parse(localStorage.getItem('curSession')).id;
   scoreInfo: any;
   dataArray: number[] = [];
