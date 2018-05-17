@@ -27,6 +27,7 @@ import { HttpService } from './service/http.service';
 import { QuestionModelService } from './service/question-model.service';
 import { LocationService } from './service/location.service';
 import {ChartsModule} from "ng2-charts/ng2-charts";
+import {StateService} from "./service/state.service";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {ChartsModule} from "ng2-charts/ng2-charts";
     HttpErrorHandler,
     HttpService,
     QuestionModelService,
-    LocationService
+    LocationService,
+    StateService
   ],
   bootstrap: [AppComponent]
 })

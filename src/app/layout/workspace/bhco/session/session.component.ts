@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Question} from "../../../../model/questionBase";
 import {QuestionModelService} from "../../../../service/question-model.service";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-session',
@@ -16,15 +17,13 @@ export class SessionComponent implements OnInit {
   constructor(
     private queService: QuestionModelService,
     private router: Router,
+    private stateService: StateService,
   ) { }
 
   ngOnInit() {
+    this.stateService.existMember$.next(true);
     localStorage.removeItem('curSession');
     this.getSessions();
-  }
-
-  back() {
-    window.history.back();
   }
 
   getSessions() {
@@ -42,6 +41,11 @@ export class SessionComponent implements OnInit {
     localStorage.setItem('curSession', JSON.stringify(session));
     this.router.navigateByUrl('/BhcoDashboard/domain-list');
   }
+
+  back() {
+    this.router.navigateByUrl('/BhcoDashboard/detail/' + this.member.id);
+  }
+
 
 
   // TODO: get the number of finished questions for each session

@@ -101,6 +101,14 @@ export class QuestionModelService {
       );
   }
 
+  /**POST: get answers by session and domain **/
+  getAnswerBySessionDomain(body: any): Observable<any> {
+    return this.http.post(API_URL + '/answer', body, httpOptions)
+      .pipe(
+        catchError(this.handleError('getAnswerBySessionAndDomain'))
+      );
+  }
+
   /** POST: add a new demographic question to the database*/
   addDemoQues(ques: DemoQuestion): Observable<DemoQuestion> {
     return this.http.post<DemoQuestion>(API_URL + '/demographic', ques, httpOptions)

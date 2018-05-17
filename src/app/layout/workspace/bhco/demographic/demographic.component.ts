@@ -5,6 +5,7 @@ import {QuestionControlService} from '../../../../shared/shared-control/question
 import {QuestionService} from '../../../../shared/shared-control/question.service';
 import {QuestionModelService} from "../../../../service/question-model.service";
 import {Router} from "@angular/router";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-demographic',
@@ -28,11 +29,13 @@ export class DemographicComponent implements OnInit {
     private queService: QuestionModelService,
     private fb: FormBuilder,
     private router: Router,
+    private stateService: StateService,
   ) {}
 
 
   ngOnInit() {
       this.getDemoQuestions();
+      this.stateService.existMember$.next(true);
       this.form = this.fb.group({});
   }
 

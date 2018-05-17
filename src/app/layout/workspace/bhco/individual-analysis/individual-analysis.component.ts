@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {QuestionModelService} from "../../../../service/question-model.service";
 import {Router} from "@angular/router";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-individual-analysis',
@@ -57,9 +58,11 @@ export class IndividualAnalysisComponent implements OnInit{
   constructor(
     private queService: QuestionModelService,
     private router: Router,
+    private stateService: StateService,
   ) {}
 
   ngOnInit() {
+    this.stateService.existMember$.next(true);
     this.queService.getScore(this.curSession).subscribe(value => {
       this.scoreInfo = value;
       console.log(this.curSession);
@@ -67,7 +70,6 @@ export class IndividualAnalysisComponent implements OnInit{
       this.createGraph();
     });
   }
-
 
   // events
   public chartClicked(e:any):void {

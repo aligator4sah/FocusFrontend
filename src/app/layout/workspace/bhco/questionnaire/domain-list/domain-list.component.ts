@@ -3,6 +3,7 @@ import {QuestionModelService} from "../../../../../service/question-model.servic
 import {Domain, Session} from "../../../../../model/questionBase";
 import {Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
+import {StateService} from "../../../../../service/state.service";
 
 
 @Component({
@@ -19,9 +20,12 @@ export class DomainListComponent implements OnInit {
 
   constructor(
     private domService: QuestionModelService,
+    private stateService: StateService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.stateService.existMember$.next(true);
     this.getDomains();
      console.log(this.sessionInfo);
   }
@@ -33,7 +37,7 @@ export class DomainListComponent implements OnInit {
   }
 
   back() {
-    window.history.back();
+    this.router.navigateByUrl('/BhcoDashboard/session')
   }
 
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QuestionService} from '../../../shared/shared-control/question.service';
 import {Domain} from "../../../model/questionBase";
 import {QuestionModelService} from "../../../service/question-model.service";
+import {StateService} from "../../../service/state.service";
 
 @Component({
   selector: 'app-bhco-level',
@@ -9,21 +10,22 @@ import {QuestionModelService} from "../../../service/question-model.service";
   styleUrls: ['./bhco-level.component.css']
 })
 export class BhcoLevelComponent implements OnInit {
+
   domains: Domain[] = [];
   questions: any[];
-  existMem : boolean = true;
 
   constructor(
     private service: QuestionService,
-    private queService: QuestionModelService
+    private queService: QuestionModelService,
+    public stateService:StateService
   ) {}
 
   ngOnInit() {
     this.getDomains();
-    if (localStorage.getItem('curMem') != null) {
-      this.existMem = true;
-    }
+
   }
+
+
 
   getDomains() {
     this.queService.getDomain().subscribe(value => {

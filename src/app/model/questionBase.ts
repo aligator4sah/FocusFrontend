@@ -39,9 +39,16 @@ export class Questionnare extends Question {
   }
 }
 
+export class SessionQue extends Questionnare {
+  answer: any;
+  constructor(options: {} = {}) {
+    super(options);
+    this.answer = options['answer'] || {};
+  }
+}
 
 export class QuestionBase<T> {
-  id: number
+  id: number;
   value: T;
   key: string;
   label: string;

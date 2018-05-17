@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from "@angular/router";
 import {QuestionModelService} from "../../../../../service/question-model.service";
 import {DatePipe} from "@angular/common";
+import {StateService} from "../../../../../service/state.service";
 
 @Component({
   selector: 'app-physical-domain',
@@ -32,9 +33,11 @@ export class PhysicalDomainComponent implements OnInit {
     private queService: QuestionModelService,
     private fb: FormBuilder,
     private router: Router,
+    private stateService: StateService
     ) {}
 
   ngOnInit() {
+    this.stateService.existMember$.next(true);
     this.form = this.fb.group({});
     this.getQuestionByDom();
   }

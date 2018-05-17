@@ -1,17 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DatePipe, Location} from '@angular/common';
 import { UserService} from "../../../../service/user.service";
 import {Member} from "../../../../model/User";
 import {Session} from "../../../../model/questionBase";
 import {QuestionModelService} from "../../../../service/question-model.service";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit, OnDestroy {
   @Input() member: Member;
 
   curDate: any;
@@ -47,12 +48,21 @@ export class MemberDetailComponent implements OnInit {
     private location: Location,
     private router: Router,
     private datePipe: DatePipe,
+    private stateService:StateService
   ) { }
 
   ngOnInit() {
     this.getMemberId();
     localStorage.removeItem('curSession');
+    this.stateService.existMember$.next(true)
   }
+
+
+
+  ngOnDestroy(): void {
+    this.stateService.existMember$.next(false)
+  }
+
 
   getMemberId(): void {
     const id = +this.route.snapshot.paramMap.get('id');
