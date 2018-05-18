@@ -25,7 +25,7 @@ export class SysLoginComponent implements OnInit {
   userAdminPara:string;
 
 
-  // TODO: get administrator token from server
+  // TODO: get administrator token plus location info from server once log in
   public sysAdmin = new CurrentUser({
     id: 1,
     name: this.userNamePara,
@@ -35,7 +35,8 @@ export class SysLoginComponent implements OnInit {
     id: 1,
     name: this.userNamePara,
     role: "State Administrator",
-    location: 2,
+    location: 1,
+    locName: 'Pennsylvania'
   });
   public comAdmin = new CurrentUser({
     id: 1,

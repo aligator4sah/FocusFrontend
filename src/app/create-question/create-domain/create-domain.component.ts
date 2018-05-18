@@ -5,6 +5,7 @@ import {QuestionModelService} from "../../service/question-model.service";
 import {InputAttributes} from "../../shared/shared-control/attributes";
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {Route, Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-create-domain',
@@ -25,6 +26,7 @@ export class CreateDomainComponent implements OnInit {
 
   domainPara: string;
   subdomainPara: string;
+  deleteInfo: any;
 
   inputDomain: InputAttributes = {name: 'domain', type:'text', placeholder:'Please Input Domain Name', min: 3, max: 20};
   inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 32, placeholder:'Please Input Subdomain name', type: 'text'};
@@ -112,9 +114,22 @@ export class CreateDomainComponent implements OnInit {
     localStorage.setItem('curSub', JSON.stringify(subId));
   }
 
+  deleteSubDom(sub: any) {
+    //this.heroes = this.heroes.filter(h => h !== hero);
+    this.subdomains =  this.subdomains.filter(dom => dom != sub);
+    this.domService.deleteSubdomainById(sub.id).subscribe(
+      value => {
+        this.deleteInfo = value;
+        console.log(this.deleteInfo);
+      }
+    );
+  }
+
+
   goback() {
     window.history.back();
   }
+
 
   /** parameter used for later*/
   step = 0;

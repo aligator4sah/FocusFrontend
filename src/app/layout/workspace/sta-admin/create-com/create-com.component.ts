@@ -18,6 +18,7 @@ import {LocationService} from "../../../../service/location.service";
 export class CreateComComponent implements OnInit {
 
   // get data from server
+  defaultSta = JSON.parse(localStorage.getItem('curUser')).locName;
   counties: County[];
   cities: City[];
   communities: Community[];
@@ -40,7 +41,7 @@ export class CreateComComponent implements OnInit {
   //validator para
 
   /**TODO: get the state name by location id with state admin */
-  public defaultState: defaultAttributes = {name:'dState',value:'Pennsylvania',type:'text',placeholder:'state'};
+  public defaultState: defaultAttributes = {name:'dState',value:this.defaultSta,type:'text',placeholder:'state'};
   //public selectStates : SelectAttributes = {name:'state',roles:this.states,placeholder:'state'};
   public selectCounty: SelectAttributes = {name:'county',roles:this.countyRole,placeholder:'county'};
   public selectCity: SelectAttributes = {name:'city',roles:this.cityRole,placeholder:'city'};
@@ -96,6 +97,8 @@ export class CreateComComponent implements OnInit {
     this.getCounties();
     this.getComAdmin();
   }
+
+
 
   // TODO: change the method to get community admin by state
   getComAdmin(): void {

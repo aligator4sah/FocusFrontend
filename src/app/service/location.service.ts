@@ -68,6 +68,13 @@ export class LocationService {
       );
   }
 
+  getStateById(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL+ '/state/' + stateId)
+      .pipe(
+        catchError(this.handleError("getStateById", []))
+      );
+  }
+
   // TODO: get state, county, city from current community id
 
   /**For temporarily insert test use, delete later*/

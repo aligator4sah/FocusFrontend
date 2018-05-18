@@ -111,16 +111,19 @@ export class CurrentUser {
   name: string;
   role: string;
   location: any;
+  locName: string
   constructor(options: {
     id?: number;
     name?: string;
     role?: string;
     location?: any;
+    locName?: string,
   } = {}) {
     this.id = options.id;
     this.name = options.name || '';
     this.role = options.role;
     this.location = options.location || [];
+    this.locName = options.locName || "";
   }
 
   setName(userName: string): void {

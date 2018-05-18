@@ -25,8 +25,14 @@
                   <mat-list-item>
                     <span>{{ sub.subdomain }}</span>
                     <span class="example-spacer"></span>
-                    <a routerLink="/SysDashboard/question-list"><mat-icon class="example-icon" (click)="getSubdomId(sub)">insert_drive_file</mat-icon></a>
-                    <mat-icon class="example-icon">delete</mat-icon>
+                    <span matTooltip="check questions">
+                      <a routerLink="/SysDashboard/question-list"><mat-icon class="example-icon" (click)="getSubdomId(sub)">insert_drive_file</mat-icon></a>
+                    </span>
+                    <button mat-icon-button (click)="deleteSubDom(sub)">
+                      <span matTooltip="click to delete subdomain">
+                        <mat-icon class="example-icon">delete</mat-icon>
+                      </span>
+                    </button>
                   </mat-list-item>
                 </mat-list>
                 <div *ngIf="newSub" class="full-width">

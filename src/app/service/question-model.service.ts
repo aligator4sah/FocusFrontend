@@ -174,6 +174,13 @@ export class QuestionModelService {
       );
   }
 
+  deleteSubdomainById(subdomId: number): Observable<any> {
+    return this.http.delete<any>(API_URL+ '/subDomain/isolate/' + subdomId)
+      .pipe(
+        catchError(this.handleError('deleteSubdomainById'))
+      );
+  }
+
 
   deleteSessionById(sessionId: number): Observable<any> {
     return this.http.delete(API_URL + '/session/' + sessionId, httpOptions)

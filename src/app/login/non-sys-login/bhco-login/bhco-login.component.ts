@@ -21,7 +21,7 @@ export class BhcoLoginComponent implements OnInit {
 
   // TODO: get the bhco token from server
   public curBhco = new CurrentUser({
-    id: 2,
+    id: 1,
     name: this.userNamePara,
     role: "bhco",
     location: 1
