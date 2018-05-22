@@ -35,3 +35,10 @@
 .time {
   color: #673ab7;
 }
+
+
+.example-margin {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

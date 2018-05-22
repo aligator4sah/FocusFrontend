@@ -7,7 +7,6 @@
 <div class="example-container mat-elevation-z8">
 
   <mat-table [dataSource]="dataSource" matSort>
-
     <!-- ID Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Question ID </mat-header-cell>
@@ -21,9 +20,9 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="description" class="desp-col">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Question </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.des}} </mat-cell>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> Question </mat-header-cell>
+      <mat-cell *matCellDef="let row" fxFlex="100px"> {{row.des}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="date">
@@ -43,4 +42,5 @@
   </mat-table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <button mat-raised-button color="primary" (click)="download()">Download</button>
 </div>

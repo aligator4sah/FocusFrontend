@@ -10,62 +10,74 @@
     </mat-card-header>
   </mat-card>
   <br>
-  <mat-card class="system-card">
-    <mat-card-header >
-      <div class="col-sm-12">
-        <mat-card-title>Individual Charts</mat-card-title>
-      </div>
-    </mat-card-header>
-    <mat-divider> </mat-divider>
-    <mat-card-content>
-      <div class="chart-area">
-        <div class="left-bar-chart">
-          <div style="display: block">
-            <canvas baseChart
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [colors]="barChartColors"
-                    [chartType]="barChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-          </div>
-        </div>
-        <!--<div class="right-radar-chart">-->
-          <!--<br><br>-->
-        <!--<div style="display: block; height: 100%; vertical-align: center">-->
-          <!--<canvas baseChart-->
-                  <!--[datasets]="radarChartData"-->
-                  <!--[labels]="radarChartLabels"-->
-                  <!--[colors]="radarChartColors"-->
-                  <!--[chartType]="radarChartType"-->
-                  <!--(chartHover)="chartHovered($event)"-->
-                  <!--(chartClick)="chartClicked($event)"></canvas>-->
-        <!--</div>-->
-        <!--</div>-->
-      </div>
-      <br>
-      <div class="col-sm-12">
-        <button mat-raised-button color="primary" (click)="randomize()">Others</button>
-        <button mat-raised-button color="accent" (click)="backList()">Back</button>
-      </div>
-
-      <br><br>
-
-      <!--<div class="bottom-table">-->
-        <!--<div class="col-md-12">-->
-          <!--<table class="table table-responsive table-condensed col-sm-12">-->
-            <!--<tr>-->
-              <!--<th *ngFor="let label of barChartLabels" class="col-sm-2">{{label}}</th>-->
-            <!--</tr>-->
-            <!--<tr *ngFor="let d of barChartData">-->
-              <!--<td *ngFor="let label of barChartLabels; let j=index" class="col-sm-2" style="horiz-align: center">{{d && d.data[j]}}</td>-->
-            <!--</tr>-->
-          <!--</table>-->
-        <!--</div>-->
-      <!--</div>-->
-    </mat-card-content>
-
+  <mat-card *ngIf="notLoad; else block" class="system-card">
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
   </mat-card>
+
+  <ng-template #block>
+    <mat-card class="system-card">
+      <mat-card-header >
+        <div class="col-sm-12">
+          <mat-card-title>Individual Charts</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-divider> </mat-divider>
+      <mat-card-content>
+        <div class="chart-area">
+          <div class="left-bar-chart">
+            <div style="display: block">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [legend]="barChartLegend"
+                      [colors]="barChartColors"
+                      [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+          <!--<div class="right-radar-chart">-->
+          <!--<br><br>-->
+          <!--<div style="display: block; height: 100%; vertical-align: center">-->
+          <!--<canvas baseChart-->
+          <!--[datasets]="radarChartData"-->
+          <!--[labels]="radarChartLabels"-->
+          <!--[colors]="radarChartColors"-->
+          <!--[chartType]="radarChartType"-->
+          <!--(chartHover)="chartHovered($event)"-->
+          <!--(chartClick)="chartClicked($event)"></canvas>-->
+          <!--</div>-->
+          <!--</div>-->
+        </div>
+        <br>
+        <div class="col-sm-12">
+          <button mat-raised-button color="primary" (click)="randomize()">Others</button>
+          <button mat-raised-button color="accent" (click)="backList()">Back</button>
+        </div>
+
+        <br><br>
+
+        <!--<div class="bottom-table">-->
+        <!--<div class="col-md-12">-->
+        <!--<table class="table table-responsive table-condensed col-sm-12">-->
+        <!--<tr>-->
+        <!--<th *ngFor="let label of barChartLabels" class="col-sm-2">{{label}}</th>-->
+        <!--</tr>-->
+        <!--<tr *ngFor="let d of barChartData">-->
+        <!--<td *ngFor="let label of barChartLabels; let j=index" class="col-sm-2" style="horiz-align: center">{{d && d.data[j]}}</td>-->
+        <!--</tr>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</div>-->
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-template>
+
 </div>

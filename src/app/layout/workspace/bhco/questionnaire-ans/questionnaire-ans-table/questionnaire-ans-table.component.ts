@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {SelectionModel} from "@angular/cdk/collections";
+import {Angular2Csv} from "angular2-csv";
 
 @Component({
   selector: 'app-questionnaire-ans-table',
@@ -8,8 +10,10 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class QuestionnaireAnsTableComponent{
 
-  displayedColumns = ['id', 'name', 'description', 'answer', 'date'];
+  displayedColumns = ['id', 'description', 'answer', 'date'];
   dataSource: MatTableDataSource<QuestionData>;
+  selection = new SelectionModel<QuestionData>(true, []);
+  users: any[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -20,6 +24,7 @@ export class QuestionnaireAnsTableComponent{
     for (let i = 1; i <= 20; i++) { users.push(createNewUser(i)); }
 
     // Assign the data to the data source for the table to render
+    this.users = users;
     this.dataSource = new MatTableDataSource(users);
   }
 
@@ -36,6 +41,24 @@ export class QuestionnaireAnsTableComponent{
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  download() {
+    new Angular2Csv(this.users, 'User-Answer-Table');
   }
 }
 

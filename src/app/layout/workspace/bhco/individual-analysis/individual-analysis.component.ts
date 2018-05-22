@@ -12,6 +12,7 @@ export class IndividualAnalysisComponent implements OnInit{
 
   member = JSON.parse(localStorage.getItem('curMem'));
   curSession = JSON.parse(localStorage.getItem('curSession')).id;
+  notLoad: boolean = true;
   scoreInfo: any;
   dataArray: number[] = [];
 
@@ -70,6 +71,7 @@ export class IndividualAnalysisComponent implements OnInit{
       console.log(this.curSession);
       console.log(this.scoreInfo);
       this.createGraph();
+      this.notLoad = false;
     });
   }
 

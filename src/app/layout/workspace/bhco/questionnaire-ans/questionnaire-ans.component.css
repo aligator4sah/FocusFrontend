@@ -5,3 +5,38 @@
 .demo-tab-content {
   padding: 16px;
 }
+
+
+
+.text-danger {
+  color: #a94442;
+  font-size: 12px;
+}
+
+.radio-group {
+  margin-top: 10px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.com-member-info {
+  border-radius: 15px;
+  height: 30px;
+  border: #9d9bb7 solid;
+}
+
+.com-member-detail {
+  float: left;
+  width: 30.5%;
+  margin-right: 18px;
+}
+
+.com-member-detail-item {
+  padding-left: 15px;
+}
+
+.button-group {
+  padding-left: 30px;
+  padding-top: 10px;
+}
+

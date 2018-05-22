@@ -22,3 +22,10 @@
 .desp-col {
   width: 100px;
 }
+
+.mat-column-id {
+  flex: 0 0 80px;
+}
+.mat-column-description{
+  flex: 0 0 400px;
+}
