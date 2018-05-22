@@ -29,3 +29,8 @@
 .mat-column-description{
   flex: 0 0 400px;
 }
+
+
+.button-group {
+  padding-top: 20px;
+}

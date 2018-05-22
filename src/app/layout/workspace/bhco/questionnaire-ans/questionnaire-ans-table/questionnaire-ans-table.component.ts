@@ -60,6 +60,10 @@ export class QuestionnaireAnsTableComponent{
   download() {
     new Angular2Csv(this.users, 'User-Answer-Table');
   }
+
+  back() {
+    window.history.back();
+  }
 }
 
 /** Builds and returns a new User. */
