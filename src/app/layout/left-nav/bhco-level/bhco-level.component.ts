@@ -3,6 +3,7 @@ import {QuestionService} from '../../../shared/shared-control/question.service';
 import {Domain} from "../../../model/questionBase";
 import {QuestionModelService} from "../../../service/question-model.service";
 import {StateService} from "../../../service/state.service";
+import {async} from "rxjs/scheduler/async";
 
 @Component({
   selector: 'app-bhco-level',
@@ -13,6 +14,7 @@ export class BhcoLevelComponent implements OnInit {
 
   domains: Domain[] = [];
   questions: any[];
+  existMember: boolean = false;
 
   constructor(
     private service: QuestionService,
@@ -22,7 +24,11 @@ export class BhcoLevelComponent implements OnInit {
 
   ngOnInit() {
     this.getDomains();
-
+    this.stateService.existMember$.subscribe(value =>
+    {
+      this.existMember = value;
+      console.log(this.existMember);
+    });
   }
 
 

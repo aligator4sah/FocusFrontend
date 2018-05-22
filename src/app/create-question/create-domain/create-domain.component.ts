@@ -117,14 +117,12 @@ export class CreateDomainComponent implements OnInit {
   deleteSubDom(sub: any) {
     //this.heroes = this.heroes.filter(h => h !== hero);
     this.subdomains =  this.subdomains.filter(dom => dom != sub);
-    this.domService.deleteSubdomainById(sub.id).subscribe(
-      value => {
-        this.deleteInfo = value;
-        console.log(this.deleteInfo);
-      }
-    );
+    this.domService.deleteSubdomainById(sub.id).subscribe();
   }
 
+  calculate() {
+    this.domService.getDomainScore(0).subscribe();
+  }
 
   goback() {
     window.history.back();

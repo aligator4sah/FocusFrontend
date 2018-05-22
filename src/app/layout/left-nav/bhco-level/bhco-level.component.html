@@ -16,7 +16,7 @@
         <mat-accordion>
 
           <!--active link if current member is in the local storage -->
-          <div *ngIf="(stateService.existMember$ | async); else blockLink">
+          <div *ngIf="existMember; else blockLink">
             <mat-expansion-panel class="panel-format">
               <mat-expansion-panel-header>
                 <mat-panel-title> <a routerLink="demographic" routerLinkActive="active">

@@ -79,6 +79,15 @@ export class QuestionModelService {
       );
   }
 
+
+  /** GET: calculate domain min and max score**/
+  getDomainScore(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/questionnaire/calculate/' + id)
+      .pipe(
+        catchError(this.handleError('calculateDomainScore'))
+      );
+  }
+
   /** GET; get single questions by id*/
   getDemoQuesById(userid: number): Observable<{}> {
     return this.http.get<any>(API_URL + '/demographic/${userid}')

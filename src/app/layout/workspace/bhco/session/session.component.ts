@@ -20,7 +20,9 @@ export class SessionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.existMember$.next(true);
+    setTimeout(()=> {
+      this.stateService.existMember$.next(true);
+    });
     localStorage.removeItem('curSession');
     this.getSessions();
   }
@@ -30,10 +32,9 @@ export class SessionComponent implements OnInit {
       .subscribe(value => this.sessions = value);
   }
 
-  // TODO: subscibe the session list to the updated list after deletion
   deleteSession(sessionId: number) {
-    this.queService.deleteSessionById(sessionId)
-      .subscribe(value => this.sessions = value);
+    this.sessions = this.sessions.filter(session => session.id !== sessionId);
+    this.queService.deleteSessionById(sessionId).subscribe();
   }
 
   startSession(session: any) {

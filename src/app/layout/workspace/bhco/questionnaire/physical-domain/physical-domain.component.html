@@ -1,60 +1,71 @@
 <div class="workspace-container mid-position">
-  <h3 class="workspace-title">Questionnaire</h3>
-  <mat-card class="com-member-info">
-    <mat-card-header>
-      <div class="col-sm-12">
-        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{member.name}} </b></p>
-        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{member.gender}} </b></p>
-        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{member.dob}} </b></p>
-      </div>
-    </mat-card-header>
-  </mat-card>
-  <div *ngIf="domain">
-    <mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>
+  <div *ngIf="isLoad; else block">
+    <mat-progress-spinner
+      class="example-margin"
+      [color]="color"
+      [mode]="mode">
+    </mat-progress-spinner>
   </div>
 
-  <br>
-  <mat-card class="system-card">
-    <mat-card-header>
-      <div class="col-sm-12">
-        <mat-card-title>{{ curDom }} Domain Questionnaire</mat-card-title>
-      </div>
-    </mat-card-header>
-    <mat-divider> </mat-divider>
-    <mat-card-content>
-      <br>
+  <ng-template #block>
+    <h3 class="workspace-title">Questionnaire</h3>
+    <mat-card class="com-member-info">
+      <mat-card-header>
+        <div class="col-sm-12">
+          <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{member.name}} </b></p>
+          <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{member.gender}} </b></p>
+          <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{member.dob}} </b></p>
+        </div>
+      </mat-card-header>
+    </mat-card>
+    <div *ngIf="domain">
+      <mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>
+    </div>
 
-      <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
-        <mat-step [stepControl]="subdomain.subdomain" *ngFor="let subdomain of subdomainList">
-          <form [formGroup]="form">
-          <div [formGroupName]="subdomain.subdomain">
-            <ng-template matStepLabel> {{subdomain.subdomain + 'Subdomain'}}</ng-template>
-            <div *ngFor="let question of subdomain.questionnaire" class="col-sm-12">
-              <app-demo-question [question]="question" [form]="form.controls[subdomain.subdomain]"></app-demo-question>
-            </div>
-          </div>
-          <div class="col-sm-12">
-            <button  matStepperNext mat-raised-button color="primary">Next</button>
-            <button  matStepperPrevious mat-raised-button color="accent"> Previous </button>
-          </div>
-          </form>
-        </mat-step>
+    <br>
+    <mat-card class="system-card">
+      <mat-card-header>
+        <div class="col-sm-12">
+          <mat-card-title>{{ curDom }} Domain Questionnaire</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-divider> </mat-divider>
+      <mat-card-content>
+        <br>
 
-        <mat-step>
-          <ng-template matStepLabel>Confirmation</ng-template>
-          <div class="col-sm-12">
-            <p class="confirm">Congratulations, you have finished all the questions in this domain.</p>
-            <div *ngIf="isSubmitted" class="col-sm-12">
-              <p class="confirm">Your answers have been submitted.</p>
-            </div>
-            <br>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+          <mat-step [stepControl]="subdomain.subdomain" *ngFor="let subdomain of subdomainList">
+            <form [formGroup]="form">
+              <div [formGroupName]="subdomain.subdomain">
+                <ng-template matStepLabel> {{subdomain.subdomain + 'Subdomain'}}</ng-template>
+                <div *ngFor="let question of subdomain.questionnaire" class="col-sm-12">
+                  <app-demo-question [question]="question" [form]="form.controls[subdomain.subdomain]"></app-demo-question>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <button  matStepperNext mat-raised-button color="primary">Next</button>
+                <button  matStepperPrevious mat-raised-button color="accent"> Previous </button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Confirmation</ng-template>
             <div class="col-sm-12">
-              <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
-              <button mat-raised-button color="accent" (click)="backList()"> Continue </button>
+              <p class="confirm">Congratulations, you have finished all the questions in this domain.</p>
+              <div *ngIf="isSubmitted" class="col-sm-12">
+                <p class="confirm">Your answers have been submitted.</p>
+              </div>
+              <br>
+              <div class="col-sm-12">
+                <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+                <button mat-raised-button color="accent" (click)="backList()"> Continue </button>
+              </div>
             </div>
-          </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-    </mat-card-content>
-  </mat-card>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+
 </div>

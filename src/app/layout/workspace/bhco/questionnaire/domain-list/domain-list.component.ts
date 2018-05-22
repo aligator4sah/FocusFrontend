@@ -25,7 +25,9 @@ export class DomainListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.existMember$.next(true);
+    setTimeout(() => {
+      this.stateService.existMember$.next(true);
+    });
     this.getDomains();
      console.log(this.sessionInfo);
   }

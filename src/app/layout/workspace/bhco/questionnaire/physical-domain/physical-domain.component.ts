@@ -25,6 +25,10 @@ export class PhysicalDomainComponent implements OnInit {
   isLinear: true;
   payLoad = '';
 
+  isLoad: boolean = true;
+  color = 'primary';
+  mode = 'indeterminate';
+
   returnValue: any;
   isSubmitted : boolean = false;
 
@@ -37,7 +41,9 @@ export class PhysicalDomainComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.stateService.existMember$.next(true);
+    setTimeout(() => {
+      this.stateService.existMember$.next(true);
+    });
     this.form = this.fb.group({});
     this.getQuestionByDom();
   }
@@ -52,13 +58,17 @@ export class PhysicalDomainComponent implements OnInit {
     });
   }
 
+
+
   // construct form group for domain
    toFormGroup(subdomList: any[]) {
      let group: any = {};
      subdomList.forEach(sub => {
          group[sub.subdomain] = this.toFormQuesGroup(sub);
+         //console.log(group);
      });
      this.form = this.fb.group(group);
+     this.isLoad = false;
     }
 
     // construct form group for subdomain
@@ -74,19 +84,21 @@ export class PhysicalDomainComponent implements OnInit {
      let subForm = this.fb.group(group);
      //bind the answer array when form value get changed
      this.answers.forEach(ansItem => {
-       subForm.controls[ansItem.questionid].valueChanges.subscribe(value => {
-         ansItem.answer = value;
-         // get the answer point
-         ques.forEach(que => {
-           if (que.id === ansItem.questionid) {
-             que.options.forEach(opt => {
-                if (opt.value === ansItem.answer) {
-                  ansItem.point = opt.point;
-                }
-             })
-           }
-         })
-       });
+       if (subForm.controls[ansItem.questionid] !== undefined) {
+         subForm.controls[ansItem.questionid].valueChanges.subscribe(value => {
+           ansItem.answer = value;
+           // get the answer point
+           ques.forEach(que => {
+             if (que.id === ansItem.questionid) {
+               que.options.forEach(opt => {
+                 if (opt.value === ansItem.answer) {
+                   ansItem.point = opt.point;
+                 }
+               })
+             }
+           })
+         });
+       }
      });
      return subForm;
    }

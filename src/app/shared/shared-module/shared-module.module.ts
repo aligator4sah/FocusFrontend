@@ -9,7 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {
   MatButtonModule, MatDividerModule, MatGridListModule,
   MatIconModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule,
-  MatProgressBarModule, MatRadioModule, MatSortModule, MatTableModule, MatTabsModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSortModule, MatTableModule, MatTabsModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -51,6 +51,7 @@ import {RouterModule} from '@angular/router';
     MatTooltipModule,
     MatGridListModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -84,6 +85,7 @@ import {RouterModule} from '@angular/router';
     MatTooltipModule,
     MatGridListModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     FormsModule
   ]
 })

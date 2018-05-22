@@ -54,7 +54,10 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getMemberId();
     localStorage.removeItem('curSession');
-    this.stateService.existMember$.next(true)
+    setTimeout(() => {
+      this.stateService.existMember$.next(true)
+    });
+
   }
 
 

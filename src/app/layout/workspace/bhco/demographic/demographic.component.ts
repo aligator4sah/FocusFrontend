@@ -35,7 +35,9 @@ export class DemographicComponent implements OnInit {
 
   ngOnInit() {
       this.getDemoQuestions();
-      this.stateService.existMember$.next(true);
+      setTimeout(() => {
+        this.stateService.existMember$.next(true);
+      });
       this.form = this.fb.group({});
   }
 

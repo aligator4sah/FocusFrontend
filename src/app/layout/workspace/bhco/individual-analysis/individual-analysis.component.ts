@@ -62,7 +62,9 @@ export class IndividualAnalysisComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.stateService.existMember$.next(true);
+    setTimeout(() =>
+      this.stateService.existMember$.next(true)
+    );
     this.queService.getScore(this.curSession).subscribe(value => {
       this.scoreInfo = value;
       console.log(this.curSession);
