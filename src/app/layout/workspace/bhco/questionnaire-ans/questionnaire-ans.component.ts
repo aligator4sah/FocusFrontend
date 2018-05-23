@@ -29,3 +29,7 @@ export class QuestionnaireAnsComponent implements OnInit {
     this.questionService.getDomain().subscribe(value => this.domains = value);
   }
 }
+
+
+
+

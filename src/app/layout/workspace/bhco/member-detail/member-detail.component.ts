@@ -90,6 +90,10 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/BhcoDashboard/demographic')
  }
 
+ checkDemo() {
+    this.router.navigateByUrl('/BhcoDashboard/demographic-ans');
+ }
+
  startQues() {
     this.curDate = this.getCurDate();
     const session = new Session({
@@ -103,6 +107,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/BhcoDashboard/domain-list');
     });
  }
+
+
 
 
  startSocial() {

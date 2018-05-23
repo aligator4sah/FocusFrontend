@@ -79,6 +79,14 @@ export class QuestionModelService {
       );
   }
 
+  /** GET: get all answers by session and filter by domain**/
+  getAnsBySession(sessionId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/session/QA/' + sessionId)
+      .pipe(
+        catchError(this.handleError('getAnswerBySession', []))
+      )
+  }
+
 
   /** GET: calculate domain min and max score**/
   getDomainScore(id: number): Observable<any> {

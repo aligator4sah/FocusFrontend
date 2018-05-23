@@ -1,6 +1,4 @@
 import {BhcoLevelComponent} from './bhco-level.component';
-import {DomainListModule} from "../../workspace/bhco/questionnaire/domain-list/domain-list.module";
-import {SessionQuestionModule} from "../../workspace/bhco/session/session-question/session-question.module";
 
 export const bhcoWorkSpaceRoutes = [
   {
@@ -20,7 +18,8 @@ export const bhcoWorkSpaceRoutes = [
       {path: 'individual-analysis', loadChildren: "../../workspace/bhco/individual-analysis/individual-analysis.module#IndividualAnalysisModule"},
       {path: 'detail/:id', loadChildren:"../../workspace/bhco/member-detail/member-detail.module#MemberDetailModule"},
       {path: 'domain-list', loadChildren: "../../workspace/bhco/questionnaire/domain-list/domain-list.module#DomainListModule"},
-      {path: 'session-question', loadChildren: "../../workspace/bhco/session/session-question/session-question.module#SessionQuestionModule"}
+      {path: 'session-question', loadChildren: "../../workspace/bhco/session/session-question/session-question.module#SessionQuestionModule"},
+      {path: 'demographic-ans', loadChildren: '../../workspace/bhco/demographic-ans/demographic-ans.module#DemographicAnsModule'}
       ]
   }
 ];
