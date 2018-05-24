@@ -25,10 +25,12 @@ export class CreateDomainComponent implements OnInit {
   newSub: boolean = false;
 
   domainPara: string;
+  domainWeightPara: number;
   subdomainPara: string;
   deleteInfo: any;
 
   inputDomain: InputAttributes = {name: 'domain', type:'text', placeholder:'Please Input Domain Name', min: 3, max: 20};
+  inputDomainWeight: InputAttributes = {name: 'domainWeight', type: 'number', placeholder: 'Please Input Domain Weight', min:0, max: 10};
   inputSubdomain: InputAttributes = {name: 'subdomain', min: 4, max: 32, placeholder:'Please Input Subdomain name', type: 'text'};
 
   constructor(
@@ -43,7 +45,10 @@ export class CreateDomainComponent implements OnInit {
   }
 
   buildForm(): void {
-    this.domGroup = this.fb.group({domain:['',[Validators.required,Validators.minLength(4)]]});
+    this.domGroup = this.fb.group({
+      domain:['',[Validators.required,Validators.minLength(4)]],
+      domainWeight: ['', Validators.required]
+    });
     this.subdomGroup = this.fb.group({subdomain: ['', [Validators.required, Validators.minLength(4)]]})
   }
 
@@ -73,6 +78,12 @@ export class CreateDomainComponent implements OnInit {
     }
   }
 
+  getDomainWeight(value:number) {
+    if(value) {
+      this.domainWeightPara = value;
+    }
+  }
+
   getSubdomain(value: string) {
     if (value) {
       this.subdomainPara = value;
@@ -90,6 +101,7 @@ export class CreateDomainComponent implements OnInit {
   addDomain() {
       const newDomain = new Domain({
         domain: this.domainPara,
+        weight: this.domainWeightPara,
       });
 
       this.domService.addDomain(newDomain)

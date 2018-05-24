@@ -59,14 +59,20 @@ export class Family {
   id: number;
   family: string;
   block: number;
+  street: string;
+  apartment: string;
   constructor(options: {
     id?: number;
     family?: string;
     block?: number;
+    street?: string;
+    apartment?: string;
   } = {}) {
     this.id = options.id;
     this.family = options.family;
     this.block = options.block || -1;
+    this.street = options.street || '';
+    this.apartment = options.apartment || '';
   }
 }
 

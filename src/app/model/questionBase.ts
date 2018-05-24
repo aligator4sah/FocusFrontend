@@ -114,12 +114,14 @@ export class DropdownQuestion extends QuestionBase<string> {
 export class Domain {
   id: number;
   domain: string;
+  weight: number;
   maxScore: number;
   minScore: number;
 
   constructor(options: {
     id?: number,
     domain?: string,
+    weight?: number;
     maxScore?: number,
     minScore?: number,
   } = {}) {
@@ -127,6 +129,7 @@ export class Domain {
     this.domain = options.domain;
     this.maxScore = options.maxScore || 0;
     this.minScore = options.minScore || 0;
+    this.weight = options.weight || 0;
   }
 }
 

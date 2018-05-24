@@ -32,13 +32,16 @@ export class CreateFamilyComponent implements OnInit {
   // public inputAddress2: InputAttributes = {name:'address2', min:4, max: 32, placeholder:'Address Two', type:'text'};
   public selectBlock :SelectAttributes = {name:'block',roles:this.blockRole,placeholder:'Select the Block'};
   public inputFamily : InputAttributes = {name:'family',min:4,max:32,placeholder:'Input Family Name',type:'text'};
+  public inputAddress: InputAttributes = {name: 'address', min: 4, max: 32, placeholder: 'Input Family Address', type: 'text'};
+  public inputApt: InputAttributes = {name: 'apt', min: 0, max: 32, placeholder: 'Input Family Apartment', type: 'text'};
+
   public defaultBlock: SelectAttributes = {name:'dblock', roles: [], placeholder:'No available blocks currently.'};
   public defaultFamily: defaultAttributes = {name: 'dfam', value: '', placeholder:'', type: 'text'};
-  //
+
   blockPara : number;
   familyPara: string;
-  address1Para: string;
-  address2Para: string;
+  addressPara: string;
+  apartmentPara: string;
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +60,8 @@ export class CreateFamilyComponent implements OnInit {
     this.familyGroup = this.fb.group({
       block: ['', [Validators.required]],
       family:['',[Validators.required,Validators.minLength(4)]],
+      address: ['', Validators.required],
+      apt: ['', Validators.required],
       dblock: ['', []],
       dfam: ['', []]
     })
@@ -95,7 +100,18 @@ export class CreateFamilyComponent implements OnInit {
   getFamily(value:string){
     if(value){
       this.familyPara = value;
-      console.log("familyName:"+this.familyPara);
+    }
+  }
+
+  getAddress(value:string) {
+    if (value) {
+        this.addressPara = value;
+    }
+  }
+
+  getApt(value:string) {
+    if (value) {
+      this.apartmentPara = value;
     }
   }
 
@@ -103,7 +119,9 @@ export class CreateFamilyComponent implements OnInit {
   addFamily() {
     const newFamily = new Family({
       family: this.familyPara,
-      block: this.blockPara
+      block: this.blockPara,
+      street: this.addressPara,
+      apartment: this.apartmentPara,
     });
     this.locService.addFamily(newFamily)
       .subscribe(fam => this.families.push(fam));

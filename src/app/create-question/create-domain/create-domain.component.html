@@ -37,7 +37,7 @@
                 </mat-list>
                 <div *ngIf="newSub" class="full-width">
                   <form [formGroup]="subdomGroup">
-                    <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-12"></app-input-control-box>
+                    <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-6"></app-input-control-box>
                     <button mat-button color="primary" (click)="addSubdomain(dom.id)">Submit</button>
                   </form>
                 </div>
@@ -71,6 +71,7 @@
         <div *ngIf="newDomain" class="full-width">
           <form [formGroup]="domGroup">
             <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
+            <app-input-control-box [attrContent]="inputDomainWeight" (follow)="getDomainWeight($event)" class="col-sm-6"></app-input-control-box>
             <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
           </form>
         </div>
