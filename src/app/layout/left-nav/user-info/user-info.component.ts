@@ -13,7 +13,7 @@ export class UserInfoComponent implements OnInit {
   ngOnInit() {
     if (localStorage.length != 0) {
       this.user = JSON.parse(localStorage.getItem('curUser'));
-      console.log(this.user.name);
+      // console.log(this.user.name);
     }
   }
 

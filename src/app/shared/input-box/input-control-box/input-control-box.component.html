@@ -2,4 +2,5 @@
   <input matInput placeholder="{{attrContent.placeholder | titlecase}}" type="{{attrContent.type}}" value="" [formControl]="control" required [attr.minlength]= "attrContent.min" [attr.maxlength]= "attrContent.max">
   <mat-hint align="start" *ngIf="errorMessage !== null" class="text-danger">{{ errorMessage }}</mat-hint>
   <!--<mat-hint align="end">{{control.value.length}} / {{attrContent.max}}</mat-hint>-->
+  <!--// (click)="test();$event.stopPropagation()"-->
 </mat-form-field>

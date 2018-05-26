@@ -27,7 +27,6 @@ export class BhcoLevelComponent implements OnInit {
     this.stateService.existMember$.subscribe(value =>
     {
       this.existMember = value;
-      console.log(this.existMember);
     });
   }
 

@@ -13,9 +13,12 @@ export class InputControlBoxComponent implements OnInit {
 
 
 
+
   constructor(
     private formGroupDirective:FormGroupDirective
-  ){ }
+  ){
+
+  }
 
   ngOnInit() {
     this.valueChange()
@@ -25,7 +28,7 @@ export class InputControlBoxComponent implements OnInit {
     this.control.valueChanges.forEach(
       (value:string) => {
         this.follow.emit(value);
-        //console.log(value);
+
       }
     );
   }

@@ -194,6 +194,42 @@ export class Session {
   }
 }
 
+export class SocialAnswer {
+  id: number;
+  sessionid: number;
+  userid: number;
+  questionid: number;
+  firstname: string;
+  midname: string;
+  lastname: string;
+  order: number;
+  relationship: number;
+  blockid: number;
+  constructor(options: {
+    id?: number;
+    sessionid?: number;
+    userid?: number;
+    questionid?: number;
+    firstname?: string;
+    midname?: string;
+    lastname?: string;
+    order?: number;
+    relationship?: number;
+    blockid?: number;
+  } = {}) {
+    this.id = options.id;
+    this.sessionid = options.sessionid || -1;
+    this.userid = options.userid || -1;
+    this.questionid = options.questionid || -1;
+    this.firstname = options.firstname || '';
+    this.midname = options.midname || '';
+    this.lastname = options.lastname || '';
+    this.order = options.order || -1;
+    this.relationship = options.relationship || -1;
+    this.blockid = options.blockid || -1;
+  }
+}
+
 export class questionList {
   selectedDomain: any;
   resultSubdomains: any;
