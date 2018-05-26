@@ -53,9 +53,9 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
       group[form.key] = this.createNestForm(form);
     });
     return this.fb.group(group);
-    //console.log(this.form.controls[1]);
   }
 
+  //generate each column for six times in each subform
   createNestForm(form: any) {
     let group = {};
     this.createAnswerGroup(form).forEach(answerForm => {
@@ -90,6 +90,8 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     console.log(this.form.value);
+
+    //transform output data type to right format
   }
 }
 

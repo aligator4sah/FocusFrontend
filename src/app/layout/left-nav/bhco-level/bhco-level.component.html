@@ -15,6 +15,21 @@
       <mat-nav-list class="nav-list">
         <mat-accordion>
 
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title>  <a routerLink="assign" routerLinkActive="active">
+                <mat-icon class="main-icon">trending_up</mat-icon>
+                <span class="main-menu"> <h4>&nbsp; Assignment </h4> </span>  </a>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a routerLink="assign" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <mat-icon>assessment</mat-icon>
+                <span>Assignment</span>
+              </button>
+            </a>
+          </mat-expansion-panel>
+
           <!--active link if current member is in the local storage -->
           <div *ngIf="existMember; else blockLink">
             <mat-expansion-panel class="panel-format">
@@ -96,22 +111,6 @@
               </mat-expansion-panel-header>
             </mat-expansion-panel>
           </ng-template>
-
-
-          <mat-expansion-panel class="panel-format">
-            <mat-expansion-panel-header>
-              <mat-panel-title>  <a routerLink="assign" routerLinkActive="active">
-                <mat-icon class="main-icon">trending_up</mat-icon>
-                <span class="main-menu"> <h4>&nbsp; Assignment </h4> </span>  </a>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <a routerLink="assign" routerLinkActive="active">
-            <button mat-menu-item color="white">
-              <mat-icon>assessment</mat-icon>
-              <span>Assignment</span>
-            </button>
-            </a>
-          </mat-expansion-panel>
 
           <mat-expansion-panel class="panel-format">
             <mat-expansion-panel-header>

@@ -22,10 +22,22 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <a routerLink="create-bhco" routerLinkActive="active">
-            <button mat-menu-item color="white">
-              <mat-icon>account_box</mat-icon>
-              <span>BHCO</span>
-            </button>
+              <button mat-menu-item color="white">
+                <mat-icon>account_box</mat-icon>
+                <span>BHCO</span>
+              </button>
+            </a>
+            <a routerLink="create-block" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <mat-icon>explore</mat-icon>
+                <span>Block</span>
+              </button>
+            </a>
+            <a routerLink="create-family" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <mat-icon>explore</mat-icon>
+                <span>Family</span>
+              </button>
             </a>
             <a routerLink="create-c-mem" routerLinkActive="active">
             <button mat-menu-item color="white">
@@ -33,25 +45,13 @@
               <span>Community Member</span>
             </button>
             </a>
-            <a routerLink="create-family" routerLinkActive="active">
-            <button mat-menu-item color="white">
-              <mat-icon>account_box</mat-icon>
-              <span>Family</span>
-            </button>
-            </a>
-            <a routerLink="create-block" routerLinkActive="active">
-              <button mat-menu-item color="white">
-                <mat-icon>account_box</mat-icon>
-                <span>Block</span>
-              </button>
-            </a>
           </mat-expansion-panel>
 
           <mat-expansion-panel class="panel-format">
             <mat-expansion-panel-header>
               <mat-panel-title> <a routerLink="memberList" routerLinkActive="active">
                 <mat-icon class="main-icon">trending_up</mat-icon> &nbsp;
-                <span class="main-menu"> <h4>Tables</h4> </span> </a>
+                <span class="main-menu"> <h4>Account List</h4> </span> </a>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <a routerLink="bhcoList" routerLinkActive="active">
@@ -75,13 +75,13 @@
             </mat-expansion-panel-header>
             <a routerLink="assignMember" routerLinkActive="active">
             <button mat-menu-item color="white">
-              <mat-icon>supervisor_account</mat-icon>
+              <mat-icon>assignment_turned_in</mat-icon>
               <span>Assign Member</span>
             </button>
             </a>
             <a routerLink="unassignMember" routerLinkActive="active">
             <button mat-menu-item color="white">
-              <mat-icon>supervisor_account</mat-icon>
+              <mat-icon>assignment_return</mat-icon>
               <span>Unassign Member</span>
             </button>
             </a>

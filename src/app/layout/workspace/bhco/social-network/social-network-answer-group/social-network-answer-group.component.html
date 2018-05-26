@@ -1,6 +1,4 @@
-
-  <!--<ng-template matStepLabel>{{question.key}}</ng-template>-->
-  <h4>{{question.value}}</h4>
+ <h4>{{question.value}}</h4>
   <ng-container *ngIf="subform">
     <form [formGroup]="subform">
       <ng-container *ngFor="let item of question.answers" >
