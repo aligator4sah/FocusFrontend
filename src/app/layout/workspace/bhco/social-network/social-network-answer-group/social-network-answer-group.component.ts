@@ -13,8 +13,10 @@ export class SocialNetworkAnswerGroupComponent implements OnInit {
 
   member = JSON.parse(localStorage.getItem('curMem'));
   answerGroup: SocialAnswer[] = [];
+  relations = Relation;
 
   // public tempFormGroup: FormGroup;
+  checked: boolean = false;
 
   public inputNumber: InputAttributes = {name:'number',min:1,max:5,placeholder:'order',type:'number'};
   public inputFirstName: InputAttributes = {name:'firstName',min:2,max:32,placeholder:'first name',type:'text'};

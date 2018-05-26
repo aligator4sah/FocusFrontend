@@ -6,12 +6,28 @@
       <ng-container *ngFor="let item of question.answers" >
         <ng-container *ngIf="subform.controls[item.order]">
           <div class="full-width-block"  [formGroup]="subform.controls[item.order]">
-            <app-input-control-box [attrContent]="inputNumber" class="col-sm-2"></app-input-control-box>
-            <app-input-control-box [attrContent]="inputFirstName" class="col-sm-2"></app-input-control-box>
-            <!--<app-input-control-box [attrContent]="inputLastName" class="col-sm-2"></app-input-control-box>-->
-            <!--<app-input-control-box [attrContent]="inputMidName" class="col-sm-2"></app-input-control-box>-->
-            <!--<app-select-control-box [attrContent]="selectRelation" class="col-sm-2"></app-select-control-box>-->
-            <!--<app-input-check-box class="col-sm-2" [attrContent]="checkBlock"></app-input-check-box>-->
+            <mat-form-field class="col-sm-2">
+              <input matInput placeholder="Order" type="text" formControlName="number">
+            </mat-form-field>
+            <mat-form-field class="col-sm-2">
+              <input matInput placeholder="First Name" type="text" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field class="col-sm-2">
+              <input matInput placeholder="Last Name" type="text" formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field class="col-sm-2">
+              <input matInput placeholder="Middle Name" type="text" formControlName="midName">
+            </mat-form-field>
+            <mat-form-field class="col-sm-2">
+              <mat-select placeholder="Relation" formControlName="relation">
+                <mat-option *ngFor="let rel of relations" [value]="rel.value">
+                  {{ rel.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="checkbox">
+              <mat-checkbox formControlName="block">Same Block</mat-checkbox>
+            </div>
           </div>
         </ng-container>
 

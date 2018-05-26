@@ -20,9 +20,8 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
 
     //this.form = this.fb.group({});
 
-    setTimeout(()=>{
-      this.form = this.createSubforms();
-    },200)
+    setTimeout(() => this.form = this.createSubforms());
+
   }
 
 
