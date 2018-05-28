@@ -29,8 +29,15 @@
               <app-input-control-box [attrContent]="userLastName" (follow)="getLastName($event)" class="col-sm-6"></app-input-control-box>
             </div>
             <div class="col-sm-12">
-              <app-input-control-box [attrContent]="userPhone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
-              <app-input-control-box [attrContent]="userEmail" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
+              <mat-form-field class="col-sm-6">
+                <input matInput placeholder="Phone" formControlName="phone">
+              </mat-form-field>
+              <mat-form-field class="col-sm-6">
+                <input matInput placeholder="Email" formControlName="email">
+              </mat-form-field>
+              <!--<app-input-control-box [attrContent]="userPhone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>-->
+              <!--<app-input-control-box [attrContent]="userEmail" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>-->
+            <!---->
             </div>
             <div class="col-sm-12">
               <button mat-raised-button color ="primary" [disabled]="userForm.invalid" matStepperNext>Next</button>

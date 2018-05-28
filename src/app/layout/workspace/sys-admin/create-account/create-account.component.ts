@@ -6,6 +6,7 @@ import { InputAttributes } from '../../../../shared/shared-control/attributes';
 import { ValidationService} from '../../../../shared/validation-service/validation.service';
 import {CommunityAdmin, StateAdmin} from "../../../../model/User";
 import {UserService} from "../../../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-account',
@@ -52,8 +53,8 @@ export class CreateAccountComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private stateAdminService: UserService
-    //public router: Router,
+    private stateAdminService: UserService,
+    public router: Router,
   ) { }
 
   ngOnInit() {
@@ -72,14 +73,16 @@ export class CreateAccountComponent implements OnInit {
       state: ['', [Validators.required]]
     });
     this.userForm = this.fb.group({
-      username:['',[ Validators.required,Validators.minLength(4)]],
+      username:['',[ Validators.required,Validators.minLength(1)]],
       password:['',[Validators.required,ValidationService.passwordValidator]],
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
-      firstName:['',[ Validators.required,Validators.minLength(4)]],
-      lastName:['',[ Validators.required,Validators.minLength(3)]],
-      phone:['',[ Validators.required,Validators.minLength(10)]],
-      email:['',[ Validators.required,Validators.minLength(4)]]
+      firstName:['',[ Validators.required,Validators.minLength(1)]],
+      lastName:['',[ Validators.required,Validators.minLength(1)]],
+      phone:[''],
+      email:['']
     });
+    this.userForm.controls['phone'].valueChanges.subscribe(value => this.phonePara = value);
+    this.userForm.controls['email'].valueChanges.subscribe(value => this.emailPara = value);
   }
 
   /** pass and store data from children to parent*/
@@ -149,6 +152,6 @@ export class CreateAccountComponent implements OnInit {
     console.log(newStateAdmin);
 
     this.confirm = true;
+    setTimeout(() => this.router.navigateByUrl('/SysDashboard/stateList'));
   }
-
 }
