@@ -14,6 +14,7 @@ export class SubProfileComponent implements OnInit {
   @Input() member: any;
 
   profileForm: FormGroup;
+  isUpdated: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,7 +59,11 @@ export class SubProfileComponent implements OnInit {
       email: this.profileForm.controls['email'].value
     });
     console.log(updateMember);
-    //TODO: add patch method here
+    /** update method for state admin**/
+    this.userService.updateStateAdminById(this.member.id, updateMember).subscribe();
+    this.isUpdated = true;
+
+    //TODO: link back to account table list
   }
 
   goBack() {

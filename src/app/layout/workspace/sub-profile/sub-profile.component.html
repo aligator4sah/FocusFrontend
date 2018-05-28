@@ -2,7 +2,7 @@
   <h3 class="workspace-title">Sub Level Profile</h3>
   <mat-card class="system-card">
     <mat-card-header>
-      <mat-card-title><h4>Edit Profile</h4></mat-card-title>
+      <mat-card-title><h3>Edit Profile</h3></mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="full-width">
@@ -46,6 +46,10 @@
         <button mat-raised-button color="accent" (click)="goBack()">Back</button>
       </div>
       <br>
+
+      <ng-container *ngIf="isUpdated">
+        Profile for has been updated successfully.
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </div>
