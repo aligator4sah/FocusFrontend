@@ -111,6 +111,13 @@ export class UserService {
       );
   }
 
+  getStateAdminById(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/' + id)
+      .pipe(
+        catchError(this.handleError('getStateAdminById', []))
+      );
+  }
+
   /** GET assigned and unassigned member*/
   getUnassignedMem(locId: number): Observable<any[]> {
     return this.http.get<any[]>(API_URL + '/unAssignedCommunityMember/' + locId)
@@ -190,6 +197,14 @@ export class UserService {
     return this.http.patch<any>(API_URL + '/unAssign/CommunityMember/', relation, httpOptions)
       .pipe(
         catchError(this.handleError('unassignBhco', []))
+      );
+  }
+
+  /** PATCH: update state admin profile by id**/
+  updateStateAdminById(id: number, profile: any): Observable<any> {
+    return this.http.patch<any>(API_URL + '/stateAdmin/' + id, profile, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateStateAdminProfile', []))
       );
   }
 

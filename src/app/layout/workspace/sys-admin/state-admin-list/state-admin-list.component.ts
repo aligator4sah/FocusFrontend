@@ -12,7 +12,7 @@ import {UserService} from "../../../../service/user.service";
 })
 export class StateAdminListComponent{
 
-  displayedColumns = ['username', 'firstName', 'lastName', 'phone', 'email', 'state'];
+  displayedColumns = ['username', 'firstName', 'lastName', 'phone', 'email', 'state', 'edit'];
   dataSource = null;
 
   admins: StateAdmin[];

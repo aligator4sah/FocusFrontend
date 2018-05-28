@@ -1,0 +1,51 @@
+<div class="workspace-container mid-position" *ngIf="member">
+  <h3 class="workspace-title">Sub Level Profile</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title><h4>Edit Profile</h4></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="full-width">
+        <p class="col-sm-6">User Name: <b class="profile-title"> {{member.username}}</b></p>
+        <p class="col-sm-6">User Role: <b class="profile-title"> Community Admin</b></p>
+      </div>
+
+      <ng-container *ngIf="profileForm">
+        <form [formGroup]="profileForm">
+          <br>
+          <div class="full-width">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="First Name" formControlName="firstname">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Last Name" formControlName="lastname">
+            </mat-form-field>
+          </div>
+          <div class="full-width">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Password" formControlName="password1">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Confirm Password" formControlName="password2">
+            </mat-form-field>
+          </div>
+
+          <div class-="full-width">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Phone" formControlName="phone">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+          </div>
+        </form>
+      </ng-container>
+
+      <div class="full-width">
+        <button mat-raised-button color="primary" (click)="update()">Confirm Change</button>
+        <button mat-raised-button color="accent" (click)="goBack()">Back</button>
+      </div>
+      <br>
+    </mat-card-content>
+  </mat-card>
+</div>

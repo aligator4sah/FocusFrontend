@@ -16,6 +16,6 @@ export const routes = [{
     {path: 'question-list', loadChildren: '../../../create-question/question-list/question-list.module#QuestionListModule'},
     {path: 'domain-list', loadChildren: '../../../create-question/create-domain/create-domain.module#CreateDomainModule'},
     {path: 'input-question', loadChildren: '../../../create-question/input-question/input-question.module#InputQuestionModule'},
-
+    {path: 'state-admin-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'}
   ]
 }]
