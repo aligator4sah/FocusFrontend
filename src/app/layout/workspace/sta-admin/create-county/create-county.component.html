@@ -20,7 +20,7 @@
             </mat-form-field>
           </form>
           <div class="full-width">
-            <button mat-raised-button color="primary" (click)="submitCounty()"> Submit </button>
+            <button mat-raised-button color="primary" (click)="submitCounty()" [disabled]="countyGroup.invalid"> Submit </button>
           </div>
           <ng-container *ngIf="isCountyCreated">
             A New county has been created successfully.
@@ -28,7 +28,33 @@
         </mat-tab>
 
         <mat-tab label="Create City">
-          Content 2
+          <form [formGroup]="cityGroup" class="form-group">
+            <mat-form-field class="col-sm-6">
+              <mat-select placeholder="Select State Name" formControlName="state2">
+                <mat-option *ngFor="let state of states" [value]="state.id">
+                  {{state.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <ng-container *ngIf="countyArray">
+              <mat-form-field class="col-sm-6">
+                <mat-select placeholder="Select County Name" formControlName="county2">
+                  <mat-option *ngFor="let county of countyArray" [value]="county.id">
+                    {{county.county}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-sm-12">
+                <input matInput placeholder="Input City Name" formControlName="city" type="text">
+              </mat-form-field>
+            </ng-container>
+          </form>
+          <div class="col-sm-12">
+            <button mat-raised-button color="primary" (click)="submitCity()"> Submit </button>
+          </div>
+          <ng-container *ngIf="isCityCreated">
+            A new city has been created succefully.
+          </ng-container>
         </mat-tab>
       </mat-tab-group>
 

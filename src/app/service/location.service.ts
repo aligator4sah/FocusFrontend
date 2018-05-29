@@ -113,17 +113,19 @@ export class LocationService {
       );
   }
 
-  // getLocation(location: string, level: string): Observable<{}> {
-  //   return this.http.get<any>(API_URL + '/${level}/${location}')
-  //     .pipe(
-  //       catchError(this.handleError('getLocation', []))
-  //     );
-  // }
+
   /** POST: add a new county and city **/
   addCounty(county: County): Observable<any> {
     return this.http.post<any>(API_URL + '/county', county, httpOptions)
       .pipe (
         catchError(this.handleError('addCounty', county))
+      );
+  }
+
+  addCity(city: City): Observable<any> {
+    return this.http.post<any>(API_URL + '/city', city, httpOptions)
+      .pipe(
+        catchError(this.handleError('addCity', city))
       );
   }
 

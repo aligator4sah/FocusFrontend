@@ -6,15 +6,15 @@ export class State {
 export class County {
   id: number;
   county: string;
-  stateId: number;
+  state: number;
   constructor(options: {
     id?: number;
     county?: string;
-    stateId?: number;
+    state?: number;
   } = {}) {
     this.id = options.id;
     this.county = options.county;
-    this.stateId = options.stateId;
+    this.state = options.state;
   }
 }
 
@@ -22,6 +22,15 @@ export class City {
   id: number;
   city: string;
   county: number;
+  constructor(options: {
+    id?: number;
+    city?: string;
+    county?: number;
+  } = {}) {
+    this.id = options.id;
+    this.city = options.city;
+    this.county = options.county;
+  }
 }
 
 export class Community {
