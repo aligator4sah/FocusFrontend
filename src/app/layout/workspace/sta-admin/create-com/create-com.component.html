@@ -46,9 +46,16 @@
             </div>
 
             <div>
-              <app-input-control-box [attrContent]="userPhone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
-              <app-input-control-box [attrContent]="userEmail" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
+              <mat-form-field class="col-sm-6">
+                <input type="tel" matInput placeholder="Telephone" formControlName="phone">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="col-sm-6">
+                <input type="email" matInput placeholder="Email" formControlName="email">
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
             </div>
+
             <div class="col-sm-12">
               <button mat-raised-button color ="primary" [disabled]="userForm.invalid" matStepperNext>Next</button>
               <button mat-raised-button color ="accent" matStepperPrevious>Back</button>
@@ -66,8 +73,8 @@
             <p class="col-sm-6">Last Name: <b class="admin-name"> {{lastNamePara}} </b></p>
           </div>
           <div class="col-sm-12">
-            <p class="col-sm-6">Phone Number: <b class="admin-name">{{ phonePara }}</b></p>
-            <p class="col-sm-6">Email: <b class="admin-name">{{ emailPara }}</b></p>
+            <p class="col-sm-6">Phone Number: <b class="admin-name">{{ userForm.controls['phone'].value }}</b></p>
+            <p class="col-sm-6">Email: <b class="admin-name">{{ userForm.controls['email'].value }}</b></p>
           </div>
           <div layout="col-sm-12">
             <!--get the state and other information from json data later -->

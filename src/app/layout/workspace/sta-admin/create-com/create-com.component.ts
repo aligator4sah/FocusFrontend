@@ -117,10 +117,10 @@ export class CreateComComponent implements OnInit {
       username:['',[ Validators.required,Validators.minLength(4)]],
       password:['',[Validators.required,ValidationService.passwordValidator]],
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
-      firstName:['',[ Validators.required,Validators.minLength(4)]],
-      lastName:['',[ Validators.required,Validators.minLength(4)]],
-      phone:['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.minLength(4)]]
+      firstName:['',[ Validators.required,Validators.minLength(1)]],
+      lastName:['',[ Validators.required,Validators.minLength(1)]],
+      phone:[''],
+      email: ['']
     });
   }
 
@@ -255,8 +255,8 @@ export class CreateComComponent implements OnInit {
       password: this.userPasswordPara,
       firstname: this.firstNamePara,
       lastname: this.lastNamePara,
-      email: this.emailPara,
-      phone: this.phonePara,
+      email: this.userForm.controls['email'].value,
+      phone: this.userForm.controls['phone'].value,
       community: this.communityTextPara,
       city: this.cityTextPara,
       county: this.countyTextPara,
