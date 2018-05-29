@@ -1,0 +1,39 @@
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">County and City Registration</h3>
+  <mat-card class="system-card">
+    <mat-card-header>
+      <mat-card-title>Create County and City</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Create County">
+          <form [formGroup]="countyGroup" class="form-group">
+            <mat-form-field class="col-sm-12">
+              <mat-select placeholder="Select State Name" formControlName="state1">
+                <mat-option *ngFor="let state of states" [value]="state.id">
+                  {{state.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-sm-12">
+              <input matInput placeholder="Input County Name" formControlName="county1">
+            </mat-form-field>
+          </form>
+          <div class="full-width">
+            <button mat-raised-button color="primary" (click)="submitCounty()"> Submit </button>
+          </div>
+          <ng-container *ngIf="isCountyCreated">
+            A New county has been created successfully.
+          </ng-container>
+        </mat-tab>
+
+        <mat-tab label="Create City">
+          Content 2
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

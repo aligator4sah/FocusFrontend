@@ -5,7 +5,6 @@ import { defaultAttributes, InputAttributes, role, roleNum,
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {City, Community, County} from "../../../../model/location";
 import {LocationService} from "../../../../service/location.service";
-import {CommunityAdmin, CurrentUser, StateAdmin} from "../../../../model/User";
 
 @Component({
   selector: 'app-create-community',

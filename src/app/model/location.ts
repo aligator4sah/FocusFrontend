@@ -6,7 +6,16 @@ export class State {
 export class County {
   id: number;
   county: string;
-  state: number;
+  stateId: number;
+  constructor(options: {
+    id?: number;
+    county?: string;
+    stateId?: number;
+  } = {}) {
+    this.id = options.id;
+    this.county = options.county;
+    this.stateId = options.stateId;
+  }
 }
 
 export class City {

@@ -12,6 +12,7 @@ import { InputAttributes} from '../../shared/shared-control/attributes';
 export class ForgotPwdComponent implements OnInit {
 
   public userForm : any;
+  public roles = Roles;
   public email: InputAttributes = {name:'email',min:6,max:32, placeholder: 'email', type: 'email'};
 
   userEmailPara : string;
@@ -20,11 +21,11 @@ export class ForgotPwdComponent implements OnInit {
     private fb:  FormBuilder
   ) {}
 
-
   ngOnInit() {
     this.userForm= this.fb.group(
       {
-        'email': ['',[ Validators.required,ValidationService.emailValidator]]
+        'email': ['',[ Validators.required,ValidationService.emailValidator]],
+        'role': ['', Validators.required]
       }
     );
   }
@@ -43,5 +44,12 @@ export class ForgotPwdComponent implements OnInit {
   sentRequest(){
     //
   }
-
 }
+
+
+export const Roles = [
+  {value: 'StateAdmin', viewValue: 'State Administrator'},
+  {value: 'CommunityAdmin', viewValue: 'Community Administrator'},
+  {value: 'BHCO', viewValue: 'BHCO'},
+  {value: 'CommunityMem', viewValue: 'Community Member'}
+];

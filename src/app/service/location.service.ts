@@ -119,6 +119,13 @@ export class LocationService {
   //       catchError(this.handleError('getLocation', []))
   //     );
   // }
+  /** POST: add a new county and city **/
+  addCounty(county: County): Observable<any> {
+    return this.http.post<any>(API_URL + '/county', county, httpOptions)
+      .pipe (
+        catchError(this.handleError('addCounty', county))
+      );
+  }
 
   /** POST: add a new community, block or family to db*/
   addCommunity(com: Community): Observable<Community> {

@@ -8,6 +8,14 @@
         <div class="email-form">
           <form [formGroup]="userForm">
             <app-input-control-box [attrContent]="email" (follow)="getUserEmail($event)"></app-input-control-box>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Select your role" formControlName="role">
+                <mat-option *ngFor="let option of roles" [value]="option.value">
+                  {{option.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             <div class="button-row">
               <button mat-raised-button color="primary" [disabled]="userForm.invalid" (click)="sentRequest()">Send Request</button>
               <button mat-raised-button color="accent" (click)="back()">Back to login</button>

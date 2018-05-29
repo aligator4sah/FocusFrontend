@@ -59,7 +59,6 @@ export class CreateComComponent implements OnInit {
 
 
   //input value
-  //statePara: string;
   countyPara: number;
   countyTextPara: string;
   cityPara: number;

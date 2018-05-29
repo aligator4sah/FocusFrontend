@@ -1,5 +1,3 @@
-import {ComInfo} from "./location";
-
 export class User {
   id: number;
   username: string;
