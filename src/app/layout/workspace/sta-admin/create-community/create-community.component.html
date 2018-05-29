@@ -1,15 +1,35 @@
 <div class="workspace-container mid-position">
-  <h3 class="workspace-title">Community Administrator Registration</h3>
+  <h3 class="workspace-title">Community Registration</h3>
   <mat-card class="system-card">
     <mat-card-header>
-      <mat-card-title>Create Family</mat-card-title>
+      <mat-card-title>Create Community</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="communityGroup">
-        <app-select-control-box [attrContent]="selectCounty" (follow)="getCounty($event)"></app-select-control-box>
+        <!--Get all couties belongs to state -->
+        <ng-container *ngIf="counties">
+          <mat-form-field class="col-sm-12">
+            <mat-select placeholder="Select County" formControlName="county">
+              <mat-option *ngFor="let county of counties" [value]="county.id">
+                {{county.county}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
         <div *ngIf="loadCity; else elseBlock">
-        <app-select-control-box [attrContent]="selectCity" (follow)="getCity($event)"></app-select-control-box>
-        <app-input-control-box [attrContent]="inputCommunity" (follow)="getCommunity($event)"></app-input-control-box>
+          <mat-form-field class="col-sm-12">
+            <mat-select placeholder="Select City" formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city.id">
+                {{city.city}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-12">
+            <input matInput placeholder="Input Community" formControlName="community">
+          </mat-form-field>
+
         </div>
         <ng-template #elseBlock>
           <app-select-default-box [attrContent]="defaultCity"></app-select-default-box>
@@ -18,11 +38,11 @@
         <br><br>
         <div class="col-sm-12">
           <button mat-raised-button color="primary" [disabled]="communityGroup.invalid" (click)="addCommunity()">Submit</button>
-          <button mat-raised-button color="accent">Reset</button>
+          <button mat-raised-button color="accent" (click)="resetForm()">Reset</button>
         </div>
         <br>
         <div *ngIf="confirm" class="col-sm-12">
-          {{ communityPara }} has been created successfully.
+          {{ communityGroup.controls['community'].value }} has been created successfully.
         </div>
 
       </form>
