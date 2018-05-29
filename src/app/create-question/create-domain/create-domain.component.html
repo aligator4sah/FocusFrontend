@@ -16,6 +16,7 @@
                 </mat-panel-title>
                 <mat-panel-description>
                   Expand to check the subdomain
+                  <span>{{"Weight:" + dom.weight}}</span>
                   <mat-icon>library_add</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -49,7 +50,7 @@
               <ng-template #newSubdomain>
                 <form [formGroup]="subdomGroup">
                   <app-input-control-box [attrContent]="inputSubdomain" (follow)="getSubdomain($event)" class="col-sm-12"></app-input-control-box>
-                  <button mat-button color="primary" (click)="addSubdomain(dom.id)">Submit</button>
+                  <button mat-button color="primary" (click)="addSubdomain(dom.id)" [disabled]="subdomGroup.invalid">Submit</button>
                 </form>
                 <mat-action-row>
                   <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -72,7 +73,7 @@
           <form [formGroup]="domGroup">
             <app-input-control-box [attrContent]="inputDomain" (follow)="getDomain($event)" class="col-sm-6"></app-input-control-box>
             <app-input-control-box [attrContent]="inputDomainWeight" (follow)="getDomainWeight($event)" class="col-sm-6"></app-input-control-box>
-            <button mat-raised-button color="basic" (click)="addDomain()">Submit</button>
+            <button mat-raised-button color="basic" (click)="addDomain()" [disabled]="domGroup.invalid">Submit</button>
           </form>
         </div>
       </div>

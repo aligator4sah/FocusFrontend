@@ -87,3 +87,24 @@ a:hover {
   overflow: auto;
   max-height: 500px;
 }
+
+
+.mat-column-order {
+  flex: 0 0 20px;
+  padding-right: 30px;
+}
+
+.mat-column-label {
+  flex: 0 0 400px;
+}
+
+.mat-column-weight {
+  flex: 0 0 20px;
+  padding-right: 40px;
+}
+
+
+.mat-column-options {
+  flex: 0 0 300px;
+  padding-left: 20px;
+}

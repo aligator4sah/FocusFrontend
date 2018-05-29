@@ -90,7 +90,7 @@ export class InputQuestionComponent implements OnInit {
       defaultAnsNo:['',[]],
       weight: ['', [Validators.required, Validators.minLength(1)]],
     });
-    this.ansGroup = this.fb.group({});
+    // this.ansGroup = this.fb.group({});
     this.createQuesForm.controls['ansNo'].valueChanges.subscribe(value => {
       this.getAnsNumber(value);
     });
@@ -268,8 +268,8 @@ export const questionType = [
 ];
 
 export const category = [
-  {value: 'demographic', viewValue: 'demographic'},
-  {value: 'questionnaire', viewValue: 'questionnaire'},
+  {value: 'demographic', viewValue: 'Demographic'},
+  {value: 'questionnaire', viewValue: 'Questionnaire'},
 ];
 
 export class Options {

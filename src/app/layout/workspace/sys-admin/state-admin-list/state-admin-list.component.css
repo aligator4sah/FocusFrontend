@@ -49,3 +49,8 @@
 .filter-name {
   padding-top: 15px;
 }
+
+.mat-column-username {
+  flex: 0 0 100px;
+  padding-right: 10px;
+}

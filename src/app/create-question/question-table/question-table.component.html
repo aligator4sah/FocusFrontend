@@ -112,7 +112,7 @@
                   <mat-cell *matCellDef="let row">
                     <mat-list>
                       <mat-list-item *ngFor="let opt of row.options">
-                        {{ opt.value }} '&nbsp; : &nbsp;' {{ opt.point }}
+                        {{ opt.value + ': ' + opt.point}}
                       </mat-list-item>
                     </mat-list>
                   </mat-cell>
