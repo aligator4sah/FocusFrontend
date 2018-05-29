@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {City, County} from "../../../../model/location";
 import {States} from "../../../../shared/shared-control/attributes";
 import {LocationService} from "../../../../service/location.service";
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-create-county',
@@ -15,10 +16,13 @@ export class CreateCountyComponent implements OnInit {
 
   states = States;
   stateId: number;
+  countyName: string;
   countyArray: any[];
 
   isCountyCreated : boolean = false;
   isCityCreated: boolean = false;
+
+  stateaAdmin = JSON.parse(localStorage.getItem('curUser'));
 
   constructor(
     private fb: FormBuilder,
@@ -30,31 +34,28 @@ export class CreateCountyComponent implements OnInit {
     this.buildCityForm();
   }
 
-
-  //TODO: change select state to default state id after state admin login
   buildCountyForm() {
     this.countyGroup = this.fb.group({
-      'state1': ['', Validators.required],
+      'state1': [this.stateaAdmin.location, Validators.required],
       'county1': ['', [Validators.required, Validators.minLength(3)]],
+    });
+    this.countyGroup.controls['county1'].valueChanges.debounceTime(300).subscribe(value => {
+      this.countyName = value;
+      this.getCountyByState();
     });
   }
 
-  //TODO: delete select state later
   buildCityForm() {
     this.cityGroup = this.fb.group({
-      'state2': ['', Validators.required],
+      'state2': [this.stateaAdmin.location , Validators.required],
       'county2': ['', Validators.required],
       'city': ['', [Validators.required, Validators.minLength(3)]],
     });
-    this.cityGroup.controls['state2'].valueChanges.subscribe(value => {
-      this.stateId = value;
-      this.getCountyByState(this.stateId);
-    });
   }
 
-  getCountyByState(stateId: number) {
+  getCountyByState() {
     this.countyArray = [];
-    this.locationService.getCountyByState(stateId).subscribe(value => this.countyArray = value);
+    this.locationService.getCountyByState(this.stateaAdmin.location).subscribe(value => this.countyArray = value);
   }
 
   submitCounty() {

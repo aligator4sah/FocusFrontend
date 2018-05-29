@@ -27,7 +27,7 @@
           </ng-container>
         </mat-tab>
 
-        <mat-tab label="Create City">
+        <mat-tab label="Create City" (click)="getCountyByState()">
           <form [formGroup]="cityGroup" class="form-group">
             <mat-form-field class="col-sm-6">
               <mat-select placeholder="Select State Name" formControlName="state2">
@@ -50,7 +50,7 @@
             </ng-container>
           </form>
           <div class="col-sm-12">
-            <button mat-raised-button color="primary" (click)="submitCity()"> Submit </button>
+            <button mat-raised-button color="primary" (click)="submitCity()" [disabled]="cityGroup.invalid"> Submit </button>
           </div>
           <ng-container *ngIf="isCityCreated">
             A new city has been created succefully.

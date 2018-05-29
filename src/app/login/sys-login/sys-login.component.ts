@@ -35,7 +35,7 @@ export class SysLoginComponent implements OnInit {
     id: 1,
     name: this.userNamePara,
     role: "State Administrator",
-    location: 1,
+    location: 38,
     locName: 'Pennsylvania'
   });
   public comAdmin = new CurrentUser({
