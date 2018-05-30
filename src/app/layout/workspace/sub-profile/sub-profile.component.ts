@@ -34,6 +34,8 @@ export class SubProfileComponent implements OnInit, OnDestroy{
         this.getStateAdminById();
       } else if (this.curRole === "Community Administrator") {
         this.getCommunityAdminById();
+      } else if (this.curRole === "BHCO") {
+        this.getBhcoById();
       }
     });
   }
@@ -72,6 +74,15 @@ export class SubProfileComponent implements OnInit, OnDestroy{
       })
   }
 
+  getBhcoById() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.userService.getBhcoById(id)
+      .subscribe(bhco => {
+        this.member = bhco;
+        this.buildForm();
+      });
+  }
+
 
   update() {
     let updateMember = new User({
@@ -88,6 +99,8 @@ export class SubProfileComponent implements OnInit, OnDestroy{
       this.userService.updateStateAdminById(this.member.id, updateMember).subscribe();
     } else if (this.curRole === "Community Administrator") {
       this.userService.updateCommunityAdminById(this.member.id, updateMember).subscribe();
+    } else if (this.curRole === "BHCO") {
+      this.userService.updateBhcoById(this.member.id, updateMember).subscribe();
     }
 
     this.isUpdated = true;

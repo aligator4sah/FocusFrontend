@@ -148,6 +148,14 @@ export class UserService {
       );
   }
 
+  getBhcoById(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/bhco/' + id)
+      .pipe(
+        catchError(this.handleError('getBhcoById', []))
+      );
+  }
+
+
   /** POST: add a new member to the database*/
   addMember(mem : Member): Observable<Member> {
     console.log(mem);
@@ -219,6 +227,13 @@ export class UserService {
     return this.http.patch<any>(API_URL + '/communityAdmin/' + id, profile, httpOptions)
       .pipe(
         catchError(this.handleError('updateCommunityAdminProfile', []))
+      );
+  }
+
+  updateBhcoById(id: number, profile: any): Observable<any> {
+    return this.http.patch<any>(API_URL + '/bhco/' + id, profile, httpOptions)
+      .pipe (
+        catchError(this.handleError('updateBhco', []))
       );
   }
 

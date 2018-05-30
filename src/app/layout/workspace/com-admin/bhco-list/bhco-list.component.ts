@@ -4,6 +4,7 @@ import {UserService} from "../../../../service/user.service";
 import {Bhcos} from "../../../../model/User";
 import {LocInfo} from "../../../../model/location";
 import {LocationService} from "../../../../service/location.service";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-bhco-list',
@@ -26,7 +27,8 @@ export class BhcoListComponent implements OnInit{
 
   constructor(
     private bhcoService: UserService,
-    private locService: LocationService
+    private locService: LocationService,
+    private stateService: StateService
   ) {
 
   }
@@ -35,9 +37,10 @@ export class BhcoListComponent implements OnInit{
     if (localStorage.length > 0) {
       this.getLocInfor();
     }
+    this.stateService.subProfileRole$.next("BHCO");
 
     if (this.curRole.role === "Community Administrator") {
-      this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email'];
+      this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'edit'];
     } else if (this.curRole.role === "State Administrator") {
       this.displayedColumns = ['username', 'firstname', 'lastname', 'phone', 'email', 'community', 'city'];
     } else {
