@@ -1,6 +1,7 @@
 import {StaLevelComponent} from './sta-level.component';
 import {CreateCommunityModule} from '../../workspace/sta-admin/create-community/create-community.module';
 import {CreateCountyModule} from "../../workspace/sta-admin/create-county/create-county.module";
+import {SubProfileModule} from "../../workspace/sub-profile/sub-profile.module";
 
 export const routes = [{
   path: '',
@@ -13,7 +14,8 @@ export const routes = [{
     {path: 'bhcoList', loadChildren: '../../workspace/com-admin/bhco-list/bhco-list.module#BhcoListModule'},
     {path: 'memberList', loadChildren: '../../workspace/bhco/assign-table/assign-table.module#AssignTableModule'},
     {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
-    {path: 'create-county', loadChildren: '../../workspace/sta-admin/create-county/create-county.module#CreateCountyModule'}
+    {path: 'create-county', loadChildren: '../../workspace/sta-admin/create-county/create-county.module#CreateCountyModule'},
+    {path: 'comadmin-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
   ]
 }
 ]

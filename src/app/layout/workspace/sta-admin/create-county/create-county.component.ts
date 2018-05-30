@@ -32,6 +32,7 @@ export class CreateCountyComponent implements OnInit {
   ngOnInit() {
     this.buildCountyForm();
     this.buildCityForm();
+    this.getCountyByState();
   }
 
   buildCountyForm() {

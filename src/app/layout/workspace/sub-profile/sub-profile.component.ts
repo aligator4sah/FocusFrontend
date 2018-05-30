@@ -1,17 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../service/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ValidationService} from "../../../shared/validation-service/validation.service";
 import {StateAdmin, User} from "../../../model/User";
+import {StateService} from "../../../service/state.service";
 
 @Component({
   selector: 'app-sub-profile',
   templateUrl: './sub-profile.component.html',
   styleUrls: ['./sub-profile.component.css']
 })
-export class SubProfileComponent implements OnInit {
+export class SubProfileComponent implements OnInit, OnDestroy{
   @Input() member: any;
+  curRole: String;
 
   profileForm: FormGroup;
   isUpdated: boolean = false;
@@ -21,10 +23,23 @@ export class SubProfileComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
+    private stateService: StateService,
   ) { }
 
   ngOnInit() {
-    this.getStateAdminById();
+    //this.getStateAdminById();
+    setTimeout(() => {
+      this.stateService.subProfileRole$.subscribe(value => this.curRole = value);
+      if (this.curRole === "State Administrator") {
+        this.getStateAdminById();
+      } else if (this.curRole === "Community Administrator") {
+        this.getCommunityAdminById();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.stateService.subProfileRole$.next("");
   }
 
   buildForm() {
@@ -48,6 +63,15 @@ export class SubProfileComponent implements OnInit {
       });
   }
 
+  getCommunityAdminById() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.userService.getCommunityAdminById(id)
+      .subscribe(communityAdmin => {
+        this.member = communityAdmin;
+        this.buildForm();
+      })
+  }
+
 
   update() {
     let updateMember = new User({
@@ -60,7 +84,12 @@ export class SubProfileComponent implements OnInit {
     });
     console.log(updateMember);
     /** update method for state admin**/
-    this.userService.updateStateAdminById(this.member.id, updateMember).subscribe();
+    if (this.curRole === "State Administrator") {
+      this.userService.updateStateAdminById(this.member.id, updateMember).subscribe();
+    } else if (this.curRole === "Community Administrator") {
+      this.userService.updateCommunityAdminById(this.member.id, updateMember).subscribe();
+    }
+
     this.isUpdated = true;
 
     //TODO: link back to account table list

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {UserService} from "../../../../service/user.service";
 import {CommunityAdmin} from "../../../../model/User";
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-com-admin-list',
@@ -18,15 +19,19 @@ export class ComAdminListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private comAdminService: UserService
+    private comAdminService: UserService,
+    private stateService: StateService,
   ) {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.stateService.subProfileRole$.next("Community Administrator")
+    });
     if (this.curRole.role === "System Administrator") {
       this.displayedColumns = ['username', 'firstName', 'lastName', 'phone', 'email', 'city', 'community', 'state'];
     } else if (this.curRole.role === "State Administrator") {
-      this.displayedColumns = ['username', 'firstName', 'lastName', 'phone', 'email', 'city', 'community']
+      this.displayedColumns = ['username', 'firstName', 'lastName', 'phone', 'email', 'city', 'community', 'edit']
     }
   }
   /**

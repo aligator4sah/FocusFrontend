@@ -4,10 +4,10 @@
     <mat-card-header>
       <mat-card-title><h3>Edit Profile</h3></mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="member">
       <div class="full-width">
         <p class="col-sm-6">User Name: <b class="profile-title"> {{member.username}}</b></p>
-        <p class="col-sm-6">User Role: <b class="profile-title"> Community Admin</b></p>
+        <p class="col-sm-6">User Role: <b class="profile-title">{{ curRole }}</b></p>
       </div>
 
       <ng-container *ngIf="profileForm">

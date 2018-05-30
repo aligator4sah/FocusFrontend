@@ -111,13 +111,6 @@ export class UserService {
       );
   }
 
-  getStateAdminById(id: number): Observable<any> {
-    return this.http.get<any>(API_URL + '/stateAdmin/' + id)
-      .pipe(
-        catchError(this.handleError('getStateAdminById', []))
-      );
-  }
-
   /** GET assigned and unassigned member*/
   getUnassignedMem(locId: number): Observable<any[]> {
     return this.http.get<any[]>(API_URL + '/unAssignedCommunityMember/' + locId)
@@ -138,6 +131,20 @@ export class UserService {
     return this.http.get<any>(API_URL + '/communityMember/' + id)
       .pipe(
         catchError(this.handleError('getMemberById', []))
+      );
+  }
+
+  getStateAdminById(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/' + id)
+      .pipe(
+        catchError(this.handleError('getStateAdminById', []))
+      );
+  }
+
+  getCommunityAdminById(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityAdmin/' + id)
+      .pipe(
+        catchError(this.handleError('getCommunityAdminById', []))
       );
   }
 
@@ -205,6 +212,13 @@ export class UserService {
     return this.http.patch<any>(API_URL + '/stateAdmin/' + id, profile, httpOptions)
       .pipe(
         catchError(this.handleError('updateStateAdminProfile', []))
+      );
+  }
+
+  updateCommunityAdminById(id: number, profile: any): Observable<any> {
+    return this.http.patch<any>(API_URL + '/communityAdmin/' + id, profile, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateCommunityAdminProfile', []))
       );
   }
 
