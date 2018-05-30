@@ -15,6 +15,7 @@ import {UserService} from "../../../../service/user.service";
 import {Block, Family, LocInfo} from "../../../../model/location";
 import {ValidationService} from "../../../../shared/validation-service/validation.service";
 import {LocationService} from "../../../../service/location.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-c-mem',
@@ -108,7 +109,8 @@ export class CreateCMemComponent implements OnInit {
     private fb:FormBuilder,
     private datapipe : DatePipe,
     private userService: UserService,
-    private locService: LocationService
+    private locService: LocationService,
+    private router: Router
   ){ }
 
   ngOnInit() {
@@ -136,15 +138,15 @@ export class CreateCMemComponent implements OnInit {
     this.userForm = this.fb.group({
       username:['',[ Validators.required,Validators.minLength(4)]],
       dPassword:['',[]],
-      firstname:['',[ Validators.required,Validators.minLength(4)]],
-      midname:['',[Validators.required,Validators.minLength(3)]],
-      lastname:['',[Validators.required,Validators.minLength(3)]],
+      firstname:['',[ Validators.required,Validators.minLength(1)]],
+      midname:[''],
+      lastname:['',[Validators.required,Validators.minLength(1)]],
       gender:['',[Validators.required]],
-      phone:['',[Validators.required,Validators.minLength(10)]],
+      phone:[''],
       date:['',[Validators.required]],
       address1:['',[Validators.required,Validators.minLength(6)]],
       address2:['',[]],
-      email: ['',[Validators.required,ValidationService.emailValidator]]
+      email: ['']
     });
     this.otherFormGroup = this.fb.group({
       race:['',[Validators.required]],
@@ -234,11 +236,6 @@ export class CreateCMemComponent implements OnInit {
     }
   }
 
-  getMidName(value:string){
-    if(value){
-      this.midNamePara = value;
-    }
-  }
 
   getGender(value:string){
     if(value){
@@ -246,11 +243,6 @@ export class CreateCMemComponent implements OnInit {
     }
   }
 
-  getPhone(value:string){
-    if(value){
-      this.phonePara = value;
-    }
-  }
 
   getDate(value:string){
     if(value){
@@ -263,18 +255,6 @@ export class CreateCMemComponent implements OnInit {
   getAddressOne(value:string){
     if(value){
       this.addressOnePara = value;
-    }
-  }
-
-  getAddressTwo(value:string){
-    if(value){
-      this.addressTwoPara = value;
-    }
-  }
-
-  getEmail(value: string) {
-    if (value) {
-      this.emailPara = value;
     }
   }
 
@@ -308,11 +288,11 @@ export class CreateCMemComponent implements OnInit {
       username: this.userNamePara,
       password: this.passwordPara,
       firstname: this.firstNamePara,
-      midname: this.midNamePara,
+      midname: this.userForm.controls['midname'].value,
       lastname: this.lastNamePara,
       gender: this.genderPara,
-      phone: this.phonePara,
-      email: this.emailPara,
+      phone: this.userForm.controls['phone'].value,
+      email: this.userForm.controls['email'].value,
       date: this.dobPara,
       addressone: this.addressOnePara,
       addresstwo: this.addressTwoPara,
@@ -332,6 +312,7 @@ export class CreateCMemComponent implements OnInit {
       .subscribe(member => this.members.push(member));
 
     this.show = true;
+    this.router.navigateByUrl('/CommunityDashboard/memberList');
     //console.log(comMember);
   }
 

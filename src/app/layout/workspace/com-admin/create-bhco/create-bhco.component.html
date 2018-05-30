@@ -16,12 +16,18 @@
           <app-input-control-box [attrContent]="lastName" (follow)="getLastName($event)" class="col-sm-6"></app-input-control-box>
         </div>
         <div class="full-width">
-          <app-input-control-box [attrContent]="email" (follow)="getEmail($event)" class="col-sm-6"></app-input-control-box>
-          <app-input-control-box [attrContent]="phone" (follow)="getPhone($event)" class="col-sm-6"></app-input-control-box>
+          <mat-form-field class="col-sm-6">
+            <input matInput placeholder="Phone" type="phone" formControlName="phone">
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+          <mat-form-field class="col-sm-6">
+            <input matInput placeholder="Email" type="email" formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
         </div>
         <div class="col-sm-12">
           <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addBhcos()">Submit</button>
-          <button mat-raised-button color="accent">Reset</button>
+          <button mat-raised-button color="accent" (click)="registerForm.reset()">Reset</button>
         </div>
         <div class="col-sm-12">
           <p *ngIf="confirmed"><strong>Register is done.</strong></p>

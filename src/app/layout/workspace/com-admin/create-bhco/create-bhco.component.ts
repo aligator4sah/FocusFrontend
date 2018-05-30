@@ -4,6 +4,7 @@ import { InputAttributes } from '../../../../shared/shared-control/attributes';
 import { ValidationService} from '../../../../shared/validation-service/validation.service';
 import {Bhcos} from "../../../../model/User";
 import {UserService} from "../../../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-bhco',
@@ -38,7 +39,9 @@ export class CreateBhcoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService) {
+    private userService: UserService,
+    private router: Router,
+  ) {
 
   }
 
@@ -57,10 +60,10 @@ export class CreateBhcoComponent implements OnInit {
       username:['',[ Validators.required,Validators.minLength(4)]],
       password:['',[Validators.required,ValidationService.passwordValidator]],
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
-      firstname:['',[ Validators.required,Validators.minLength(4)]],
-      lastname:['',[Validators.required,Validators.minLength(4)]],
-      email: ['',[Validators.required,ValidationService.emailValidator]],
-      phone: ['',[Validators.required,Validators.minLength(6)]]
+      firstname:['',[ Validators.required,Validators.minLength(1)]],
+      lastname:['',[Validators.required,Validators.minLength(1)]],
+      email: [''],
+      phone: ['']
     });
   }
 
@@ -95,26 +98,14 @@ export class CreateBhcoComponent implements OnInit {
     }
   }
 
-  getEmail(value: string){
-    if(value){
-      this.emailPara = value;
-    }
-  }
-
-  getPhone(value: string) {
-    if (value) {
-      this.phonePara = value;
-    }
-  }
-
   addBhcos() {
     const newBhco = new Bhcos({
       username: this.userNamePara,
       password: this.userPasswordPara,
       firstname: this.firstNamePara,
       lastname: this.lastNamePara,
-      email: this.emailPara,
-      phone: this.phonePara,
+      email: this.registerForm.controls['email'].value,
+      phone: this.registerForm.controls['phone'].value,
       community: this.location.community,
       city: this.location.city,
       county: this.location.county,
@@ -124,8 +115,8 @@ export class CreateBhcoComponent implements OnInit {
     this.userService.addBhco(newBhco)
       .subscribe(bhco => this.bhcos.push(bhco));
     console.log(newBhco);
-
     this.confirmed = true;
+    this.router.navigateByUrl('CommunityDashboard/bhcoList');
   }
 
 }

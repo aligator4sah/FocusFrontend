@@ -31,20 +31,17 @@
 
           <div>
             <button mat-raised-button color="primary" matStepperNext [disabled]="addressFormGroup.invalid">Next</button>
-            <!--<button mat-raised-button matStepperNext color="accent">Create Family</button>-->
           </div>
         </form>
       </mat-step>
 
-      //second step
+      <!--//second step-->
       <mat-step [stepControl]="userForm">
         <form [formGroup]="userForm">
           <ng-template matStepLabel>Basic Information</ng-template>
           <h4> Register Information</h4>
           <div class="col-sm-12">
             <app-input-control-box [attrContent]="userName" class="col-sm-12" (follow)="getUserName($event)"></app-input-control-box>
-            <!--<app-input-control-box [attrContent]="passWord" class="col-sm-4" (follow)="getUserPassword($event)"></app-input-control-box>
-            <app-input-control-box [attrContent]="confirmPassword" validateEqual="password" class="col-sm-4" (follow)="getUserConPassword($event)"></app-input-control-box>-->
           </div>
           <div class="col-sm-12">
             <app-input-default-box [attrContent]="defaultPassword" class="col-sm-12"></app-input-default-box>
@@ -53,7 +50,11 @@
           <h4>Personal Information</h4>
           <div>
             <app-input-control-box [attrContent]="firstName" class="col-sm-4" (follow)="getFirstName($event)"></app-input-control-box>
-            <app-input-control-box [attrContent]="midName" class="col-sm-4" (follow)="getMidName($event)"></app-input-control-box>
+            <mat-form-field class="col-sm-4">
+              <input matInput type="text" placeholder="Middle Name" formControlName="midname">
+            </mat-form-field>
+            <!--<app-input-control-box [attrContent]="midName" class="col-sm-4" (follow)="getMidName($event)"></app-input-control-box>-->
+           <!---->
             <app-input-control-box [attrContent]="lastName" class="col-sm-4" (follow)="getLastName($event)"></app-input-control-box>
           </div>
           <div class="col-sm-12">
@@ -61,22 +62,24 @@
             <app-input-date-box [attrContent]="date" class="col-sm-6" (follow)="getDate($event)"></app-input-date-box>
           </div>
           <div>
-            <app-input-control-box [attrContent]="phoneNumber" class="col-sm-6" (follow)="getPhone($event)"></app-input-control-box>
-            <app-input-control-box [attrContent]="inputEmail" class="col-sm-6" (follow)="getEmail($event)"></app-input-control-box>
+            <mat-form-field class="col-sm-6">
+              <input matInput type="tel" placeholder="Phone" formControlName="phone">
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput type="email" placeholder="Email" formControlName="email">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
           </div>
 
           <div class="col-sm-12">
-            <app-input-control-box class="col-sm-6" [attrContent]="addressOne" (follow)="getAddressOne($event)" class="col-sm-12"></app-input-control-box>
+            <app-input-control-box [attrContent]="addressOne" (follow)="getAddressOne($event)" class="col-sm-12"></app-input-control-box>
           </div>
           <div class="col-sm-12">
-            <app-input-control-box class="col-sm-6" [attrContent]="addressTwo" (follow)="getAddressTwo($event)" class="col-sm-12"></app-input-control-box>
+            <mat-form-field class="col-sm-12">
+              <input matInput type="text" placeholder="Address Two" formControlName="address2">
+            </mat-form-field>
           </div>
-          <!--
-          <div>
-            <app-input-control-box class="col-sm-4" [attrContent]="cities" (follow)="getCity($event)"></app-input-control-box>
-            <app-select-control-box class="col-sm-4" [attrContent]="selectState" (follow)="getState($event)"></app-select-control-box>
-            <app-input-control-box class="col-sm-4" [attrContent]="zipCode" (follow)="getZipcode($event)"></app-input-control-box>
-          </div>-->
           <div class="col-sm-12">
             <button mat-raised-button color="primary" matStepperNext [disabled]="userForm.invalid">Next</button>
             <button mat-raised-button color="accent" matStepperPrevious>Back</button>
