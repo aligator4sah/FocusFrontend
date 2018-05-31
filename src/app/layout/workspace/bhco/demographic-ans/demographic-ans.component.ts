@@ -9,6 +9,7 @@ import {StateService} from "../../../../service/state.service";
 export class DemographicAnsComponent implements OnInit {
 
   member = JSON.parse(localStorage.getItem('curMem'));
+  categoryName: string = "demographic";
 
   constructor(
     private stateService: StateService

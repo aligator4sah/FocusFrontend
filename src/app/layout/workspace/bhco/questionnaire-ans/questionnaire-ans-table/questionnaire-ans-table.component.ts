@@ -1,24 +1,35 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from "@angular/cdk/collections";
 import {Angular2Csv} from "angular2-csv";
+import {QuestionModelService} from "../../../../../service/question-model.service";
 
 @Component({
   selector: 'app-questionnaire-ans-table',
   templateUrl: './questionnaire-ans-table.component.html',
   styleUrls: ['./questionnaire-ans-table.component.css']
 })
-export class QuestionnaireAnsTableComponent{
+export class QuestionnaireAnsTableComponent implements OnInit{
+  @Input() category: string;
 
+  member = JSON.parse(localStorage.getItem('curMem'));
   displayedColumns = ['id', 'description', 'answer', 'date'];
-  dataSource: MatTableDataSource<QuestionData>;
+  //dataSource: MatTableDataSource<QuestionData>;
+  dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<QuestionData>(true, []);
+
+  items: any[] = [];
+  demoItems: any[] = [];
+  questionItems: any[] = [];
+
   users: any[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
+  constructor(
+    private questionService: QuestionModelService
+  ) {
     // Create 100 users
     const users: QuestionData[] = [];
     for (let i = 1; i <= 20; i++) { users.push(createNewUser(i)); }
@@ -26,6 +37,32 @@ export class QuestionnaireAnsTableComponent{
     // Assign the data to the data source for the table to render
     this.users = users;
     this.dataSource = new MatTableDataSource(users);
+  }
+
+  ngOnInit() {
+    if (this.category === "demographic") {
+      this.getUserDemographicAnswer();
+      this.displayedColumns = ['id', 'description', 'answer'];
+    }
+  }
+
+
+  getUserDemographicAnswer() {
+    this.questionService.getDemoAnsByUserId(this.member.id).subscribe(value => {
+      this.items = value;
+      this.transformToTable(this.items);
+      this.dataSource = new MatTableDataSource<any>(this.demoItems);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  transformToTable(items: any[]) {
+    items.forEach(answer => {
+      console.log(answer.demographicQuestionnaire[0].label);
+      let item = {id: answer.questionid, label: answer.demographicQuestionnaire[0].label, result: answer.answer};
+      this.demoItems.push(item);
+    });
   }
 
   /**

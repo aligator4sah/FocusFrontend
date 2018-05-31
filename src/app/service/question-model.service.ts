@@ -97,6 +97,13 @@ export class QuestionModelService {
   }
 
   /** GET; get single questions by id*/
+  getDemoAnsByUserId(userId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/userDemographic/user/' + userId)
+      .pipe(
+        catchError(this.handleError('getDemographicAns', []))
+      );
+  }
+
   getDemoQuesById(userid: number): Observable<{}> {
     return this.http.get<any>(API_URL + '/demographic/${userid}')
       .pipe(
