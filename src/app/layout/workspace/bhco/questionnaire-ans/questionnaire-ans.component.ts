@@ -8,6 +8,7 @@ import {QuestionModelService} from "../../../../service/question-model.service";
   styleUrls: ['./questionnaire-ans.component.css']
 })
 export class QuestionnaireAnsComponent implements OnInit {
+  categoryName: string = "questionnaire";
   member = JSON.parse(localStorage.getItem('curMem'));
   session = JSON.parse(localStorage.getItem('curSession'));
 

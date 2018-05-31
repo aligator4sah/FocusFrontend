@@ -15,13 +15,14 @@
       <mat-card-title>{{'Session: ' + session.createdate}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-tab-group class="demo-tab-group" >
-        <mat-tab *ngFor="let dom of domains" [label]="dom.domain">
-          <div class="demo-tab-content">
-            <app-questionnaire-ans-table></app-questionnaire-ans-table>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
+      <!--<mat-tab-group class="demo-tab-group" >-->
+        <!--<mat-tab *ngFor="let dom of domains" [label]="dom.domain">-->
+          <!--<div class="demo-tab-content">-->
+            <!--<app-questionnaire-ans-table [category]="categoryName"></app-questionnaire-ans-table>-->
+          <!--</div>-->
+        <!--</mat-tab>-->
+      <!--</mat-tab-group>-->
+      <app-questionnaire-ans-table [category]="categoryName"></app-questionnaire-ans-table>
 
     </mat-card-content>
   </mat-card>
