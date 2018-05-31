@@ -13,26 +13,20 @@ import {SocialAnswer} from "../../../../model/questionBase";
   styleUrls: ['./social-network.component.css']
 })
 export class SocialNetworkComponent implements OnInit, AfterViewInit {
-  ngAfterViewInit(): void {
-    setTimeout(()=>
-      this.stateService.existMember$.next(true)
-    );
-
-    //this.form = this.fb.group({});
-
-    setTimeout(() => this.form = this.createSubforms());
-
-  }
-
-
-
   //structure
   member = JSON.parse(localStorage.getItem('curMem'));
-
   form: FormGroup;
   social_question = SocialQuestion;
   answerGroup: any[] = [];
+  socialAnswer: SocialAnswer[] = [];
 
+  ngAfterViewInit(): void {
+    // setTimeout(()=>
+    //   this.stateService.existMember$.next(true)
+    // );
+    // //this.form = this.fb.group({});
+    // setTimeout(() => this.form = this.createSubforms());
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -41,10 +35,12 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-
+    setTimeout(()=>
+      this.stateService.existMember$.next(true)
+    );
+    //this.form = this.fb.group({});
+    setTimeout(() => this.form = this.createSubforms());
   }
-
 
   //generate six forms for each question
   createSubforms() {
@@ -92,6 +88,10 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
     console.log(this.form.value);
 
     //transform output data type to right format
+  }
+
+  goBack() {
+    window.history.back();
   }
 }
 

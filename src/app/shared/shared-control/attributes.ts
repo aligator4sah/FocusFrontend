@@ -189,8 +189,8 @@ export const Employment = [
 ];
 
 export const Relation = [
-  {value:'family',viewValue:'Family'},
-  {value:'friend',viewValue:'Friend'},
-  {value:'co-worker',viewValue:'Co-worker'},
-  {value:'other-Acquaintance',viewValue:'Other Acquaintance'}
+  {value:1 ,viewValue:'Family'},
+  {value:2 ,viewValue:'Friend'},
+  {value:3 ,viewValue:'Co-worker'},
+  {value:4 ,viewValue:'Other Acquaintance'}
 ];

@@ -26,7 +26,8 @@
                 <br><br>
                 <div class="col-sm-12">
                   <button mat-raised-button color="primary" matStepperNext>Next</button>
-                  <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                  <button mat-raised-button color="accent" matStepperPrevious>Previous</button>
+                  <button mat-raised-button (click)="goBack()">Back</button>
                 </div>
               </form>
             </ng-container>
@@ -37,7 +38,7 @@
             <p>Please make sure to submit your answer.</p>
             <div class="col-sm-12">
               <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-              <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+              <button mat-raised-button (click)="goBack()">Back</button>
             </div>
           </mat-step>
 
