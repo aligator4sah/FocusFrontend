@@ -10,6 +10,7 @@ import {switchMap} from "rxjs/operator/switchMap";
 import {catchError} from "rxjs/operators";
 import {map} from "rxjs/operator/map";
 import {of as observableOf} from 'rxjs/observable/of';
+import {StateService} from "../../../../service/state.service";
 
 @Component({
   selector: 'app-assign-table',
@@ -31,20 +32,22 @@ export class AssignTableComponent implements OnInit {
   curMem: Member;
 
   constructor(
-   private userService: UserService
+   private userService: UserService,
+   private stateService: StateService
   ) {
 
   }
 
   ngOnInit() {
     //this.getMember();
+    this.stateService.subProfileRole$.next("Community Member");
     localStorage.removeItem('curMem');
     if (this.curRole.role === "State Administrator") {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
     } else if (this.curRole.role === 'System Administrator') {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'state']
     } else {
-      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block'];
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block', 'edit'];
     }
   }
 

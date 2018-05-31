@@ -1,4 +1,5 @@
 import {BhcoLevelComponent} from './bhco-level.component';
+import {SubProfileModule} from "../../workspace/sub-profile/sub-profile.module";
 
 export const bhcoWorkSpaceRoutes = [
   {
@@ -19,7 +20,8 @@ export const bhcoWorkSpaceRoutes = [
       {path: 'detail/:id', loadChildren:"../../workspace/bhco/member-detail/member-detail.module#MemberDetailModule"},
       {path: 'domain-list', loadChildren: "../../workspace/bhco/questionnaire/domain-list/domain-list.module#DomainListModule"},
       {path: 'session-question', loadChildren: "../../workspace/bhco/session/session-question/session-question.module#SessionQuestionModule"},
-      {path: 'demographic-ans', loadChildren: '../../workspace/bhco/demographic-ans/demographic-ans.module#DemographicAnsModule'}
+      {path: 'demographic-ans', loadChildren: '../../workspace/bhco/demographic-ans/demographic-ans.module#DemographicAnsModule'},
+      {path: 'member-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'}
       ]
   }
 ];

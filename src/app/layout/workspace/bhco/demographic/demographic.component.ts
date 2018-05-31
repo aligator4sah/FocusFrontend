@@ -66,10 +66,10 @@ export class DemographicComponent implements OnInit {
     //console.log(this.answerArray);
     this.queService.addUserDemo(this.answers).subscribe(value => {
         this.isSubmitted = value;
+        this.isUpload = true;
       }
     );
 
-    this.isUpload = true;
   }
 
   back() {

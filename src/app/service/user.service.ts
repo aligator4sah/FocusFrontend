@@ -237,6 +237,13 @@ export class UserService {
       );
   }
 
+  updateMemberById(id: number, profile: any): Observable<any> {
+    return this.http.patch<any>(API_URL + '/communityMember/' + id, profile, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateMember', []))
+      );
+  }
+
 
   /**DELETE: delete a member from the server*/
   deleteMember(id: number): Observable<{}> {

@@ -4,6 +4,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {CheckOpt, Member} from "../../../../model/User";
 import {UserService} from "../../../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-unassign-list',
@@ -25,7 +26,8 @@ export class UnassignListComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private unassignService: UserService
+    private unassignService: UserService,
+    private router: Router,
   ) {
   }
 
@@ -55,11 +57,7 @@ export class UnassignListComponent implements OnInit{
   getMembers() {
     this.unassignService.getAssignedMem(this.locId)
       .subscribe(mems => {
-        this.elements = mems
-        // for (let member of this.members) {
-        //   const newElement = new CheckOpt(member);
-        //   this.elements.push(newElement);
-        // }
+        this.elements = mems;
         this.dataSource = new MatTableDataSource(this.elements);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -80,9 +78,11 @@ export class UnassignListComponent implements OnInit{
       }
     }
     this.unassignService.unassignBhco(this.unassignMem)
-      .subscribe(result => console.log(result));
+      .subscribe(result => {
+        console.log(result);
+        this.router.navigateByUrl('/CommunityDashboard/assignMember');
+      });
     console.log(this.unassignMem);
-    window.location.reload();
   }
 
 }

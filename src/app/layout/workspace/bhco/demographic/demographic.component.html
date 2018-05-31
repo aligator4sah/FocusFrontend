@@ -9,7 +9,7 @@
       </div>
     </mat-card-header>
   </mat-card>
-  <mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>
+  <br>
 
   <mat-card class="system-card">
     <mat-card-header >
@@ -33,12 +33,12 @@
           </div>
         </form>
         <br>
-        <div *ngIf="payLoad" class="form-row">
-          <strong>Saved the following values</strong><br>
-          {{payLoad}}
-        </div>
+        <!--<div *ngIf="payLoad" class="form-row">-->
+          <!--<strong>Saved the following values</strong><br>-->
+          <!--{{payLoad}}-->
+        <!--</div>-->
         <div *ngIf="isUpload">
-          <strong>Demographic for {{curMember.username}} has been submitted successfully.</strong>
+          <strong>Demographic has been submitted successfully.</strong>
         </div>
 
     </mat-card-content>

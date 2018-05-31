@@ -116,9 +116,12 @@ export class AssignMemberComponent implements OnInit {
         }
       }
       this.assignService.assignBHCO(this.assignedBhco, this.assignedMem)
-        .subscribe(result => console.log(result));
+        .subscribe(result => {
+            console.log(result);
+            this.router.navigateByUrl('/CommunityDashboard/unassignMember');
+          });
       console.log(this.assignedMem + "MEMBER");
-      //this.router.navigateByUrl('CommunityDashboard/assignMember');
+
   }
 }
 
