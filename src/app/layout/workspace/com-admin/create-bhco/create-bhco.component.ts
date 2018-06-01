@@ -62,8 +62,8 @@ export class CreateBhcoComponent implements OnInit {
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
       firstname:['',[ Validators.required,Validators.minLength(1)]],
       lastname:['',[Validators.required,Validators.minLength(1)]],
-      email: [''],
-      phone: ['']
+      email: ['', Validators.required],
+      phone: ['', Validators.required]
     });
   }
 

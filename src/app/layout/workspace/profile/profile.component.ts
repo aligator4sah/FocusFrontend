@@ -70,8 +70,4 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  goBack() {
-    window.history.back();
-  }
-
 }

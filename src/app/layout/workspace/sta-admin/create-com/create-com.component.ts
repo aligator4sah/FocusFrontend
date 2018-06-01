@@ -119,8 +119,8 @@ export class CreateComComponent implements OnInit {
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
       firstName:['',[ Validators.required,Validators.minLength(1)]],
       lastName:['',[ Validators.required,Validators.minLength(1)]],
-      phone:[''],
-      email: ['']
+      phone:['', Validators.required],
+      email: ['', Validators.required]
     });
   }
 
@@ -236,17 +236,6 @@ export class CreateComComponent implements OnInit {
     }
   }
 
-  getPhone(value: string) {
-    if (value) {
-      this.phonePara = value;
-    }
-  }
-
-  getEmail(value: string) {
-    if (value) {
-      this.emailPara = value;
-    }
-  }
 
   /** send add a new community admin request to the server */
   addComAdmin() {

@@ -10,7 +10,7 @@ import {UserService} from "../../../../service/user.service";
   templateUrl: './social-network.component.html',
   styleUrls: ['./social-network.component.css']
 })
-export class SocialNetworkComponent implements OnInit, AfterViewInit {
+export class SocialNetworkComponent implements OnInit{
   //structure
   member = JSON.parse(localStorage.getItem('curMem'));
   blockId: any;
@@ -18,14 +18,6 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
   social_question = SocialQuestion;
   answerGroup: any[] = [];
   socialAnswer: SocialAnswer[] = [];
-
-  ngAfterViewInit(): void {
-    // setTimeout(()=>
-    //   this.stateService.existMember$.next(true)
-    // );
-    // //this.form = this.fb.group({});
-    // setTimeout(() => this.form = this.createSubforms());
-  }
 
   constructor(
     private fb: FormBuilder,

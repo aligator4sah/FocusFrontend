@@ -142,11 +142,11 @@ export class CreateCMemComponent implements OnInit {
       midname:[''],
       lastname:['',[Validators.required,Validators.minLength(1)]],
       gender:['',[Validators.required]],
-      phone:[''],
+      phone:['', Validators.required],
       date:['',[Validators.required]],
       address1:['',[Validators.required,Validators.minLength(6)]],
       address2:['',[]],
-      email: ['']
+      email: ['', Validators.required]
     });
     this.otherFormGroup = this.fb.group({
       race:['',[Validators.required]],

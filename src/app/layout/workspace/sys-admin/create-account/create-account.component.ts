@@ -78,8 +78,8 @@ export class CreateAccountComponent implements OnInit {
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]],
       firstName:['',[ Validators.required,Validators.minLength(1)]],
       lastName:['',[ Validators.required,Validators.minLength(1)]],
-      phone:[''],
-      email:['']
+      phone:['', Validators.required],
+      email:['', Validators.required]
     });
     this.userForm.controls['phone'].valueChanges.subscribe(value => this.phonePara = value);
     this.userForm.controls['email'].valueChanges.subscribe(value => this.emailPara = value);

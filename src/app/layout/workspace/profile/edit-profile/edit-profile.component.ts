@@ -19,13 +19,8 @@ export class EditProfileComponent implements OnInit {
 
   profileGroup: FormGroup;
   basicGroup: FormGroup;
-
-  public passWord: InputAttributes = {name:'password',min:8,max:32,placeholder:'password',type:'password'};
-  public confirmPassword : InputAttributes = {name:'confirmPassword',min:4,max:32,placeholder:'confirm password',type:'password'};
-
   needReset: boolean = false;
-  userPasswordPara: string;
-  userConPasswordPara: string;
+  updated: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -56,6 +51,7 @@ export class EditProfileComponent implements OnInit {
     this.userService.getSystemAdminById(this.user.id).subscribe(value => {
       this.profile = value;
       this.buildBasicForm();
+      this.buildForm();
     });
   }
 
@@ -63,6 +59,7 @@ export class EditProfileComponent implements OnInit {
     this.userService.getStateAdminById(this.user.id).subscribe(value =>{
       this.profile = value;
       this.buildBasicForm();
+      this.buildForm();
     });
   }
 
@@ -70,6 +67,7 @@ export class EditProfileComponent implements OnInit {
     this.userService.getCommunityAdminById(this.user.id).subscribe(value => {
       this.profile = value;
       this.buildBasicForm();
+      this.buildForm();
     });
   }
 
@@ -77,6 +75,7 @@ export class EditProfileComponent implements OnInit {
     this.userService.getBhcoById(this.user.id).subscribe(value => {
       this.profile = value;
       this.buildBasicForm();
+      this.buildForm();
     });
   }
 
@@ -84,12 +83,12 @@ export class EditProfileComponent implements OnInit {
     this.userService.getMemberById(this.user.id).subscribe(value => {
       this.profile = value;
       this.buildBasicForm();
+      this.buildForm();
     });
   }
 
 
   /**build forms for basic information **/
-
   buildBasicForm() {
     this.basicGroup = this.fb.group({
       firstname: [this.profile.firstname],
@@ -99,41 +98,21 @@ export class EditProfileComponent implements OnInit {
     })
   }
 
-
-  buildForm(): void {
+  buildForm() {
     this.profileGroup = this.fb.group({
-      password:['',[Validators.required,ValidationService.passwordValidator]],
-      confirmPassword: ['',[Validators.required,Validators.minLength(8)]]
-    })
-  }
-
-  resetPassword() {
-    this.needReset = !this.needReset;
-    this.buildForm();
-  }
-
-
-  getUserPassword(value: string){
-    if(value){
-      this.userPasswordPara = value;
-      console.log("password:"+this.userPasswordPara);
-    }
-  }
-
-  getUserConPassword(value: string){
-    if(value){
-      this.userConPasswordPara = value;
-      console.log("password:"+this.userConPasswordPara);
-    }
+      password:[this.profile.password,[Validators.required,ValidationService.passwordValidator]],
+      confirmPassword: [this.profile.password,[Validators.required,Validators.minLength(8)]]
+    });
   }
 
   confirmBasicChange() {
-    let updateBasicInfo = new Member({
-      firstname: this.basicGroup.controls['firstname'].value,
-      lastname: this.basicGroup.controls['lastname'].value,
-      phone: this.basicGroup.controls['phone'].value,
-      email: this.basicGroup.controls['email'].value,
-    });
+      let updateBasicInfo = {
+        firstname: this.basicGroup.controls['firstname'].value,
+        lastname: this.basicGroup.controls['lastname'].value,
+        phone: this.basicGroup.controls['phone'].value,
+        email: this.basicGroup.controls['email'].value,
+        password: this.profileGroup.controls['password'].value,
+      };
 
     if (this.role === "State Administrator") {
       this.userService.updateStateAdminById(this.user.id, updateBasicInfo).subscribe();
@@ -146,6 +125,7 @@ export class EditProfileComponent implements OnInit {
     } else {
       this.userService.updateSystemAdminById(this.user.id, updateBasicInfo).subscribe();
     }
+    this.updated = true;
   }
 
   goBack() {
