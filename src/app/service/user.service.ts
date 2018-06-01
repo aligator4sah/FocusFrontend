@@ -230,6 +230,13 @@ export class UserService {
   }
 
   /** PATCH: update state admin profile by id**/
+  updateSystemAdminById(id: number, profile: any): Observable<any> {
+    return this.http.patch<any>(API_URL + '/systemAdmin/' + id, profile, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateSystemAdmin', []))
+      );
+  }
+
   updateStateAdminById(id: number, profile: any): Observable<any> {
     return this.http.patch<any>(API_URL + '/stateAdmin/' + id, profile, httpOptions)
       .pipe(
