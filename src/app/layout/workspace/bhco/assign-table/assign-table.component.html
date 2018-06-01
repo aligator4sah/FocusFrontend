@@ -71,12 +71,6 @@
             <mat-cell *matCellDef="let row"> {{row.addressone}} </mat-cell>
           </ng-container>
 
-          <!--&lt;!&ndash; Block Column &ndash;&gt;-->
-          <!--<ng-container matColumnDef="zipcode">-->
-            <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Zipcode </mat-header-cell>-->
-            <!--<mat-cell *matCellDef="let row"> {{row.zipcode}} </mat-cell>-->
-          <!--</ng-container>-->
-
           <!-- Block Column -->
           <ng-container matColumnDef="block">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Block </mat-header-cell>
@@ -107,10 +101,16 @@
             <mat-cell *matCellDef="let row"> {{row.state}} </mat-cell>
           </ng-container>
 
-          <!-- edit profile-->
-          <ng-container matColumnDef="edit">
+          <!-- edit profile for bhco-->
+          <ng-container matColumnDef="edit1">
             <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
             <mat-cell *matCellDef="let row"><button mat-button color="primary" routerLink="/BhcoDashboard/member-profile/{{row.id}}">Profile</button></mat-cell>
+          </ng-container>
+
+          <!--edit profile for community admin -->
+          <ng-container matColumnDef="edit2">
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let row"><button mat-button color="primary" routerLink="/CommunityDashboard/member-profile/{{row.id}}">Profile</button></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

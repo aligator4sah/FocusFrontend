@@ -28,6 +28,7 @@ import { QuestionModelService } from './service/question-model.service';
 import { LocationService } from './service/location.service';
 import {ChartsModule} from "ng2-charts/ng2-charts";
 import {StateService} from "./service/state.service";
+import {SummaryService} from "./service/summary.service";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {StateService} from "./service/state.service";
     HttpService,
     QuestionModelService,
     LocationService,
-    StateService
+    StateService,
+    SummaryService,
   ],
   bootstrap: [AppComponent]
 })

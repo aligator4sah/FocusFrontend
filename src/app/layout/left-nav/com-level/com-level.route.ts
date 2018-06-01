@@ -1,4 +1,6 @@
 import {ComLevelComponent} from './com-level.component';
+import {SubProfileModule} from "../../workspace/sub-profile/sub-profile.module";
+import {MemberSummaryModule} from "../../workspace/com-admin/member-summary/member-summary.module";
 
 export const routes = [
   {
@@ -16,7 +18,9 @@ export const routes = [
       {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
       {path: 'edit-profile', loadChildren: '../../workspace/profile/edit-profile/edit-profile.module#EditProfileModule'},
       {path: 'create-block', loadChildren: '../../workspace/com-admin/create-block/create-block.module#CreateBlockModule'},
-      {path: 'bhco-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'}
+      {path: 'bhco-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
+      {path: 'member-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
+      {path: 'member-summary', loadChildren: '../../workspace/com-admin/member-summary/member-summary.module#MemberSummaryModule'}
     ]
   }
 ];

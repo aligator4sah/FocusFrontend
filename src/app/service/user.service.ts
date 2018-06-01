@@ -8,7 +8,7 @@ import {catchError} from "rxjs/operators";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {httpFactory} from "@angular/http/src/http_module";
+
 const API_URL = environment.apiUrl;
 
 const httpOptions = {

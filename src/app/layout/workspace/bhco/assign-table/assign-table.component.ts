@@ -46,8 +46,10 @@ export class AssignTableComponent implements OnInit {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'city'];
     } else if (this.curRole.role === 'System Administrator') {
       this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'community', 'state']
+    } else if (this.curRole.role === 'Community Administrator') {
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block', 'edit2'];
     } else {
-      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block', 'edit'];
+      this.displayedColumns = ['name', 'firstname', 'lastname', 'gender', 'dob', 'phone', 'address', 'family', 'block', 'edit1'];
     }
   }
 
