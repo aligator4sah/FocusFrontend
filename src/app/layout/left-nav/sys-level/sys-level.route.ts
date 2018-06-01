@@ -12,6 +12,7 @@ export const routes = [{
     {path: 'comList', loadChildren: '../../workspace/sta-admin/com-admin-list/com-admin-list.module#ComAdminListModule'},
     {path: 'bhcoList', loadChildren: '../../workspace/com-admin/bhco-list/bhco-list.module#BhcoListModule'},
     {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
+    {path: 'edit-profile', loadChildren: '../../workspace/profile/edit-profile/edit-profile.module#EditProfileModule'},
     {path: 'question-table', loadChildren: '../../../create-question/question-table/question-table.module#QuestionTableModule'},
     {path: 'question-list', loadChildren: '../../../create-question/question-list/question-list.module#QuestionListModule'},
     {path: 'domain-list', loadChildren: '../../../create-question/create-domain/create-domain.module#CreateDomainModule'},

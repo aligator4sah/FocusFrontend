@@ -22,7 +22,13 @@
           <input matInput placeholder="Email" value="hongj@outlook.com">
         </mat-form-field>
       </div>
-      <form [formGroup]="profileGroup" class="col-sm-12">
+      <div class="col-sm-12">
+        <button mat-raised-button color="primary" (click)="confirmChange()">Confirm Change</button>
+        <button mat-raised-button color="accent" (click)="resetPassword()">Reset Password</button>
+      </div>
+      <br><br>
+
+      <form [formGroup]="profileGroup" class="col-sm-12" *ngIf="needReset">
         <app-input-control-box [attrContent]="passWord" (follow)="getUserPassword($event)"></app-input-control-box>
         <app-input-control-box [attrContent]="confirmPassword" (follow)="getUserConPassword($event)"></app-input-control-box>
         <br><br>
@@ -30,7 +36,6 @@
           <button mat-raised-button color="primary" [disabled]="profileGroup.invalid">Submit</button>
           <button mat-raised-button color="accent">Reset</button>
         </div>
-
       </form>
     </mat-card-content>
   </mat-card>

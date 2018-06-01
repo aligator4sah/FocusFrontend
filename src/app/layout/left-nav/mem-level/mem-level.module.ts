@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import {MemLevelComponent} from './mem-level.component';
 import {LayoutModule} from '../../layout/layout.module';
 
-
 export const routes = [
   {
     path: '',
@@ -12,8 +11,9 @@ export const routes = [
       {path: '', redirectTo: 'socialNetwork', pathMatch: 'full'},
       {path: 'socialNetwork', loadChildren: '../../workspace/bhco/social-network/social-network.module#SocialNetworkModule'},
       // {path: 'demographic', loadChildren: '../../workspace/bhco/demographic/demographic/demographic.module#DemographicModule'},
-      {path: 'questionnaire', loadChildren: '../../workspace/bhco/questionnaire/physical-domain/physical-domain.module#PhysicalDomainModule'}
-
+      {path: 'questionnaire', loadChildren: '../../workspace/bhco/questionnaire/physical-domain/physical-domain.module#PhysicalDomainModule'},
+      {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
+      {path: 'edit-profile', loadChildren: '../../workspace/profile/edit-profile/edit-profile.module#EditProfileModule'}
     ]
   }
 ];

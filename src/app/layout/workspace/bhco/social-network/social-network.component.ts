@@ -1,10 +1,8 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { SelectAttributes, InputAttributes, CheckAttributes, validationTool} from '../../../../shared/shared-control/attributes';
-import { Relation} from '../../../../shared/shared-control/attributes';
-import {SocialNetworkAnswerGroupComponent} from './social-network-answer-group/social-network-answer-group.component';
 import {StateService} from "../../../../service/state.service";
 import {SocialAnswer} from "../../../../model/questionBase";
+import {UserService} from "../../../../service/user.service";
 
 
 @Component({
@@ -15,6 +13,7 @@ import {SocialAnswer} from "../../../../model/questionBase";
 export class SocialNetworkComponent implements OnInit, AfterViewInit {
   //structure
   member = JSON.parse(localStorage.getItem('curMem'));
+  blockId: any;
   form: FormGroup;
   social_question = SocialQuestion;
   answerGroup: any[] = [];
@@ -31,6 +30,7 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private stateService: StateService,
+    private userServie: UserService
     ) {
   }
 
@@ -40,12 +40,13 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
     );
     //this.form = this.fb.group({});
     setTimeout(() => this.form = this.createSubforms());
+    this.blockId = this.userServie.getMemberBlockId(this.member.id);
   }
 
   //generate six forms for each question
   createSubforms() {
     let group = {};
-    this.social_question.forEach(form => {
+      this.social_question.forEach(form => {
       group[form.key] = this.createNestForm(form);
     });
     return this.fb.group(group);
@@ -86,7 +87,6 @@ export class SocialNetworkComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     console.log(this.form.value);
-
     //transform output data type to right format
   }
 

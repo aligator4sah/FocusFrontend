@@ -14,6 +14,7 @@ export const routes = [
       {path: 'assignMember', loadChildren: '../../workspace/com-admin/assign-member/assign-member.module#AssignMemberModule'},
       {path: 'unassignMember', loadChildren: '../../workspace/com-admin/unassign-list/unassign-list.module#UnassignListModule'},
       {path: 'profile', loadChildren: '../../workspace/profile/profile.module#ProfileModule'},
+      {path: 'edit-profile', loadChildren: '../../workspace/profile/edit-profile/edit-profile.module#EditProfileModule'},
       {path: 'create-block', loadChildren: '../../workspace/com-admin/create-block/create-block.module#CreateBlockModule'},
       {path: 'bhco-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'}
     ]

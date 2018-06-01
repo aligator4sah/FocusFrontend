@@ -4,6 +4,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../shared/validation-service/validation.service';
 import {InputAttributes, SelectAttributes,Admins} from '../../shared/shared-control/attributes';
 import {CurrentUser} from "../../model/User";
+import {StateService} from "../../service/state.service";
 
 @Component({
   selector: 'app-sys-login',
@@ -47,7 +48,8 @@ export class SysLoginComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private stateService: StateService
   ) {
 
   }
@@ -93,12 +95,15 @@ export class SysLoginComponent implements OnInit {
     //this.roleName = this.getRole();
     if (this.userAdminPara === "system") {
       localStorage.setItem('curUser', JSON.stringify(this.sysAdmin));
+      this.stateService.profileRole$.next("System Administrator");
       this.router.navigateByUrl('SysDashboard');
     } else if (this.userAdminPara === "state") {
       localStorage.setItem('curUser', JSON.stringify(this.stateAdmin));
+      this.stateService.profileRole$.next("State Administrator");
       this.router.navigateByUrl('StateDashboard');
     } else {
       localStorage.setItem('curUser', JSON.stringify(this.comAdmin));
+      this.stateService.profileRole$.next("Community Administrator")
       this.router.navigateByUrl('CommunityDashboard');
     }
   }

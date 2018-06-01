@@ -155,6 +155,20 @@ export class UserService {
       );
   }
 
+  getSystemAdminById(id: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/' + id)
+      .pipe(
+        catchError(this.handleError('getSystemAdminById', []))
+      );
+  }
+
+  getMemberBlockId(userId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityMemberBlock/' + userId).
+      pipe(
+        catchError(this.handleError('getBlockIdByMember'))
+    )
+  }
+
 
   /** POST: add a new member to the database*/
   addMember(mem : Member): Observable<Member> {

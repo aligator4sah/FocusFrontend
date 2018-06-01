@@ -73,8 +73,8 @@
 
           <!-- edit profile-->
           <ng-container matColumnDef="edit">
-            <mat-header-cell *matHeaderCellDef> Profile </mat-header-cell>
-            <mat-cell *matCellDef="let row"><button mat-button color="primary" routerLink="/CommunityDashboard/bhco-profile/{{row.id}}">Edit Profile</button></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let row"><button mat-button color="primary" routerLink="/CommunityDashboard/bhco-profile/{{row.id}}">Profile</button></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

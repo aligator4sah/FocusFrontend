@@ -4,6 +4,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../../shared/validation-service/validation.service';
 import { InputAttributes } from '../../../shared/shared-control/attributes';
 import {CurrentUser} from "../../../model/User";
+import {StateService} from "../../../service/state.service";
 
 @Component({
   selector: 'app-member-login',
@@ -27,7 +28,8 @@ export class MemberLoginComponent implements OnInit {
   })
   constructor(
     public router: Router,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private stateService: StateService
   ) { }
 
   ngOnInit() {
@@ -58,7 +60,8 @@ export class MemberLoginComponent implements OnInit {
 
   login() {
     localStorage.setItem('curUser', JSON.stringify(this.curMem));
-    this.router.navigateByUrl('MemberDashboard')
+    this.stateService.profileRole$.next("Community Member");
+    this.router.navigateByUrl('MemberDashboard');
   }
 
   back() {

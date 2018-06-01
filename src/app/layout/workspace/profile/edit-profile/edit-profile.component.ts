@@ -14,6 +14,7 @@ export class EditProfileComponent implements OnInit {
   public passWord: InputAttributes = {name:'password',min:8,max:32,placeholder:'password',type:'password'};
   public confirmPassword : InputAttributes = {name:'confirmPassword',min:4,max:32,placeholder:'confirm password',type:'password'};
 
+  needReset: boolean = false;
   userPasswordPara: string;
   userConPasswordPara: string;
 
@@ -31,6 +32,15 @@ export class EditProfileComponent implements OnInit {
       confirmPassword: ['',[Validators.required,Validators.minLength(8)]]
     })
   }
+
+  confirmChange() {
+
+  }
+
+  resetPassword() {
+    this.needReset = !this.needReset;
+  }
+
 
   getUserPassword(value: string){
     if(value){

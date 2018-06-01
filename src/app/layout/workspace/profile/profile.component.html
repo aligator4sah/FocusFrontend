@@ -2,29 +2,84 @@
   <h3 class="workspace-title">Profile</h3>
   <mat-card class="system-card">
     <mat-card-header>
-      <mat-card-title><h4>Member/Administrator/BHCO profile</h4></mat-card-title>
+      <mat-card-title><h4>{{role + ' Profile'}}</h4></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="full-width">
-        <p class="col-sm-6">User Name: <b class="profile-title"> JerryHunt007</b></p>
-        <p class="col-sm-6">User Role: <b class="profile-title"> Community Admin</b></p>
-      </div>
-      <div class="full-width">
-        <p class="col-sm-6">First Name: <b class="profile-title"> Jerry </b></p>
-        <p class="col-sm-6">Last Name: <b class="profile-title"> Hunt </b></p>
-      </div>
-      <div class="full-width">
-        <p class="col-sm-6">Phone: <b class="profile-title"> 412-230-9340 </b></p>
-        <p class="col-sm-6">Email: <b class="profile-title"> hongj@outlook.com </b></p>
+      <div *ngIf="profile">
+        <div class="full-width">
+          <p class="col-sm-6">User Name: <b class="profile-title"> {{profile.username}}</b></p>
+          <p class="col-sm-6">User Role: <b class="profile-title"> {{ role }}</b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">First Name: <b class="profile-title"> {{profile.firstname}} </b></p>
+          <p class="col-sm-6">Last Name: <b class="profile-title"> {{profile.lastname}} </b></p>
+        </div>
+        <div class="full-width">
+          <p class="col-sm-6">Phone: <b class="profile-title"> {{profile.phone}}</b></p>
+          <p class="col-sm-6">Email: <b class="profile-title"> {{profile.email}} </b></p>
+        </div>
+
+        <ng-container [ngSwitch]="role">
+          <div class="full-width" *ngSwitchCase="'State Administrator'">
+            <p class="col-sm-12">State: <b class="profile-title"> {{profile.state}}</b></p>
+          </div>
+          <div *ngSwitchCase="'Community Administrator'">
+            <div class="full-width">
+              <p class="col-sm-6">State: <b class="profile-title"> {{ profile.state }}</b></p>
+              <p class="col-sm-6">County: <b class="profile-title"> {{ profile.county }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">City: <b class="profile-title"> {{ profile.city }}</b></p>
+              <p class="col-sm-6">Community: <b class="profile-title"> {{ profile.community }}</b></p>
+            </div>
+          </div>
+          <div *ngSwitchCase="'Bhco'">
+            <div class="full-width">
+              <p class="col-sm-6">State: <b class="profile-title"> {{ profile.state }}</b></p>
+              <p class="col-sm-6">County: <b class="profile-title"> {{ profile.county }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">City: <b class="profile-title"> {{ profile.city }}</b></p>
+              <p class="col-sm-6">Community: <b class="profile-title"> {{ profile.community }}</b></p>
+            </div>
+          </div>
+          <div *ngSwitchCase="'Community Member'">
+            <div class="full-width">
+              <p class="col-sm-6">State: <b class="profile-title"> {{ profile.state }}</b></p>
+              <p class="col-sm-6">County: <b class="profile-title"> {{ profile.county }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">City: <b class="profile-title"> {{ profile.city }}</b></p>
+              <p class="col-sm-6">Community: <b class="profile-title"> {{ profile.community }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">Gender: <b class="profile-title"> {{ profile.gender }}</b></p>
+              <p class="col-sm-6">DOB: <b class="profile-title"> {{ profile.date }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">Address 1: <b class="profile-title"> {{ profile.addressone }}</b></p>
+              <p class="col-sm-6">Address 2: <b class="profile-title"> {{ profile.addresstwo }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">Family: <b class="profile-title"> {{ profile.family }}</b></p>
+              <p class="col-sm-6">Block: <b class="profile-title"> {{ profile.block }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">Race: <b class="profile-title"> {{ profile.race }}</b></p>
+              <p class="col-sm-6">Marry Status: <b class="profile-title"> {{ profile.marry }}</b></p>
+            </div>
+            <div class="full-width">
+              <p class="col-sm-6">Education: <b class="profile-title"> {{ profile.education }}</b></p>
+              <p class="col-sm-6">Employments: <b class="profile-title"> {{ profile.employments }}</b></p>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <div class="full-width">
         <button mat-raised-button color="primary" (click)="editProfile()">Edit</button>
-        <button mat-raised-button color="accent" (click)="resetPassword()">Reset Password</button>
+        <button mat-raised-button color="accent" (back)="goBack()">Back</button>
       </div>
       <br>
-      <div class="col-sm-12">
-
-      </div>
     </mat-card-content>
   </mat-card>
 </div>

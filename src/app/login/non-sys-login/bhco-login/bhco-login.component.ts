@@ -4,6 +4,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from '../../../shared/validation-service/validation.service';
 import { InputAttributes } from '../../../shared/shared-control/attributes';
 import {CurrentUser} from "../../../model/User";
+import {StateService} from "../../../service/state.service";
 
 
 @Component({
@@ -29,7 +30,8 @@ export class BhcoLoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public router : Router
+    public router : Router,
+    private stateService: StateService
   ) {
 
   }
@@ -61,6 +63,7 @@ export class BhcoLoginComponent implements OnInit {
 
   login() {
     localStorage.setItem('curUser', JSON.stringify(this.curBhco));
+    this.stateService.profileRole$.next("Bhco")
     this.router.navigateByUrl('BhcoDashboard')
   }
 
