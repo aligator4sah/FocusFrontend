@@ -28,31 +28,54 @@
   </div>
   <br><br>
   <div class="graph-area">
-    <mat-card class="system-card">
-      <mat-card-header >
-        <div class="col-sm-12">
-          <mat-card-title>Community Summary</mat-card-title>
-        </div>
-      </mat-card-header>
-      <mat-divider> </mat-divider>
-      <mat-card-content>
-        <div class="graph-area">
-          <div class="left-chart">
-            <h3>Age Distribution</h3>
-
+    <!--age distribution card on the left side -->
+    <div class="left-card">
+      <mat-card class="left-side-card">
+        <mat-card-header>
+          Member Age Distribution
+        </mat-card-header>
+        <mat-card-content>
+          <div style="display: block; padding-top: 20px;">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
           </div>
-          <div class="right-chart">
-            <h3>Basic Information</h3>
-            <br> <br>
-
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <!--ratio card on the right side -->
+    <div class="right-card">
+      <mat-card class="right-side-card">
+        <mat-card-header>
+          Member Feature Analysis
+        </mat-card-header>
+        <mat-card-content>
+          <div style="display: block; padding-top: 20px; padding-bottom: 13px">
+            <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
           </div>
-        </div>
-        <br><br>
-        <div class="button-group">
-        </div>
-
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="selection-part">
+            <mat-form-field class="col-sm-12">
+              <mat-select [(value)]="selected" placeholder="Select the feature to display">
+                <mat-option *ngFor="let opt of features">{{ opt }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Select features-->
+        </mat-card-footer>
+      </mat-card>
+    </div>
     <br>
   </div>
 </div>

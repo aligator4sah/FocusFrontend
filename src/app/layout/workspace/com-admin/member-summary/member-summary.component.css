@@ -109,18 +109,48 @@
 
 .graph-area {
   padding-top: 10px;
-  overflow: auto;
+  /*// overflow: auto;*/
+  display: inline-block;
 }
 
-
-.left-chart {
-  width: 56%;
+.left-card {
+  height: 400px;
+  width: 53%;
+  padding-right: 10px;
+  margin-right: 10px;
   float: left;
 }
 
-.right-chart {
-  width: 42%;
+.left-side-card {
+  height: 100%;
+  width: 100%;
+  padding-right: 10px;
+  margin-right: 20px;
+}
+
+.right-card {
+  height: 400px;
+  width: 35.1%;
   float: left;
+  padding-left: 20px;
+}
+
+.right-side-card {
+  height: 100%;
+  width: 100%;
+}
+
+.selection-part {
+  margin-left: 20px;
+}
+
+.example-radio-group {
+  width: 30%;
+}
+
+.example-radio-button {
+  padding-right: 5px;
+  margin-bottom: 5px;
 }
 
 .button-group {
@@ -136,18 +166,6 @@
   float: left;
 }
 
-.left-side-card {
-  width: 68%;
-  overflow: auto;
-  margin-right: 10px;
-  float: left;
-}
-
-.right-side-card {
-  width: 23%;
-  overflow:auto;
-  float: left;
-}
 
 agm-map {
   height: 300px;
