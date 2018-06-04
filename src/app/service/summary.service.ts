@@ -64,7 +64,7 @@ export class SummaryService {
   }
 
   getMarryDisInCom(comId: number): Observable<any> {
-    return this.http.get<any>(API_URL + 'communityAdmin/communityMemberMarryInCommunity/' + comId)
+    return this.http.get<any>(API_URL + '/communityAdmin/communityMemberByMarryInCommunity/' + comId)
       .pipe(
         catchError(this.handleError('getMarrayDistribution', []))
       );
