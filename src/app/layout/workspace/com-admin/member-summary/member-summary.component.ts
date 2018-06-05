@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SummaryService} from "../../../../service/summary.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
@@ -52,6 +52,7 @@ export class MemberSummaryComponent implements OnInit {
 
   selected: string = "Gender";
   selectForm: FormGroup;
+  isLoading : boolean = false;
 
   features = [
     'Gender',
@@ -63,7 +64,7 @@ export class MemberSummaryComponent implements OnInit {
 
   constructor(
     private summaryService: SummaryService,
-    private fb : FormBuilder,
+    private fb : FormBuilder
   ) { }
 
   ngOnInit() {
@@ -85,7 +86,6 @@ export class MemberSummaryComponent implements OnInit {
       }
     });
 
-
     this.summaryService.getMembersInCommunity(this.adminLoc).subscribe(value =>
       this.memberNum = value
     );
@@ -99,6 +99,7 @@ export class MemberSummaryComponent implements OnInit {
 
   getGenderRatio() {
     let genderDistribution: any;
+    this.isLoading = false;
     this.summaryService.getGenderDisInCom(this.adminLoc).subscribe(value => {
       genderDistribution = value;
       this.doughnutChartLabels = [];
@@ -106,6 +107,9 @@ export class MemberSummaryComponent implements OnInit {
       genderDistribution.forEach(val => {
         this.doughnutChartLabels.push(val.gender);
         this.doughnutChartData.push(parseInt(val.count));
+        if (this.doughnutChartLabels.length === genderDistribution.length) {
+          this.isLoading = true;
+        }
         console.log(this.doughnutChartLabels);
       });
       }
@@ -114,6 +118,7 @@ export class MemberSummaryComponent implements OnInit {
 
   getRaceRatio() {
     let ratio: any;
+    this.isLoading = false;
     this.summaryService.getRaceDisInCom(this.adminLoc).subscribe(value => {
       ratio = value;
       this.doughnutChartLabels = [];
@@ -121,13 +126,16 @@ export class MemberSummaryComponent implements OnInit {
       ratio.forEach(val => {
         this.doughnutChartLabels.push(val.race);
         this.doughnutChartData.push(parseInt(val.count));
+        if (this.doughnutChartLabels.length === ratio.length) {
+          this.isLoading = true;
+        }
       });
-      //console.log(ratio);
     });
   }
 
   getMarryRatio() {
     let ratio: any;
+    this.isLoading = false;
     this.summaryService.getMarryDisInCom(this.adminLoc).subscribe(value => {
       ratio = value;
       this.doughnutChartLabels = [];
@@ -135,25 +143,33 @@ export class MemberSummaryComponent implements OnInit {
       ratio.forEach(val => {
         this.doughnutChartLabels.push(val.marry);
         this.doughnutChartData.push(parseInt(val.count));
+        if (this.doughnutChartLabels.length === ratio.length) {
+          this.isLoading = true;
+        }
       });
     });
   }
 
   getEducationRatio() {
     let ratio: any;
+    this.isLoading = false;
     this.summaryService.getEducationDisInCom(this.adminLoc).subscribe(value => {
       ratio = value;
       this.doughnutChartLabels = [];
-      this.doughnutChartLabels = [];
+      this.doughnutChartData = [];
       ratio.forEach(val => {
         this.doughnutChartLabels.push(val.education);
         this.doughnutChartData.push(parseInt(val.count));
+        if (this.doughnutChartLabels.length === ratio.length) {
+          this.isLoading = true;
+        }
       });
     });
   }
 
   getEmploymentRatio() {
     let ratio: any;
+    this.isLoading = false;
     this.summaryService.getEmploymentsInCom(this.adminLoc).subscribe(value => {
       ratio = value;
       this.doughnutChartLabels = [];
@@ -161,6 +177,9 @@ export class MemberSummaryComponent implements OnInit {
       ratio.forEach(val => {
         this.doughnutChartLabels.push(val.employments);
         this.doughnutChartData.push(parseInt(val.count));
+        if (this.doughnutChartLabels.length === ratio.length) {
+          this.isLoading = true;
+        }
       });
     });
   }

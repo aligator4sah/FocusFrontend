@@ -56,7 +56,7 @@
           Member Feature Analysis
         </mat-card-header>
         <mat-card-content>
-          <div style="display: block; padding-top: 20px; padding-bottom: 13px" *ngIf="doughnutChartData && doughnutChartLabels">
+          <div style="display: block; padding-top: 20px; padding-bottom: 13px" *ngIf="doughnutChartData && isLoading">
             <canvas baseChart
                     [data]="doughnutChartData"
                     [labels]="doughnutChartLabels"
