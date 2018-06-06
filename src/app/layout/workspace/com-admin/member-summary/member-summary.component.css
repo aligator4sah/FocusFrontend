@@ -175,6 +175,13 @@
 }
 
 
+.cityCard {
+  width: 94.5%;
+  padding-top: 30px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
 agm-map {
   height: 300px;
 }

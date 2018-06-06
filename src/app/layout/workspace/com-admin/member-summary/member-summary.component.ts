@@ -39,12 +39,17 @@ export class MemberSummaryComponent implements OnInit {
   memberNum: number;
   blockNum: number;
   familyNum: number;
+  cityNum: number;
+  countyNum: number;
+
+  memberInCity: any[] = [];
+  memberInCounty: any[] = [];
 
   selected: string = "Gender";
   selectForm: FormGroup;
   isBarChartLoading: boolean = false;
   isLoading : boolean = false;
-  isCommunityAdmin: boolean = false;
+  isStateAdmin : boolean = false;
 
   features = [
     'Gender',
@@ -80,18 +85,36 @@ export class MemberSummaryComponent implements OnInit {
     });
 
     if (this.user.role === "Community Administrator") {
-      this.isCommunityAdmin = true;
       this.summaryService.getMembersInCommunity(this.user.location).subscribe(value =>
         this.memberNum = value);
       this.summaryService.getBlocksInCommunity(this.user.location).subscribe(value =>
         this.blockNum = value);
       this.summaryService.getFamiliesInCommunity(this.user.location).subscribe(value =>
         this.familyNum = value);
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberNumberBhco(this.user.id).subscribe(value =>
       this.memberNum = value);
+    } else {
+      this.isStateAdmin = true;
+      this.summaryService.getMemberNumState(this.user.location).subscribe(value =>
+      this.memberNum = value);
+      this.getMemberByCityInState();
+      this.getMemberByCountyInState();
     }
+  }
 
+  getMemberByCityInState() {
+    this.summaryService.getMemberByCityInState(this.user.location).subscribe(value => {
+      this.memberInCity = value;
+      this.cityNum = value.length;
+    });
+  }
+
+  getMemberByCountyInState() {
+    this.summaryService.getMemberByCountyInState(this.user.location).subscribe(value => {
+      this.memberInCounty = value;
+      this.countyNum = value.length;
+    });
   }
 
   getAgeDistribution() {
@@ -107,8 +130,19 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberAgeBhco(this.user.id).subscribe(value => {
+        distribution = value;
+        distribution.forEach(val => {
+          this.barChartLabels.push(val.type);
+          this.barChartData.push(parseInt(val.count));
+          if (this.barChartData.length === distribution.length && this.barChartLabels.length == distribution.length) {
+            this.isBarChartLoading = true;
+          }
+        });
+      });
+    } else {
+      this.summaryService.getMemberByAgeInState(this.user.location).subscribe(value => {
         distribution = value;
         distribution.forEach(val => {
           this.barChartLabels.push(val.type);
@@ -137,8 +171,21 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberGenderBhco(this.user.id).subscribe(value => {
+        genderDistribution = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        genderDistribution.forEach(val => {
+          this.doughnutChartLabels.push(val.gender);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === genderDistribution.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    } else {
+      this.summaryService.getMemberByGenderInState(this.user.location).subscribe(value => {
         genderDistribution = value;
         this.doughnutChartLabels = [];
         this.doughnutChartData = [];
@@ -170,8 +217,21 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberRaceBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.race);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    } else {
+      this.summaryService.getMemberByRaceInState(this.user.location).subscribe(value => {
         ratio = value;
         this.doughnutChartLabels = [];
         this.doughnutChartData = [];
@@ -203,7 +263,7 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberMarrayBhco(this.user.id).subscribe(value => {
         ratio = value;
         this.doughnutChartLabels = [];
@@ -216,8 +276,20 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
+    } else {
+      this.summaryService.getMemberByMarryInState(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.marry);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
     }
-
   }
 
   getEducationRatio() {
@@ -236,7 +308,7 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberEducationBhco(this.user.id).subscribe(value => {
         ratio = value;
         this.doughnutChartLabels = [];
@@ -249,8 +321,20 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
+    } else {
+      this.summaryService.getMemberByEducationInState(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.education);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
     }
-
   }
 
   getEmploymentRatio() {
@@ -269,8 +353,21 @@ export class MemberSummaryComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (this.user.role === "bhco") {
       this.summaryService.getMemberEmployementsBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.employments);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    } else {
+      this.summaryService.getMemberByEmploymentsInState(this.user.location).subscribe(value => {
         ratio = value;
         this.doughnutChartLabels = [];
         this.doughnutChartData = [];

@@ -14,6 +14,7 @@ export const routes = [{
     {path: 'edit-profile', loadChildren: '../../workspace/profile/edit-profile/edit-profile.module#EditProfileModule'},
     {path: 'create-county', loadChildren: '../../workspace/sta-admin/create-county/create-county.module#CreateCountyModule'},
     {path: 'comadmin-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
+    {path: 'member-summary', loadChildren: '../../workspace/com-admin/member-summary/member-summary.module#MemberSummaryModule'},
   ]
 }
 ]

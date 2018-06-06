@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {HandleError, HttpErrorHandler} from "./http-error-handler.service";
 import {Observable} from "rxjs/Observable";
 import {catchError} from "rxjs/operators";
+import {statsErrorsToString} from "@angular/cli/utilities/stats";
 
 const API_URL = environment.apiUrl;
 
@@ -138,6 +139,70 @@ export class SummaryService {
     return this.http.get<any> (API_URL + '/communityMemberByAgeDistributionInBhco/' + bhcoId)
       .pipe(
         catchError(this.handleError('getMemberDistributionBhco', []))
+      )
+  }
+
+  /**GET: summry service for state administrator **/
+  getMemberNumState(stateId: number): Observable<any> {
+    return this.http.get<any> (API_URL + '/stateAdmin/communityMemberInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberNumberState', []))
+      )
+  }
+
+  getMemberByCityInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByCityInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByCityInState', []))
+      )
+  }
+
+  getMemberByCountyInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByCountyInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByCountyInState', []))
+      )
+  }
+
+  getMemberByGenderInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByGenderInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByGenderState', []))
+      )
+  }
+
+  getMemberByRaceInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByRaceInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByRaceState', []))
+      )
+  }
+
+  getMemberByMarryInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByMarryInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByMarryInState', []))
+      )
+  }
+
+  getMemberByEducationInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByEducationInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberEducationInState', []))
+      )
+  }
+
+  getMemberByEmploymentsInState(stateId: number): Observable<any> {
+    return this.http.get<any> (API_URL + '/stateAdmin/communityMemberByEmploymentsInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberEmploymentsInState', []))
+      )
+  }
+
+  getMemberByAgeInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByAgeDistributionInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberAgeInState', []))
       )
   }
 }

@@ -42,8 +42,8 @@
           <mat-expansion-panel class="panel-format">
             <mat-expansion-panel-header>
               <mat-panel-title> <a routerLink="comList" routerLinkActive="active">
-                <mat-icon class="main-icon">trending_up</mat-icon> &nbsp;
-                <span class="main-menu"> <h4>Account List</h4> </span> </a>
+                <mat-icon class="main-icon">toc</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Account List</h4> </span></a>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <a routerLink="comList" routerLinkActive="active">
@@ -60,6 +60,20 @@
             <button mat-menu-item color="white">
                 <span>Community Member</span>
             </button>
+            </a>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="panel-format">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="main-icon">trending_up</mat-icon> &nbsp;
+                <span class="main-menu"> <h4>Analysis</h4> </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <a routerLink="member-summary" routerLinkActive="active">
+              <button mat-menu-item color="white">
+                <span>Member Summary</span>
+              </button>
             </a>
           </mat-expansion-panel>
         </mat-accordion>

@@ -1,38 +1,71 @@
 <div class="workspace-container mid-position">
   <h3 class="workspace-title">Member Summary Visualization</h3>
-  <div class="sys-summary" *ngIf="isCommunityAdmin; else bhcoInfo">
-    <mat-card class="summary-info1">
-      <mat-card-content>
-        <h3 id="card-text">Registered Members</h3>
-        <p id="card-title"><strong>{{memberNum}}</strong>
-          <span id="card-detail">+5% more than last month</span></p>
-      </mat-card-content>
-    </mat-card>
+  <div [ngSwitch]="user.role">
+    <!--Community Administrator summary card -->
+    <ng-container class="sys-summary" *ngSwitchCase="'Community Administrator'">
+      <mat-card class="summary-info1">
+        <mat-card-content>
+          <h3 id="card-text">Registered Members</h3>
+          <p id="card-title"><strong>{{memberNum}}</strong>
+            <span id="card-detail">+5% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="summary-info2">
-      <mat-card-content>
-        <h3 id="card-text">Registered Families</h3>
-        <p id="card-title"><strong>{{familyNum}}</strong>
-          <span id="card-detail">+0.4% more than last month</span></p>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="summary-info2">
+        <mat-card-content>
+          <h3 id="card-text">Registered Families</h3>
+          <p id="card-title"><strong>{{familyNum}}</strong>
+            <span id="card-detail">+0.4% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="summary-info3">
-      <mat-card-content>
-        <h3 id="card-text">Registered Blocks</h3>
-        <p id="card-title"><strong>{{blockNum}}</strong>
-          <span id="card-detail">4.2% more than last month</span></p>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="summary-info3">
+        <mat-card-content>
+          <h3 id="card-text">Registered Blocks</h3>
+          <p id="card-title"><strong>{{blockNum}}</strong>
+            <span id="card-detail">4.2% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <!-- bhco summary card-->
+    <ng-container class="sys-summary" *ngSwitchCase="'bhco'">
+      <mat-toolbar style="width: 93%" color="primary">
+        <span>Current Members: {{ memberNum }}</span>
+        <span class="example-spacer"></span>
+        <mat-icon class="example-icon">supervisor_account</mat-icon>
+      </mat-toolbar>
+    </ng-container>
+
+
+    <!--State Administrator summary card -->
+    <ng-container class="sys-summary" *ngSwitchCase="'State Administrator'">
+      <mat-card class="summary-info1">
+        <mat-card-content>
+          <h3 id="card-text">Registered Members</h3>
+          <p id="card-title"><strong>{{memberNum}}</strong>
+            <span id="card-detail">+5% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-info2">
+        <mat-card-content>
+          <h3 id="card-text">Registered Cities</h3>
+          <p id="card-title"><strong>{{cityNum}}</strong>
+            <span id="card-detail">+0.4% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-info3">
+        <mat-card-content>
+          <h3 id="card-text">Registered Counties</h3>
+          <p id="card-title"><strong>{{countyNum}}</strong>
+            <span id="card-detail">4.2% more than last month</span></p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
   </div>
 
-  <ng-template #bhcoInfo class="sys-summary">
-    <mat-toolbar style="width: 93%" color="primary">
-      <span>Current Members: {{ memberNum }}</span>
-      <span class="example-spacer"></span>
-      <mat-icon class="example-icon">supervisor_account</mat-icon>
-    </mat-toolbar>
-  </ng-template>
   <br><br>
   <div class="graph-area">
     <!--age distribution card on the left side -->
@@ -88,5 +121,47 @@
       </mat-card>
     </div>
     <br>
+  </div>
+  <br><br>
+  <div *ngIf="isStateAdmin" class="cityCard">
+    <h3 class="workspace-title">County and City List</h3>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            County List
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand to check county name and member number
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+          <mat-list-item *ngFor="let item of memberInCounty">
+            <span> {{item.county}}</span>
+            <span class="example-spacer"></span>
+            <span> Members: {{ item.count }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            City List
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand to check the city name and member number
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let item of memberInCity">
+            <span> {{item.city}}</span>
+            <span class="example-spacer"></span>
+            <span> Members: {{ item.count }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
