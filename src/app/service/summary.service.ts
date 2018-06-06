@@ -91,4 +91,53 @@ export class SummaryService {
       );
   }
 
+  /**GET: summary information for bhco **/
+  getMemberNumberBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityMemberInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMmeberNumberBhco', []))
+      )
+  }
+
+  getMemberGenderBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityMemberByGenderInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberGenderBhco', []))
+      )
+  }
+
+  getMemberRaceBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityMemberByRaceInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberRaceBhco', []))
+      )
+  }
+
+  getMemberMarrayBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any> (API_URL + '/communityMemberByMarryInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberMarryBhco', []))
+      )
+  }
+
+  getMemberEducationBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any> (API_URL + '/communityMemberByEducationInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberEducationBhco', []))
+      )
+  }
+
+  getMemberEmployementsBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/communityMemberByEmploymentsInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberEmploymentsBhco', []))
+      )
+  }
+
+  getMmeberAgeBhco(bhcoId: number): Observable<any> {
+    return this.http.get<any> (API_URL + '/communityMemberByAgeDistributionInBhco/' + bhcoId)
+      .pipe(
+        catchError(this.handleError('getMemberDistributionBhco', []))
+      )
+  }
 }

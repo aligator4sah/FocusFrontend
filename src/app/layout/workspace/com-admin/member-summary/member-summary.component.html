@@ -35,9 +35,9 @@
           Member Age Distribution
         </mat-card-header>
         <mat-card-content>
-          <div style="display: block; padding-top: 20px;" *ngIf="barChartData && barChartLabels">
+          <div style="display: block; padding-top: 20px;" *ngIf="isBarChartLoading">
             <canvas baseChart
-                    [datasets]="barChartData"
+                    [data]="barChartData"
                     [labels]="barChartLabels"
                     [options]="barChartOptions"
                     [legend]="barChartLegend"

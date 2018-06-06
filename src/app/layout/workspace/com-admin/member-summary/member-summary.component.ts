@@ -12,13 +12,17 @@ export class MemberSummaryComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+
+  //bar chart
+  public barChartLabels:string[] = [];
+  public barChartData:any[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = false;
 
-  public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-  ];
+  // Doughnut
+  public doughnutChartLabels:string[] = [];
+  public doughnutChartData:number[] = [];
+  public doughnutChartType:string = 'doughnut';
 
   public barChartColors:Array<any> = [
     {
@@ -30,20 +34,6 @@ export class MemberSummaryComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },]
 
-  // Doughnut
-  public doughnutChartLabels:string[] = [];
-  public doughnutChartData:number[] = [];
-  public doughnutChartType:string = 'doughnut';
-
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
   adminLoc = JSON.parse(localStorage.getItem('curUser')).location;
 
   memberNum: number;
@@ -52,6 +42,7 @@ export class MemberSummaryComponent implements OnInit {
 
   selected: string = "Gender";
   selectForm: FormGroup;
+  isBarChartLoading: boolean = false;
   isLoading : boolean = false;
 
   features = [
@@ -71,6 +62,7 @@ export class MemberSummaryComponent implements OnInit {
     this.selectForm = this.fb.group({
       select: ['']
     });
+    this.getAgeDistribution();
     this.selectForm.controls['select'].valueChanges.subscribe(value => {
       this.selected = value;
       if (this.selected === "Gender") {
@@ -95,6 +87,21 @@ export class MemberSummaryComponent implements OnInit {
     this.summaryService.getFamiliesInCommunity(this.adminLoc).subscribe(value =>
       this.familyNum = value
     );
+  }
+
+  getAgeDistribution() {
+    let distribution: any;
+    this.summaryService.getAgeDisInCom(this.adminLoc).subscribe(value => {
+      distribution = value;
+      distribution.forEach(val => {
+        this.barChartLabels.push(val.type);
+        this.barChartData.push(parseInt(val.count));
+        if (this.barChartData.length === distribution.length && this.barChartLabels.length == distribution.length) {
+          this.isBarChartLoading = true;
+        }
+      });
+    });
+
   }
 
   getGenderRatio() {
@@ -183,5 +190,15 @@ export class MemberSummaryComponent implements OnInit {
       });
     });
   }
+
+  // events
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
+
 
 }
