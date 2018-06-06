@@ -107,21 +107,6 @@
   margin-right: 10px;
 }
 
-.graph-area {
-  padding-top: 10px;
-  overflow: auto;
-}
-
-
-.left-chart {
-  width: 56%;
-  float: left;
-}
-
-.right-chart {
-  width: 42%;
-  float: left;
-}
 
 .button-group {
   display: block;
@@ -129,24 +114,72 @@
   width: 100%;
 }
 
-
-.community-info {
+.graph-area {
+  padding-top: 10px;
+  /*// overflow: auto;*/
   display: inline-block;
-  width: 100%;
+  padding-bottom: 20px;
+}
+
+.left-card {
+  height: 400px;
+  width: 54%;
+  padding-right: 10px;
+  margin-right: 10px;
   float: left;
 }
 
 .left-side-card {
-  width: 68%;
+  height: 100%;
+  width: 100%;
+  padding-right: 10px;
+  margin-right: 20px;
+}
+
+.right-card {
+  height: 400px;
+  width: 37%;
+  float: left;
+  padding-left: 20px;
+}
+
+.right-side-card {
+  height: 100%;
+  width: 100%;
+}
+
+.selection-part {
+  margin-left: 20px;
+}
+
+
+.left-side-bottom-card {
+  width: 66%;
   overflow: auto;
   margin-right: 10px;
   float: left;
 }
 
-.right-side-card {
+.right-side-bottom-card {
   width: 23%;
   overflow:auto;
   float: left;
+}
+
+.state-info {
+  display: inline-block;
+  width: 100%;
+  float: left;
+  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.state-member-count {
+  color: darkmagenta;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  padding-left: 10px;
 }
 
 agm-map {

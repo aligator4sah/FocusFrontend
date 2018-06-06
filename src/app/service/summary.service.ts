@@ -205,4 +205,70 @@ export class SummaryService {
         catchError(this.handleError('getMemberAgeInState', []))
       )
   }
+
+
+  /**GET: summary information for system administrator **/
+  getMemberNumSys(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberInSystem/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberInSystem', []))
+      )
+  }
+
+  getBhcoNumSys(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/bhcoInSystem/' + 0)
+      .pipe(
+        catchError(this.handleError('getBhcoInSystem', []))
+      )
+  }
+
+  getMemberGroupByState(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByState/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByState', []))
+      )
+  }
+
+  getMemberGroupByGender(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByGender/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByGender', []))
+      )
+  }
+
+  getMemberGroupByRace(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByRace/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByRace', []))
+      )
+  }
+
+  getMemberGroupByMarry(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByMarry/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByMarry', []))
+      )
+  }
+
+  getMemberGroupByEducation(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByEducation/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByEducation', []))
+      )
+  }
+
+  getMemberGroupByEmployments(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByEmployments/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByEmployments', []))
+      )
+  }
+
+  getMemberGroupByAge(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByAge/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberByAge',[]))
+      )
+  }
 }
+
