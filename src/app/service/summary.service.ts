@@ -229,6 +229,20 @@ export class SummaryService {
       )
   }
 
+  getMemberGroupByCommunity(): Observable<any> {
+    return this.http.get<any> (API_URL + '/systemAdmin/communityMemberGroupByCommunity/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByCommunity', []))
+      )
+  }
+
+  getMemberGroupByCity(): Observable<any> {
+    return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByCity/' + 0)
+      .pipe(
+        catchError(this.handleError('getMemberGroupByCity', []))
+      )
+  }
+
   getMemberGroupByGender(): Observable<any> {
     return this.http.get<any>(API_URL + '/systemAdmin/communityMemberGroupByGender/' + 0)
       .pipe(

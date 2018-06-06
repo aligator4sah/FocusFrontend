@@ -50,9 +50,12 @@ export class AnalysisComponent implements OnInit{
   bhcoNum: number;
   stateNum: number;
   communityNum: number;
+  cityNum: number;
+
   isPieChartLoading: boolean = false;
 
   stateList: any[] = [];
+  cityList: any[] = [];
 
 
   constructor(private fb: FormBuilder,
@@ -63,6 +66,8 @@ export class AnalysisComponent implements OnInit{
     this.getBhcoNum();
     this.getMemberNum();
     this.getMemberByState();
+    this.getMemberByCity();
+    this.getMemberByCommunity();
 
     this.selectForm = this.fb.group({
       select: []
@@ -97,6 +102,19 @@ export class AnalysisComponent implements OnInit{
     this.summaryService.getMemberGroupByState().subscribe(value => {
       this.stateList = value;
       this.stateNum = value.length;
+    });
+  }
+
+  getMemberByCommunity() {
+    this.summaryService.getMemberGroupByCommunity().subscribe(value => {
+      this.communityNum = value.length;
+    });
+  }
+
+  getMemberByCity() {
+    this.summaryService.getMemberGroupByCity().subscribe(value => {
+      this.cityList = value;
+      this.cityNum = value.length;
     });
   }
 
