@@ -34,7 +34,7 @@ export class MemberSummaryComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },]
 
-  adminLoc = JSON.parse(localStorage.getItem('curUser')).location;
+  user = JSON.parse(localStorage.getItem('curUser'));
 
   memberNum: number;
   blockNum: number;
@@ -44,6 +44,7 @@ export class MemberSummaryComponent implements OnInit {
   selectForm: FormGroup;
   isBarChartLoading: boolean = false;
   isLoading : boolean = false;
+  isCommunityAdmin: boolean = false;
 
   features = [
     'Gender',
@@ -78,117 +79,211 @@ export class MemberSummaryComponent implements OnInit {
       }
     });
 
-    this.summaryService.getMembersInCommunity(this.adminLoc).subscribe(value =>
-      this.memberNum = value
-    );
-    this.summaryService.getBlocksInCommunity(this.adminLoc).subscribe(value =>
-      this.blockNum = value
-    );
-    this.summaryService.getFamiliesInCommunity(this.adminLoc).subscribe(value =>
-      this.familyNum = value
-    );
+    if (this.user.role === "Community Administrator") {
+      this.isCommunityAdmin = true;
+      this.summaryService.getMembersInCommunity(this.user.location).subscribe(value =>
+        this.memberNum = value);
+      this.summaryService.getBlocksInCommunity(this.user.location).subscribe(value =>
+        this.blockNum = value);
+      this.summaryService.getFamiliesInCommunity(this.user.location).subscribe(value =>
+        this.familyNum = value);
+    } else {
+      this.summaryService.getMemberNumberBhco(this.user.id).subscribe(value =>
+      this.memberNum = value);
+    }
+
   }
 
   getAgeDistribution() {
     let distribution: any;
-    this.summaryService.getAgeDisInCom(this.adminLoc).subscribe(value => {
-      distribution = value;
-      distribution.forEach(val => {
-        this.barChartLabels.push(val.type);
-        this.barChartData.push(parseInt(val.count));
-        if (this.barChartData.length === distribution.length && this.barChartLabels.length == distribution.length) {
-          this.isBarChartLoading = true;
-        }
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getAgeDisInCom(this.user.location).subscribe(value => {
+        distribution = value;
+        distribution.forEach(val => {
+          this.barChartLabels.push(val.type);
+          this.barChartData.push(parseInt(val.count));
+          if (this.barChartData.length === distribution.length && this.barChartLabels.length == distribution.length) {
+            this.isBarChartLoading = true;
+          }
+        });
       });
-    });
-
+    } else {
+      this.summaryService.getMemberAgeBhco(this.user.id).subscribe(value => {
+        distribution = value;
+        distribution.forEach(val => {
+          this.barChartLabels.push(val.type);
+          this.barChartData.push(parseInt(val.count));
+          if (this.barChartData.length === distribution.length && this.barChartLabels.length == distribution.length) {
+            this.isBarChartLoading = true;
+          }
+        });
+      });
+    }
   }
 
   getGenderRatio() {
     let genderDistribution: any;
     this.isLoading = false;
-    this.summaryService.getGenderDisInCom(this.adminLoc).subscribe(value => {
-      genderDistribution = value;
-      this.doughnutChartLabels = [];
-      this.doughnutChartData = [];
-      genderDistribution.forEach(val => {
-        this.doughnutChartLabels.push(val.gender);
-        this.doughnutChartData.push(parseInt(val.count));
-        if (this.doughnutChartLabels.length === genderDistribution.length) {
-          this.isLoading = true;
-        }
-        console.log(this.doughnutChartLabels);
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getGenderDisInCom(this.user.location).subscribe(value => {
+        genderDistribution = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        genderDistribution.forEach(val => {
+          this.doughnutChartLabels.push(val.gender);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === genderDistribution.length) {
+            this.isLoading = true;
+          }
+        });
       });
-      }
-    );
+    } else {
+      this.summaryService.getMemberGenderBhco(this.user.id).subscribe(value => {
+        genderDistribution = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        genderDistribution.forEach(val => {
+          this.doughnutChartLabels.push(val.gender);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === genderDistribution.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    }
+
   }
 
   getRaceRatio() {
     let ratio: any;
     this.isLoading = false;
-    this.summaryService.getRaceDisInCom(this.adminLoc).subscribe(value => {
-      ratio = value;
-      this.doughnutChartLabels = [];
-      this.doughnutChartData = [];
-      ratio.forEach(val => {
-        this.doughnutChartLabels.push(val.race);
-        this.doughnutChartData.push(parseInt(val.count));
-        if (this.doughnutChartLabels.length === ratio.length) {
-          this.isLoading = true;
-        }
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getRaceDisInCom(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.race);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
       });
-    });
+    } else {
+      this.summaryService.getMemberRaceBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.race);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    }
+
   }
 
   getMarryRatio() {
     let ratio: any;
     this.isLoading = false;
-    this.summaryService.getMarryDisInCom(this.adminLoc).subscribe(value => {
-      ratio = value;
-      this.doughnutChartLabels = [];
-      this.doughnutChartData = [];
-      ratio.forEach(val => {
-        this.doughnutChartLabels.push(val.marry);
-        this.doughnutChartData.push(parseInt(val.count));
-        if (this.doughnutChartLabels.length === ratio.length) {
-          this.isLoading = true;
-        }
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getMarryDisInCom(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.marry);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
       });
-    });
+    } else {
+      this.summaryService.getMemberMarrayBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.marry);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    }
+
   }
 
   getEducationRatio() {
     let ratio: any;
     this.isLoading = false;
-    this.summaryService.getEducationDisInCom(this.adminLoc).subscribe(value => {
-      ratio = value;
-      this.doughnutChartLabels = [];
-      this.doughnutChartData = [];
-      ratio.forEach(val => {
-        this.doughnutChartLabels.push(val.education);
-        this.doughnutChartData.push(parseInt(val.count));
-        if (this.doughnutChartLabels.length === ratio.length) {
-          this.isLoading = true;
-        }
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getEducationDisInCom(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.education);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
       });
-    });
+    } else {
+      this.summaryService.getMemberEducationBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.education);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    }
+
   }
 
   getEmploymentRatio() {
     let ratio: any;
     this.isLoading = false;
-    this.summaryService.getEmploymentsInCom(this.adminLoc).subscribe(value => {
-      ratio = value;
-      this.doughnutChartLabels = [];
-      this.doughnutChartData = [];
-      ratio.forEach(val => {
-        this.doughnutChartLabels.push(val.employments);
-        this.doughnutChartData.push(parseInt(val.count));
-        if (this.doughnutChartLabels.length === ratio.length) {
-          this.isLoading = true;
-        }
+    if (this.user.role === "Community Administrator") {
+      this.summaryService.getEmploymentsInCom(this.user.location).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.employments);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
       });
-    });
+    } else {
+      this.summaryService.getMemberEmployementsBhco(this.user.id).subscribe(value => {
+        ratio = value;
+        this.doughnutChartLabels = [];
+        this.doughnutChartData = [];
+        ratio.forEach(val => {
+          this.doughnutChartLabels.push(val.employments);
+          this.doughnutChartData.push(parseInt(val.count));
+          if (this.doughnutChartLabels.length === ratio.length) {
+            this.isLoading = true;
+          }
+        });
+      });
+    }
+
   }
 
   // events

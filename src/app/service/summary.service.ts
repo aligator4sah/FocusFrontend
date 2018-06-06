@@ -134,7 +134,7 @@ export class SummaryService {
       )
   }
 
-  getMmeberAgeBhco(bhcoId: number): Observable<any> {
+  getMemberAgeBhco(bhcoId: number): Observable<any> {
     return this.http.get<any> (API_URL + '/communityMemberByAgeDistributionInBhco/' + bhcoId)
       .pipe(
         catchError(this.handleError('getMemberDistributionBhco', []))

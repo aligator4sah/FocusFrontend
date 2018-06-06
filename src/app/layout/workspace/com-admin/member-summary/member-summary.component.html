@@ -1,6 +1,6 @@
 <div class="workspace-container mid-position">
   <h3 class="workspace-title">Member Summary Visualization</h3>
-  <div class="sys-summary">
+  <div class="sys-summary" *ngIf="isCommunityAdmin; else bhcoInfo">
     <mat-card class="summary-info1">
       <mat-card-content>
         <h3 id="card-text">Registered Members</h3>
@@ -24,8 +24,15 @@
           <span id="card-detail">4.2% more than last month</span></p>
       </mat-card-content>
     </mat-card>
-
   </div>
+
+  <ng-template #bhcoInfo class="sys-summary">
+    <mat-toolbar style="width: 93%" color="primary">
+      <span>Current Members: {{ memberNum }}</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon">supervisor_account</mat-icon>
+    </mat-toolbar>
+  </ng-template>
   <br><br>
   <div class="graph-area">
     <!--age distribution card on the left side -->
