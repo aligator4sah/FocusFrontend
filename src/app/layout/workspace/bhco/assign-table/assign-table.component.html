@@ -23,10 +23,19 @@
         <div *ngIf="dataSource">
         <mat-table [dataSource]="dataSource" matSort>
 
-          <!-- User Name Column -->
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"><a routerLink="/BhcoDashboard/detail/{{row.id}}" class="name-link" (click)="reload()">{{row.username}}</a> </mat-cell>
+            <div [ngSwitch]="curRole.role">
+              <mat-cell *matCellDef="let row">
+                <ng-container *ngSwitchCase="'bhco'">
+                  <a routerLink="/BhcoDashboard/detail/{{row.id}}" class="name-link" (click)="reload()">{{row.username}}</a>
+                </ng-container>
+                <ng-container *ngSwitchCase="'Community Administrator'">
+                  <a routerLink="/CommunityDashboard/member-detail/{{row.id}}" class="name-link" (click)="reload()">{{row.username}}</a>
+                </ng-container>
+              </mat-cell>
+            </div>
+
           </ng-container>
 
           <!-- Progress Column
