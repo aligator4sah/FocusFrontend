@@ -39,8 +39,6 @@ export class MemberSummaryComponent implements OnInit {
   memberNum: number;
   blockNum: number;
   familyNum: number;
-  cityNum: number;
-  countyNum: number;
   communityNum: number;
   bhcoNum: number;
 
@@ -103,21 +101,26 @@ export class MemberSummaryComponent implements OnInit {
       this.getMemberByCityInState();
       this.getMemberByCountyInState();
       this.getBhcoInState();
+      this.getMemberByCommunityInState();
     }
   }
 
   getMemberByCityInState() {
     this.summaryService.getMemberByCityInState(this.user.location).subscribe(value => {
       this.memberInCity = value;
-      this.cityNum = value.length;
     });
   }
 
   getMemberByCountyInState() {
     this.summaryService.getMemberByCountyInState(this.user.location).subscribe(value => {
       this.memberInCounty = value;
-      this.countyNum = value.length;
     });
+  }
+
+  getMemberByCommunityInState() {
+    this.summaryService.getMemberByCommunityInState(this.user.location).subscribe(value => {
+      this.communityNum = value.length;
+    })
   }
 
   getBhcoInState() {

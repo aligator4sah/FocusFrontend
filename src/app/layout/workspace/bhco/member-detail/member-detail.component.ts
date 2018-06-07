@@ -19,6 +19,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   curSession: any;
 
   user = JSON.parse(localStorage.getItem('curUser'));
+  isNotBhco : boolean = false;
 
   // Doughnut
   public doughnutChartLabels:string[] = ['Finished', 'Unfinished'];
@@ -54,6 +55,9 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if (this.user.role === "bhco") {
+      this.isNotBhco = true;
+    }
     this.getMemberId();
     localStorage.removeItem('curSession');
     setTimeout(() => {
