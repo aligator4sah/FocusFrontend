@@ -18,6 +18,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   curDate: any;
   curSession: any;
 
+  user = JSON.parse(localStorage.getItem('curUser'));
+
   // Doughnut
   public doughnutChartLabels:string[] = ['Finished', 'Unfinished'];
   public doughnutChartData:number[] = [14, 20];
@@ -107,8 +109,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/BhcoDashboard/domain-list');
     });
  }
-
-
 
 
  startSocial() {

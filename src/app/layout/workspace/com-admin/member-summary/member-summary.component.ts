@@ -41,6 +41,8 @@ export class MemberSummaryComponent implements OnInit {
   familyNum: number;
   cityNum: number;
   countyNum: number;
+  communityNum: number;
+  bhcoNum: number;
 
   memberInCity: any[] = [];
   memberInCounty: any[] = [];
@@ -100,6 +102,7 @@ export class MemberSummaryComponent implements OnInit {
       this.memberNum = value);
       this.getMemberByCityInState();
       this.getMemberByCountyInState();
+      this.getBhcoInState();
     }
   }
 
@@ -114,6 +117,12 @@ export class MemberSummaryComponent implements OnInit {
     this.summaryService.getMemberByCountyInState(this.user.location).subscribe(value => {
       this.memberInCounty = value;
       this.countyNum = value.length;
+    });
+  }
+
+  getBhcoInState() {
+    this.summaryService.getBhcoNumberInState(this.user.location).subscribe(value => {
+      this.bhcoNum = value;
     });
   }
 

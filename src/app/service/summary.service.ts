@@ -164,6 +164,20 @@ export class SummaryService {
       )
   }
 
+  getMemberByCommunityInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByCommunityInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getMemberByCommunityInState', []))
+      )
+  }
+
+  getBhcoNumberInState(stateId: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/stateAdmin/bhcoInState/' + stateId)
+      .pipe(
+        catchError(this.handleError('getBhcoInState', []))
+      )
+  }
+
   getMemberByGenderInState(stateId: number): Observable<any> {
     return this.http.get<any>(API_URL + '/stateAdmin/communityMemberByGenderInState/' + stateId)
       .pipe(
