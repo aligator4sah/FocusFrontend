@@ -118,6 +118,14 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     });
  }
 
+ checkSession() {
+    if (this.user.role === 'bhco') {
+      this.router.navigateByUrl('/BhcoDashboard/session');
+    } else {
+      this.router.navigateByUrl('/CommunityDashboard/user-session')
+    }
+ }
+
 
  startSocial() {
     this.router.navigateByUrl('/BhcoDashboard/socialNetwork');

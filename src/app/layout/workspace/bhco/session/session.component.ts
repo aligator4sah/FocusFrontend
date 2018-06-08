@@ -23,7 +23,9 @@ export class SessionComponent implements OnInit {
     setTimeout(()=> {
       this.stateService.existMember$.next(true);
     });
-    localStorage.removeItem('curSession');
+    if (localStorage.getItem('curSession') != undefined) {
+      localStorage.removeItem('curSession');
+    }
     this.getSessions();
   }
 
