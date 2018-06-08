@@ -13,7 +13,7 @@
   <mat-card class="system-card">
     <mat-card-header >
       <div class="col-sm-12">
-        <mat-card-title>Select Domain to Start Questionnaire</mat-card-title>
+        <mat-card-title>Domains and Answers</mat-card-title>
       </div>
     </mat-card-header>
     <mat-divider> </mat-divider>
@@ -53,12 +53,12 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="'Community Member'">
-            <a mat-list-item routerLink="/BhcoDashboard/individual-analysis">
+            <a mat-list-item routerLink="/MemberDashboard/individual-analysis">
               <span>Summary Visualization</span>
               <span class="example-spacer"></span>
               <mat-icon class="example-icon">assessment</mat-icon>
             </a>
-            <a mat-list-item routerLink="/BhcoDashboard/question-ans">
+            <a mat-list-item routerLink="/MemberDashboard/question-ans">
               <span>Summary Table</span>
               <span class="example-spacer"></span>
               <mat-icon class="example-icon">list</mat-icon>

@@ -45,7 +45,9 @@ export class SessionComponent implements OnInit {
     if (this.user.role === "bhco") {
       this.router.navigateByUrl('/BhcoDashboard/domain-list');
     } else if (this.user.role === "Community Administrator") {
-      this.router.navigateByUrl('/CommunityDashboard/domain-list')
+      this.router.navigateByUrl('/CommunityDashboard/domain-list');
+    } else {
+      this.router.navigateByUrl('/MemberDashboard/domain-list');
     }
 
   }
@@ -55,6 +57,8 @@ export class SessionComponent implements OnInit {
       this.router.navigateByUrl('/BhcoDashboard/detail/' + this.member.id);
     } else if (this.user.role === "Community Administrator") {
       this.router.navigateByUrl('/CommunityDashboard/member-detail/' + this.member.id);
+    } else {
+      this.router.navigateByUrl('/MemberDashboard/member-detail');
     }
   }
 

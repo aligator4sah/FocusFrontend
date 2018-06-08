@@ -15,10 +15,10 @@ export class DomainListComponent implements OnInit {
 
   user = JSON.parse(localStorage.getItem('curUser'));
   member = JSON.parse(localStorage.getItem('curMem'));
+  sessionInfo = localStorage.getItem('curSession');
+
   domains: Domain[];
   isBhco: boolean = false;
-
-  sessionInfo = localStorage.getItem('curSession');
 
   constructor(
     private domService: QuestionModelService,
@@ -46,11 +46,10 @@ export class DomainListComponent implements OnInit {
   back() {
     if (this.user.role === "bhco") {
       this.router.navigateByUrl('/BhcoDashboard/session')
+    } else if (this.user.role === "Community Member")  {
+      this.router.navigateByUrl('/MemberDashboard/session');
     } else {
       this.router.navigateByUrl('/CommunityDashboard/user-session');
     }
-
   }
-
-
 }

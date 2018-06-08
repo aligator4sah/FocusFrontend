@@ -114,6 +114,8 @@ export class IndividualAnalysisComponent implements OnInit{
   backList() {
     if (this.user.role === 'bhco') {
       this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    } else if(this.user.role === "Community Member") {
+      this.router.navigateByUrl('/MemberDashboard/domain-list');
     } else {
       this.router.navigateByUrl('/CommunityDashboard/domain-list');
     }
