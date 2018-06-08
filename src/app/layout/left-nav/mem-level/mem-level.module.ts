@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {MemLevelComponent} from './mem-level.component';
 import {LayoutModule} from '../../layout/layout.module';
+import {MemberDetailModule} from "../../workspace/bhco/member-detail/member-detail.module";
 
 export const routes = [
   {
     path: '',
     component: MemLevelComponent,
     children: [
-      {path: '', redirectTo: 'socialNetwork', pathMatch: 'full'},
+      {path: '', redirectTo: 'member-detail', pathMatch: 'full'},
+      {path: 'member-detail', loadChildren: '../../workspace/bhco/member-detail/member-detail.module#MemberDetailModule'},
       {path: 'socialNetwork', loadChildren: '../../workspace/bhco/social-network/social-network.module#SocialNetworkModule'},
       // {path: 'demographic', loadChildren: '../../workspace/bhco/demographic/demographic/demographic.module#DemographicModule'},
       {path: 'questionnaire', loadChildren: '../../workspace/bhco/questionnaire/physical-domain/physical-domain.module#PhysicalDomainModule'},

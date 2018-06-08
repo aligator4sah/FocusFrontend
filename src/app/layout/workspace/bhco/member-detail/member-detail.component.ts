@@ -73,7 +73,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
 
   getMemberId(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    let id = 0;
+    if (this.user.role !== "Community Member") {
+      id = +this.route.snapshot.paramMap.get('id');
+    } else {
+      id = this.user.id;
+    }
+
     this.memService.getMemberById(id)
       .subscribe(mem => {
         this.member = mem;

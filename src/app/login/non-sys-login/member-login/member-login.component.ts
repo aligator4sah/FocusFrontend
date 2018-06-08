@@ -21,11 +21,12 @@ export class MemberLoginComponent implements OnInit {
   userPasswordPara : string;
 
   public curMem = new CurrentUser({
-    id: 3,
+    id: 1,
     name: this.userNamePara,
     role: "Community Member",
-    location: 2
-  })
+    location: 1
+  });
+
   constructor(
     public router: Router,
     public fb: FormBuilder,
