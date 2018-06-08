@@ -10,6 +10,7 @@ import {StateService} from "../../../../service/state.service";
 })
 export class IndividualAnalysisComponent implements OnInit{
 
+  user = JSON.parse(localStorage.getItem('curUser'));
   member = JSON.parse(localStorage.getItem('curMem'));
   curSession = JSON.parse(localStorage.getItem('curSession')).id;
   notLoad: boolean = true;
@@ -111,7 +112,11 @@ export class IndividualAnalysisComponent implements OnInit{
   }
 
   backList() {
-    this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    if (this.user.role === 'bhco') {
+      this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    } else {
+      this.router.navigateByUrl('/CommunityDashboard/domain-list');
+    }
   }
 
 }

@@ -20,21 +20,51 @@
     <mat-card-content>
       <br>
       <mat-nav-list>
-        <a mat-list-item routerLink="/BhcoDashboard/questionnaire/{{dom.id}}" *ngFor="let dom of domains">
-          <span>{{ dom.domain + ' Domain'}} </span>
-          <span class="example-spacer"></span>
-          <mat-icon class="example-icon">create</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/BhcoDashboard/individual-analysis">
-          <span>Summary Visualization</span>
-          <span class="example-spacer"></span>
-          <mat-icon class="example-icon">assessment</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/BhcoDashboard/question-ans">
-          <span>Summary Table</span>
-          <span class="example-spacer"></span>
-          <mat-icon class="example-icon">list</mat-icon>
-        </a>
+        <div [ngSwitch]="user.role">
+          <ng-container *ngSwitchCase="'bhco'">
+            <a mat-list-item routerLink="/BhcoDashboard/questionnaire/{{dom.id}}" *ngFor="let dom of domains">
+              <span>{{ dom.domain + ' Domain'}} </span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">create</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/BhcoDashboard/individual-analysis">
+              <span>Summary Visualization</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">assessment</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/BhcoDashboard/question-ans">
+              <span>Summary Table</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">list</mat-icon>
+            </a>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'Community Administrator'">
+            <a mat-list-item routerLink="/CommunityDashboard/individual-analysis">
+              <span>Summary Visualization</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">assessment</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/BhcoDashboard/question-ans">
+              <span>Summary Table</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">list</mat-icon>
+            </a>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'Community Member'">
+            <a mat-list-item routerLink="/BhcoDashboard/individual-analysis">
+              <span>Summary Visualization</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">assessment</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/BhcoDashboard/question-ans">
+              <span>Summary Table</span>
+              <span class="example-spacer"></span>
+              <mat-icon class="example-icon">list</mat-icon>
+            </a>
+          </ng-container>
+        </div>
       </mat-nav-list>
       <br>
       <button mat-raised-button color="accent" (click)="back()">Back</button>

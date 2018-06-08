@@ -12,6 +12,7 @@ import {StateService} from "../../../../service/state.service";
 export class SessionComponent implements OnInit {
   sessions: any[];
   member = JSON.parse(localStorage.getItem('curMem'));
+  user = JSON.parse(localStorage.getItem('curUser'));
 
   constructor(
     private queService: QuestionModelService,
@@ -41,11 +42,20 @@ export class SessionComponent implements OnInit {
 
   startSession(session: any) {
     localStorage.setItem('curSession', JSON.stringify(session));
-    this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    if (this.user.role === "bhco") {
+      this.router.navigateByUrl('/BhcoDashboard/domain-list');
+    } else if (this.user.role === "Community Administrator") {
+      this.router.navigateByUrl('/CommunityDashboard/domain-list')
+    }
+
   }
 
   back() {
-    this.router.navigateByUrl('/BhcoDashboard/detail/' + this.member.id);
+    if (this.user.role === "bhco") {
+      this.router.navigateByUrl('/BhcoDashboard/detail/' + this.member.id);
+    } else if (this.user.role === "Community Administrator") {
+      this.router.navigateByUrl('/CommunityDashboard/member-detail/' + this.member.id);
+    }
   }
 
   // TODO: get the number of finished questions for each session

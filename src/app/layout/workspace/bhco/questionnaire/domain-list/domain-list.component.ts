@@ -13,8 +13,10 @@ import {StateService} from "../../../../../service/state.service";
 })
 export class DomainListComponent implements OnInit {
 
+  user = JSON.parse(localStorage.getItem('curUser'));
   member = JSON.parse(localStorage.getItem('curMem'));
   domains: Domain[];
+  isBhco: boolean = false;
 
   sessionInfo = localStorage.getItem('curSession');
 
@@ -28,6 +30,9 @@ export class DomainListComponent implements OnInit {
     setTimeout(() => {
       this.stateService.existMember$.next(true);
     });
+    if (this.user.role === "bhco") {
+      this.isBhco = true;
+    }
     this.getDomains();
      console.log(this.sessionInfo);
   }
@@ -39,7 +44,12 @@ export class DomainListComponent implements OnInit {
   }
 
   back() {
-    this.router.navigateByUrl('/BhcoDashboard/session')
+    if (this.user.role === "bhco") {
+      this.router.navigateByUrl('/BhcoDashboard/session')
+    } else {
+      this.router.navigateByUrl('/CommunityDashboard/user-session');
+    }
+
   }
 
 
