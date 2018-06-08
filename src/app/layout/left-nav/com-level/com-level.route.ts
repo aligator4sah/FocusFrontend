@@ -20,6 +20,9 @@ export const routes = [
       {path: 'member-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
       {path: 'member-summary', loadChildren: '../../workspace/com-admin/member-summary/member-summary.module#MemberSummaryModule'},
       {path: 'member-detail/:id', loadChildren: '../../workspace/bhco/member-detail/member-detail.module#MemberDetailModule'},
+      {path: 'demographic-ans', loadChildren: '../../workspace/bhco/demographic-ans/demographic-ans.module#DemographicAnsModule'},
+      // {path: 'user-sessions', loadChildren: '../../workspace/bhco/session/session.moduleSessionModule'},
+      //
     ]
   }
 ];

@@ -10,7 +10,6 @@
     </mat-card-header>
   </mat-card>
   <br>
-  <!--<mat-toolbar class="full-width"><mat-progress-bar class="full-width" mode="determinate" value="40"></mat-progress-bar></mat-toolbar>-->
 
   <div class="full-width">
     <mat-card class="demo-info">
@@ -31,7 +30,7 @@
       </mat-card-content>
       <mat-card-footer>
         <div class="button-group">
-        <button mat-raised-button color="primary" class="session_button" (click)="startDemo()" [disabled]="isBhco">Start</button>
+        <button mat-raised-button color="primary" class="session_button" (click)="startDemo()" [disabled]="isNotBhco">Start</button>
         <button mat-raised-button color="accent" class="session_button" (click)="checkDemo()">Result</button>
         </div>
       </mat-card-footer>
@@ -54,7 +53,7 @@
       </mat-card-content>
       <mat-card-footer>
         <div class="button-group">
-          <button mat-raised-button color="primary" class="session_button" (click)="startQues()" [disabled]="isBhco">New</button>
+          <button mat-raised-button color="primary" class="session_button" (click)="startQues()" [disabled]="isNotBhco">New</button>
           <button mat-raised-button color="accent" class="session_button" routerLink="/BhcoDashboard/session">Sessions</button>
         </div>
       </mat-card-footer>
@@ -77,7 +76,7 @@
       </mat-card-content>
       <mat-card-footer>
         <div class="button-group">
-          <button mat-raised-button color="primary" class="session_button" (click)="startSocial()" [disabled]="isBhco">Start</button>
+          <button mat-raised-button color="primary" class="session_button" (click)="startSocial()" [disabled]="isNotBhco">Start</button>
           <button mat-raised-button color="accent" class="session_button">Result</button>
         </div>
       </mat-card-footer>

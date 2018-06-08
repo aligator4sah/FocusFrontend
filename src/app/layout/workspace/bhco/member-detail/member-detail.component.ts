@@ -19,7 +19,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   curSession: any;
 
   user = JSON.parse(localStorage.getItem('curUser'));
-  isNotBhco : boolean = false;
+  isNotBhco : boolean = true;
 
   // Doughnut
   public doughnutChartLabels:string[] = ['Finished', 'Unfinished'];
@@ -56,14 +56,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.user.role === "bhco") {
-      this.isNotBhco = true;
+      this.isNotBhco = false;
     }
     this.getMemberId();
     localStorage.removeItem('curSession');
     setTimeout(() => {
       this.stateService.existMember$.next(true)
     });
-
   }
 
 
@@ -97,7 +96,12 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
  }
 
  checkDemo() {
-    this.router.navigateByUrl('/BhcoDashboard/demographic-ans');
+    if (this.user.role === 'bhco') {
+      this.router.navigateByUrl('/BhcoDashboard/demographic-ans');
+    } else {
+      this.router.navigateByUrl('/CommunityDashboard/demographic-ans');
+    }
+
  }
 
  startQues() {
