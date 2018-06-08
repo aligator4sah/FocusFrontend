@@ -104,6 +104,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
  checkDemo() {
     if (this.user.role === 'bhco') {
       this.router.navigateByUrl('/BhcoDashboard/demographic-ans');
+    } else if (this.user.role === "Community Member") {
+      this.router.navigateByUrl('/MemberDashboard/demographic-ans');
     } else {
       this.router.navigateByUrl('/CommunityDashboard/demographic-ans');
     }
