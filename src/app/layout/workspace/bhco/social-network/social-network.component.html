@@ -17,7 +17,7 @@
     </mat-card-header>
     <mat-horizontal-stepper [linear]=false #stepper="matHorizontalStepper">
           <mat-step *ngFor="let subForm of social_question" [stepControl]="subForm.key">
-            <ng-container *ngIf="form">
+            <ng-container *ngIf="form; else loading">
               <form [formGroup]="form">
                 <div [formGroupName]="subForm.key">
                   <ng-template matStepLabel>{{ subForm.key }}</ng-template>

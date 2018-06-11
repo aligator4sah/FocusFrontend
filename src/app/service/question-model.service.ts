@@ -177,6 +177,14 @@ export class QuestionModelService {
       );
   }
 
+  /**POST: add social network answers with userid and session date**/
+  addSocialNetworkAns(answers: any[]): Observable<any> {
+    return this.http.post<any>(API_URL + '/socialNetwork', answers, httpOptions)
+      .pipe(
+        catchError(this.handleError('addSocialNetworkAnswer', answers))
+      );
+  }
+
   /**PATCH: add a new subdomain to the list */
   addSubdomain(domId: number, subdomain: Subdomain): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'token');

@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StateService} from "../../../../service/state.service";
 import {SocialAnswer} from "../../../../model/questionBase";
 import {UserService} from "../../../../service/user.service";
+import {DatePipe} from "@angular/common";
+import {QuestionModelService} from "../../../../service/question-model.service";
 
 
 @Component({
@@ -17,12 +19,14 @@ export class SocialNetworkComponent implements OnInit{
   form: FormGroup;
   social_question = SocialQuestion;
   answerGroup: any[] = [];
-  socialAnswer: SocialAnswer[] = [];
+  socialAnswer: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private stateService: StateService,
-    private userServie: UserService
+    private userServie: UserService,
+    private questionService: QuestionModelService,
+    private datePipe: DatePipe,
     ) {
   }
 
@@ -78,8 +82,31 @@ export class SocialNetworkComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log(this.form.value);
-    //transform output data type to right format
+    this.socialAnswer = [];
+    let sessionDate = this.datePipe.transform(Date.now(), "yyyy-MM-dd HH:mm");
+    console.log(sessionDate);
+    for (let i = 1; i <= 6; i++) {
+      for (let j = 1; j <= 5; j++) {
+        let item = this.form.get([i, j]).value;
+        if (item.firstName.length > 0) {
+         let answer = {
+           sessionId: sessionDate,
+           questionId: i,
+           userId: this.member.id,
+           firstName: item.firstName,
+           lastName: item.lastName,
+           midName: item.midName,
+           weight: item.number,
+           relationshipId: item.relation,
+           block: item.block == true ? this.blockId : -1,
+         };
+         this.socialAnswer.push(answer);
+        }
+        //console.log(item);
+      }
+    }
+    console.log(this.socialAnswer);
+    this.questionService.addSocialNetworkAns(this.socialAnswer).subscribe();
   }
 
   goBack() {

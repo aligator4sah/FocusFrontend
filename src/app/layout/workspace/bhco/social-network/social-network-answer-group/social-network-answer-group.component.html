@@ -5,7 +5,7 @@
         <ng-container *ngIf="subform.controls[item.order]">
           <div class="full-width-block"  [formGroup]="subform.controls[item.order]">
             <mat-form-field class="col-sm-2">
-              <input matInput placeholder="Order" type="text" formControlName="number">
+              <input matInput placeholder="Order" type="number" formControlName="number">
             </mat-form-field>
             <mat-form-field class="col-sm-2">
               <input matInput placeholder="First Name" type="text" formControlName="firstName">
