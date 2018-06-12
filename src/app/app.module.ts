@@ -29,6 +29,8 @@ import { LocationService } from './service/location.service';
 import {ChartsModule} from "ng2-charts/ng2-charts";
 import {StateService} from "./service/state.service";
 import {SummaryService} from "./service/summary.service";
+import { ZoomableDirective } from './d3/directives/zoomable.directive';
+import { DraggableDirective } from './d3/directives/draggable.directive';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import {SummaryService} from "./service/summary.service";
     BhcoLoginComponent,
     MemberLoginComponent,
     ForgotPwdComponent,
+    ZoomableDirective,
+    DraggableDirective,
   ],
   imports: [
     RouterModule,

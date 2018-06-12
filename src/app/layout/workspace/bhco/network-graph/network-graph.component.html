@@ -13,11 +13,15 @@
 
   <div class="main-section">
     <mat-card class="graph-section">
-      <mat-card-header>Network Graph</mat-card-header>
+      <mat-card-header>
+        <strong> Network Graph</strong>
+      </mat-card-header>
     </mat-card>
 
     <mat-card class="list-section">
-      <mat-card-header>Block List</mat-card-header>
+      <mat-card-header>
+        <strong> Block List </strong>
+      </mat-card-header>
       <mat-selection-list>
         <mat-list-option [selected]="true">Default: all</mat-list-option>
         <mat-list-option *ngFor="let item of blocks">
