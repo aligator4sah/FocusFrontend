@@ -36,6 +36,9 @@
           <mat-step>
             <ng-template>Finish</ng-template>
             <p>Please make sure to submit your answer.</p>
+            <ng-container *ngIf="isSubmitted">
+              <p> Congratulations, your answers have been submitted.</p>
+            </ng-container>
             <div class="col-sm-12">
               <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
               <button mat-raised-button (click)="goBack()">Back</button>

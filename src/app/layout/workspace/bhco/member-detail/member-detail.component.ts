@@ -141,4 +141,14 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/BhcoDashboard/socialNetwork');
  }
 
+ checkNetwork() {
+    if (this.user.role === 'bhco') {
+      this.router.navigateByUrl('/BhcoDashboard/network-graph');
+    } else if (this.user.role === 'Community Member') {
+      this.router.navigateByUrl('/MemberDashboard/network-graph');
+    } else {
+      this.router.navigateByUrl('/CommunityDashboard/network-graph');
+    }
+ }
+
 }

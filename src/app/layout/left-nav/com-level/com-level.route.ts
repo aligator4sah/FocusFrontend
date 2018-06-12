@@ -1,7 +1,4 @@
 import {ComLevelComponent} from './com-level.component';
-import {DomainListModule} from "../../workspace/bhco/questionnaire/domain-list/domain-list.module";
-import {IndividualAnalysisModule} from "../../workspace/bhco/individual-analysis/individual-analysis.module";
-import {QuestionnaireAnsModule} from "../../workspace/bhco/questionnaire-ans/questionnaire-ans.module";
 
 export const routes = [
   {
@@ -27,7 +24,8 @@ export const routes = [
       {path: 'user-session', loadChildren: '../../workspace/bhco/session/session.module#SessionModule'},
       {path: 'domain-list', loadChildren: '../../workspace/bhco/questionnaire/domain-list/domain-list.module#DomainListModule'},
       {path: 'individual-analysis', loadChildren: '../../workspace/bhco/individual-analysis/individual-analysis.module#IndividualAnalysisModule'},
-      {path: 'question-ans', loadChildren: '../../workspace/bhco/questionnaire-ans/questionnaire-ans.module#QuestionnaireAnsModule'}
+      {path: 'question-ans', loadChildren: '../../workspace/bhco/questionnaire-ans/questionnaire-ans.module#QuestionnaireAnsModule'},
+      {path: 'network-graph', loadChildren: '../../workspace/bhco/network-graph/network-graph.module#NetworkGraphModule'},
       //
     ]
   }

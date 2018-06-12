@@ -20,6 +20,7 @@ export class SocialNetworkComponent implements OnInit{
   social_question = SocialQuestion;
   answerGroup: any[] = [];
   socialAnswer: any[] = [];
+  isSubmitted : boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -107,6 +108,7 @@ export class SocialNetworkComponent implements OnInit{
     }
     console.log(this.socialAnswer);
     this.questionService.addSocialNetworkAns(this.socialAnswer).subscribe();
+    this.isSubmitted = true;
   }
 
   goBack() {

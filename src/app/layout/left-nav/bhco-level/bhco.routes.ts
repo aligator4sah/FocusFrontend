@@ -1,6 +1,5 @@
 import {BhcoLevelComponent} from './bhco-level.component';
-import {SubProfileModule} from "../../workspace/sub-profile/sub-profile.module";
-import {MemberSummaryModule} from "../../workspace/com-admin/member-summary/member-summary.module";
+import {NetworkGraphModule} from "../../workspace/bhco/network-graph/network-graph.module";
 
 export const bhcoWorkSpaceRoutes = [
   {
@@ -23,6 +22,7 @@ export const bhcoWorkSpaceRoutes = [
       {path: 'demographic-ans', loadChildren: '../../workspace/bhco/demographic-ans/demographic-ans.module#DemographicAnsModule'},
       {path: 'member-profile/:id', loadChildren: '../../workspace/sub-profile/sub-profile.module#SubProfileModule'},
       {path: 'member-summary', loadChildren: '../../workspace/com-admin/member-summary/member-summary.module#MemberSummaryModule'},
+      {path: 'network-graph', loadChildren: '../../workspace/bhco/network-graph/network-graph.module#NetworkGraphModule'},
       ]
   }
 ];

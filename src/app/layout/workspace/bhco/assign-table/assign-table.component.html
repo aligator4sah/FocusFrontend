@@ -33,6 +33,12 @@
                 <ng-container *ngSwitchCase="'Community Administrator'">
                   <a routerLink="/CommunityDashboard/member-detail/{{row.id}}" class="name-link" (click)="reload()">{{row.username}}</a>
                 </ng-container>
+                <ng-container *ngSwitchCase="'System Administrator'">
+                 {{row.username}}
+                </ng-container>
+                <ng-container *ngSwitchCase="'State Administrator'">
+                 {{row.username}}
+                </ng-container>
               </mat-cell>
             </div>
 
