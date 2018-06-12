@@ -1,3 +1,30 @@
-<p>
-  network-graph works!
-</p>
+<div class="workspace-container mid-position">
+  <h3 class="workspace-title">Social Network</h3>
+  <mat-card class="com-member-info">
+    <mat-card-header>
+      <div class="col-sm-12">
+        <p class="com-member-detail">Community Member: <b class="com-member-detail-item"> {{member.name}} </b></p>
+        <p class="com-member-detail">Gender: <b class="com-member-detail-item"> {{member.gender}} </b></p>
+        <p class="com-member-detail">DOB: <b class="com-member-detail-item"> {{member.dob}} </b></p>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <br><br>
+
+  <div class="main-section">
+    <mat-card class="graph-section">
+      <mat-card-header>Network Graph</mat-card-header>
+    </mat-card>
+
+    <mat-card class="list-section">
+      <mat-card-header>Block List</mat-card-header>
+      <mat-selection-list>
+        <mat-list-option [selected]="true">Default: all</mat-list-option>
+        <mat-list-option *ngFor="let item of blocks">
+          {{item.block}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card>
+  </div>
+
+</div>
