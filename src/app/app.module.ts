@@ -31,6 +31,9 @@ import {StateService} from "./service/state.service";
 import {SummaryService} from "./service/summary.service";
 import { ZoomableDirective } from './d3/directives/zoomable.directive';
 import { DraggableDirective } from './d3/directives/draggable.directive';
+import {LinkVisualModule} from "./d3-visual/shared/link-visual/link-visual.module";
+import {NodeValidator} from "codelyzer/walkerFactory/walkerFn";
+import {NodeVisualModule} from "./d3-visual/shared/node-visual/node-visual.module";
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import { DraggableDirective } from './d3/directives/draggable.directive';
     RouterModule,
     BrowserAnimationsModule,
     LayoutModule,
+    LinkVisualModule,
+    NodeVisualModule,
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
