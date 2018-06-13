@@ -16,18 +16,23 @@
       <mat-card-header>
         <strong> Network Graph</strong>
       </mat-card-header>
+      <mat-card-content>
+        <app-graph [nodes]="nodes" [links]="links"></app-graph>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="list-section">
       <mat-card-header>
         <strong> Block List </strong>
       </mat-card-header>
-      <mat-selection-list>
-        <mat-list-option [selected]="true">Default: all</mat-list-option>
-        <mat-list-option *ngFor="let item of blocks">
-          {{item.block}}
-        </mat-list-option>
-      </mat-selection-list>
+      <mat-card-content>
+        <mat-selection-list>
+          <mat-list-option [selected]="true">Default: all</mat-list-option>
+          <mat-list-option *ngFor="let item of blocks">
+            {{item.block}}
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-card-content>
     </mat-card>
   </div>
 

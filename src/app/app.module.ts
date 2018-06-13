@@ -43,8 +43,6 @@ import {NodeVisualModule} from "./d3-visual/shared/node-visual/node-visual.modul
     BhcoLoginComponent,
     MemberLoginComponent,
     ForgotPwdComponent,
-    ZoomableDirective,
-    DraggableDirective,
   ],
   imports: [
     RouterModule,
