@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {StateService} from "../../../../service/state.service";
 import {LocationService} from "../../../../service/location.service";
 import {Link, Node} from "../../../../d3/models";
@@ -9,7 +9,13 @@ import CONFIG from "../../../../app.config";
   templateUrl: './network-graph.component.html',
   styleUrls: ['./network-graph.component.css']
 })
-export class NetworkGraphComponent implements OnInit {
+export class NetworkGraphComponent implements OnInit, AfterViewInit {
+  ngAfterViewInit(): void {
+    // const root = this.networkgraph.nativeElement;
+    // // d3()
+  }
+  // @ViewChild("networkgraph")
+  // networkgraph:ElementRef;
 
   member = JSON.parse(localStorage.getItem('curMem'));
   user = JSON.parse(localStorage.getItem('curUser'));
@@ -28,6 +34,7 @@ export class NetworkGraphComponent implements OnInit {
       this.stateService.existMember$.next(true);
     })
     this.getBlockList();
+    this.generateGraph();
   }
 
   getBlockList() {

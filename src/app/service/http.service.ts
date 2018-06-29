@@ -6,12 +6,8 @@ import {HttpHeaders} from '@angular/common/http/src/headers';
 import {CONST} from "./util";
 import {LocalStorageService} from 'angular-2-local-storage';
 
-export let API_URL: string;
-if (environment.production) {
-  API_URL = environment.apiUrl;
-} else {
-  API_URL = "http://localhost: 3000";
-}
+export let API_URL = environment.apiUrl;
+
 
 @Injectable()
 export class HttpService {

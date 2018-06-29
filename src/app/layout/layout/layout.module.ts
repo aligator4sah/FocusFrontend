@@ -7,6 +7,7 @@ import {ControlBoxModule} from '../../shared/shared-module/control-box.module';
 import {HeaderModule} from '../head-bar/header/header.module';
 import {FooterModule} from '../left-nav/footer/footer.module';
 import {UserInfoModule} from '../left-nav/user-info/user-info.module';
+import {LayoutComponent} from "../layout.component";
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {UserInfoModule} from '../left-nav/user-info/user-info.module';
   declarations: [
     LeftNavComponent,
     EqualValidatorDirective,
+    LayoutComponent,
   ],
   exports: [
     CommonModule,
@@ -30,6 +32,7 @@ import {UserInfoModule} from '../left-nav/user-info/user-info.module';
     UserInfoModule,
     LeftNavComponent,
     EqualValidatorDirective,
+    LayoutComponent
   ]
 })
 export class LayoutModule { }
