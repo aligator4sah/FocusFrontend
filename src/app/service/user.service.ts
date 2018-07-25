@@ -46,6 +46,13 @@ export class UserService {
       )
   }
 
+  stateAdminLogin(logInfo: any): Observable<any> {
+    return this.http.post<any>(API_URL + '/stateAdmin/login', logInfo, httpOptions)
+      .pipe(
+        catchError(this.handleError('stateAdminLogin', logInfo))
+      )
+  }
+
   /** GET get members according top different levels of admin */
   getAllMembers (): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMember')

@@ -52,9 +52,6 @@ export class SysLoginComponent implements OnInit {
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      this.sysAdmin.setName(this.userNamePara);
-      this.stateAdmin.setName(this.userNamePara);
-      this.comAdmin.setName(this.userNamePara);
     }
   }
 
@@ -114,11 +111,24 @@ export class SysLoginComponent implements OnInit {
           this.openSnackBar();
         }
       });
-
     } else if (this.userAdminPara === "state") {
-      localStorage.setItem('curUser', JSON.stringify(this.stateAdmin));
-      this.stateService.profileRole$.next("State Administrator");
-      this.router.navigateByUrl('StateDashboard');
+      this.userService.stateAdminLogin(logInfo).subscribe(value => {
+        if (value) {
+          const stateAdmin = new CurrentUser({
+            id: value.id,
+            name: value.name,
+            role: "State Administrator",
+            location: value.location,
+            locName: value.locName,
+            token: value.accessToken
+          });
+          localStorage.setItem('curUser', JSON.stringify(stateAdmin));
+          this.stateService.profileRole$.next("State Administrator");
+          this.router.navigateByUrl('StateDashboard');
+        } else {
+          this.openSnackBar();
+        }
+      });
     } else {
       localStorage.setItem('curUser', JSON.stringify(this.comAdmin));
       this.stateService.profileRole$.next("Community Administrator")
