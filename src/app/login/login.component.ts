@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(
-    public router : Router
+    public router : Router,
   ) { }
 
   ngOnInit() {

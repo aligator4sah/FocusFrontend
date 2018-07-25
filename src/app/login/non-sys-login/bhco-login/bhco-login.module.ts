@@ -2,18 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SharedModuleModule} from '../../../shared/shared-module/shared-module.module';
 import {ControlBoxModule} from '../../../shared/shared-module/control-box.module';
+import {RouterModule} from "@angular/router";
+import {BhcoLoginComponent} from "./bhco-login.component";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModuleModule,
-    ControlBoxModule
+    ControlBoxModule,
+    RouterModule.forChild([
+      {path: '', component: BhcoLoginComponent}
+    ])
   ],
-  declarations: [],
+  declarations: [
+    BhcoLoginComponent
+  ],
   exports: [
     CommonModule,
     SharedModuleModule,
-    ControlBoxModule
+    ControlBoxModule,
+    RouterModule,
+    BhcoLoginComponent
   ]
 })
 export class BhcoLoginModule { }

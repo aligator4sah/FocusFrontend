@@ -38,6 +38,14 @@ export class UserService {
       );
   }
 
+  /**User login check */
+  sysadminLogin(logInfo: any): Observable<any> {
+    return this.http.post<any>(API_URL + '/systemAdmin/login', logInfo, httpOptions)
+      .pipe(
+        catchError(this.handleError('systemAdminLogin', logInfo))
+      )
+  }
+
   /** GET get members according top different levels of admin */
   getAllMembers (): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMember')

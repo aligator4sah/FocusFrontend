@@ -5,6 +5,8 @@ import { ValidationService } from '../../shared/validation-service/validation.se
 import {InputAttributes, SelectAttributes,Admins} from '../../shared/shared-control/attributes';
 import {CurrentUser} from "../../model/User";
 import {StateService} from "../../service/state.service";
+import {UserService} from "../../service/user.service";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-sys-login',
@@ -19,12 +21,54 @@ export class SysLoginComponent implements OnInit {
   public passWord: InputAttributes = {name:'password',min:8,max:32, placeholder: 'password', type: 'password'};
   public admin: SelectAttributes = {name:'admin',roles:this.role, placeholder: 'admin'};
   public userForm:any;
+  inValidUser : boolean = false;
 
   //backend para
   userNamePara :string;
   userPasswordPara: string;
   userAdminPara:string;
 
+  constructor(
+    public router: Router,
+    private fb: FormBuilder,
+    private stateService: StateService,
+    private userService: UserService,
+    public snackBar: MatSnackBar,
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.userForm= this.fb.group(
+      {
+        'password': ['',[ Validators.required,ValidationService.passwordValidator]],
+        'username': ['',[ Validators.required,Validators.minLength(4)]],
+        'admin': ['',[ Validators.required]]
+      }
+    );
+    localStorage.clear();
+  }
+
+  getUserName(value:string){
+    if(value){
+      this.userNamePara = value;
+      this.sysAdmin.setName(this.userNamePara);
+      this.stateAdmin.setName(this.userNamePara);
+      this.comAdmin.setName(this.userNamePara);
+    }
+  }
+
+  getUserPassword(value: string){
+    if(value){
+      this.userPasswordPara = value;
+    }
+  }
+
+  getUserAdmin(value: string){
+    if(value){
+      this.userAdminPara = value;
+    }
+  }
 
   // TODO: get administrator token plus location info from server once log in
   public sysAdmin = new CurrentUser({
@@ -46,57 +90,31 @@ export class SysLoginComponent implements OnInit {
     location: 1,
   });
 
-  constructor(
-    public router: Router,
-    private fb: FormBuilder,
-    private stateService: StateService
-  ) {
-
-  }
-
-  ngOnInit() {
-    this.userForm= this.fb.group(
-      {
-        'password': ['',[ Validators.required,ValidationService.passwordValidator]],
-        'username': ['',[ Validators.required,Validators.minLength(4)]],
-        'admin': ['',[ Validators.required]]
-      }
-    );
-    localStorage.clear();
-    // console.log(this.userForm.invalid)
-    // console.log(this.admin.roles);
-  }
-
-  getUserName(value:string){
-    if(value){
-      this.userNamePara = value;
-      console.log("username:"+this.userNamePara);
-      this.sysAdmin.setName(this.userNamePara);
-      this.stateAdmin.setName(this.userNamePara);
-      this.comAdmin.setName(this.userNamePara);
-    }
-  }
-
-  getUserPassword(value: string){
-    if(value){
-      this.userPasswordPara = value;
-      console.log("password:"+this.userPasswordPara);
-    }
-  }
-
-  getUserAdmin(value: string){
-    if(value){
-      this.userAdminPara = value;
-      console.log("role:"+this.userAdminPara);
-    }
-  }
-
   login(){
     //this.roleName = this.getRole();
+    const logInfo = {
+      username: this.userNamePara,
+      password: this.userPasswordPara,
+      role: this.userAdminPara
+    };
     if (this.userAdminPara === "system") {
-      localStorage.setItem('curUser', JSON.stringify(this.sysAdmin));
-      this.stateService.profileRole$.next("System Administrator");
-      this.router.navigateByUrl('SysDashboard');
+      this.userService.sysadminLogin(logInfo).subscribe(value => {
+        if(value) {
+          const sysAdmin = new CurrentUser({
+            id: value.id,
+            name: value.name,
+            role: "System Administrator",
+            token: value.accessToken,
+          });
+          localStorage.setItem('curUser', JSON.stringify(sysAdmin));
+          this.stateService.profileRole$.next("System Administrator");
+          this.router.navigateByUrl('SysDashboard');
+        } else {
+          this.inValidUser = true;
+          this.openSnackBar();
+        }
+      });
+
     } else if (this.userAdminPara === "state") {
       localStorage.setItem('curUser', JSON.stringify(this.stateAdmin));
       this.stateService.profileRole$.next("State Administrator");
@@ -115,4 +133,21 @@ export class SysLoginComponent implements OnInit {
   forgotPwd(){
     this.router.navigateByUrl('forgotPwd')
   }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(MessageComponent, {
+      duration: 3000,
+    });
+  }
 }
+
+@Component({
+  selector: 'app-message',
+  templateUrl: 'message.component.html',
+  styles: [`
+    .error-msg {
+      color: #e8e8e8;
+    }
+  `],
+})
+export class MessageComponent {}

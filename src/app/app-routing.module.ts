@@ -2,11 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {ForgotPwdComponent} from './login/forgot-pwd/forgot-pwd.component';
-import {SysLoginComponent} from './login/sys-login/sys-login.component';
-import {BhcoLoginComponent} from './login/non-sys-login/bhco-login/bhco-login.component';
-import {MemberLoginComponent} from './login/non-sys-login/member-login/member-login.component';
 import {LoginComponent} from './login/login.component';
-import {CreateQuestionModule} from "./create-question/create-question.module";
 
 export const appRoutes = [
   {
@@ -20,15 +16,15 @@ export const appRoutes = [
   },
   {
     path: 'sysLogin',
-    component: SysLoginComponent
+    loadChildren: './login/sys-login/sys-login.module#SysLoginModule'
   },
   {
     path: 'bhcoLogin',
-    component: BhcoLoginComponent
+    loadChildren: "./login/non-sys-login/bhco-login/bhco-login.module#BhcoLoginModule"
   },
   {
     path: 'cMemLogin',
-    component: MemberLoginComponent
+    loadChildren: "./login/non-sys-login/member-login/member-login.module#MemberLoginModule"
   },
   {
     path: 'forgotPwd',

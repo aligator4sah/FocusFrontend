@@ -109,19 +109,22 @@ export class CurrentUser {
   name: string;
   role: string;
   location: any;
-  locName: string
+  locName: string;
+  token: string;
   constructor(options: {
     id?: number;
     name?: string;
     role?: string;
     location?: any;
-    locName?: string,
+    locName?: string;
+    token?: string;
   } = {}) {
     this.id = options.id;
     this.name = options.name || '';
     this.role = options.role;
     this.location = options.location || [];
     this.locName = options.locName || "";
+    this.token = options.token || "";
   }
 
   setName(userName: string): void {
