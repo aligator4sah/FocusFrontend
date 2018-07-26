@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 import {SharedModuleModule} from '../../../shared/shared-module/shared-module.module';
 import {ControlBoxModule} from '../../../shared/shared-module/control-box.module';
 import {RouterModule} from "@angular/router";
-import {MemberLoginComponent} from "./member-login.component";
+import {MemberLoginComponent, MemberMessageComponent} from "./member-login.component";
 import {Member} from "../../../model/User";
 
 @NgModule({
+  entryComponents: [
+    MemberMessageComponent
+  ],
   imports: [
     CommonModule,
     SharedModuleModule,
@@ -16,7 +19,8 @@ import {Member} from "../../../model/User";
     ])
   ],
   declarations: [
-    MemberLoginComponent
+    MemberLoginComponent,
+    MemberMessageComponent
   ],
   exports: [
     CommonModule,
@@ -24,6 +28,7 @@ import {Member} from "../../../model/User";
     ControlBoxModule,
     RouterModule,
     MemberLoginComponent,
+    MemberMessageComponent
   ]
 })
 export class MemberLoginModule { }

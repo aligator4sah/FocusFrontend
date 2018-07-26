@@ -5,6 +5,9 @@ import { ValidationService } from '../../../shared/validation-service/validation
 import { InputAttributes } from '../../../shared/shared-control/attributes';
 import {CurrentUser} from "../../../model/User";
 import {StateService} from "../../../service/state.service";
+import {UserService} from "../../../service/user.service";
+import {BhcoMessageComponent} from "../bhco-login/bhco-login.component";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-member-login',
@@ -20,17 +23,12 @@ export class MemberLoginComponent implements OnInit {
   userNamePara : string;
   userPasswordPara : string;
 
-  public curMem = new CurrentUser({
-    id: 1,
-    name: this.userNamePara,
-    role: "Community Member",
-    location: 1
-  });
-
   constructor(
     public router: Router,
     public fb: FormBuilder,
-    private stateService: StateService
+    private stateService: StateService,
+    private userService: UserService,
+    public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -47,22 +45,37 @@ export class MemberLoginComponent implements OnInit {
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      console.log("username:"+this.userNamePara);
-      this.curMem.setName(this.userNamePara);
     }
   }
 
   getUserPassword(value: string){
     if(value){
       this.userPasswordPara = value;
-      console.log("password:"+this.userPasswordPara);
     }
   }
 
   login() {
-    localStorage.setItem('curUser', JSON.stringify(this.curMem));
-    this.stateService.profileRole$.next("Community Member");
-    this.router.navigateByUrl('MemberDashboard');
+    const logInfo = {
+      username: this.userNamePara,
+      password: this.userPasswordPara
+    };
+
+    this.userService.memberLogin(logInfo).subscribe(value => {
+      if (value) {
+        const member = new CurrentUser({
+          id: value.id,
+          name: value.name,
+          role: "Community Member",
+          token: value.accessToken
+        });
+        localStorage.setItem('curUser', JSON.stringify(member));
+        this.stateService.profileRole$.next("Community Member");
+        this.router.navigateByUrl('MemberDashboard');
+      } else {
+        this.openSnackBar();
+      }
+    });
+
   }
 
   back() {
@@ -73,5 +86,16 @@ export class MemberLoginComponent implements OnInit {
     this.router.navigateByUrl('forgotPwd')
   }
 
-
+  openSnackBar() {
+    this.snackBar.openFromComponent(MemberMessageComponent, {
+      duration: 3000,
+    });
+  }
 }
+
+//TODO: add message module and component and import the current component from module
+@Component({
+  selector: 'member-message',
+  templateUrl: 'member-message.html',
+})
+export class MemberMessageComponent {}

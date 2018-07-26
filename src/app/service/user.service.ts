@@ -67,6 +67,13 @@ export class UserService {
       )
   }
 
+  memberLogin(logInfo: any): Observable<any> {
+    return this.http.post<any>(API_URL + '/communityMember/login', logInfo, httpOptions)
+      .pipe(
+        catchError(this.handleError('communityMemberLogin', logInfo))
+      )
+  }
+
   /** GET get members according top different levels of admin */
   getAllMembers (): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMember')

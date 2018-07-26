@@ -26,6 +26,7 @@ import {BhcoLoginComponent, BhcoMessageComponent} from "./bhco-login.component";
     SharedModuleModule,
     ControlBoxModule,
     RouterModule,
+    BhcoMessageComponent,
     BhcoLoginComponent
   ]
 })
