@@ -61,7 +61,6 @@ export class BhcoListComponent implements OnInit{
     this.locService.getCommunityInfo(this.curRole.id)
       .subscribe(loc => {
         this.locInfo = loc;
-        // console.log(this.locInfo);
         localStorage.setItem('curLoc', JSON.stringify(this.locInfo));
       });
   }

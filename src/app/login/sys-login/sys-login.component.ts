@@ -67,16 +67,7 @@ export class SysLoginComponent implements OnInit {
     }
   }
 
-  // TODO: get administrator token plus location info from server once log in
-  public comAdmin = new CurrentUser({
-    id: 1,
-    name: this.userNamePara,
-    role: "Community Administrator",
-    location: 1,
-  });
-
   login(){
-    //this.roleName = this.getRole();
     const logInfo = {
       username: this.userNamePara,
       password: this.userPasswordPara,

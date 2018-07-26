@@ -60,6 +60,13 @@ export class UserService {
       )
   }
 
+  bhcoLogin(logInfo: any): Observable<any> {
+    return this.http.post<any>(API_URL + '/Bhco/login', logInfo, httpOptions)
+      .pipe(
+        catchError(this.handleError('bhcoLogin', logInfo))
+      )
+  }
+
   /** GET get members according top different levels of admin */
   getAllMembers (): Observable<Member[]> {
     return this.http.get<Member[]>(API_URL + '/communityMember')

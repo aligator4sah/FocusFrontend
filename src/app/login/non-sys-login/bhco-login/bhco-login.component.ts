@@ -5,6 +5,9 @@ import { ValidationService } from '../../../shared/validation-service/validation
 import { InputAttributes } from '../../../shared/shared-control/attributes';
 import {CurrentUser} from "../../../model/User";
 import {StateService} from "../../../service/state.service";
+import {UserService} from "../../../service/user.service";
+import {MatSnackBar} from "@angular/material";
+import {MessageComponent} from "../../sys-login/sys-login.component";
 
 
 @Component({
@@ -20,18 +23,12 @@ export class BhcoLoginComponent implements OnInit {
   userNamePara :string;
   userPasswordPara: string;
 
-  // TODO: get the bhco token from server
-  public curBhco = new CurrentUser({
-    id: 1,
-    name: this.userNamePara,
-    role: "bhco",
-    location: 1
-  })
-
   constructor(
     private fb: FormBuilder,
     public router : Router,
-    private stateService: StateService
+    private stateService: StateService,
+    private userService: UserService,
+    public snackBar: MatSnackBar,
   ) {
 
   }
@@ -49,22 +46,37 @@ export class BhcoLoginComponent implements OnInit {
   getUserName(value:string){
     if(value){
       this.userNamePara = value;
-      console.log("username:"+this.userNamePara);
-      this.curBhco.setName(this.userNamePara);
     }
   }
 
   getUserPassword(value: string){
     if(value){
       this.userPasswordPara = value;
-      console.log("password:"+this.userPasswordPara);
     }
   }
 
   login() {
-    localStorage.setItem('curUser', JSON.stringify(this.curBhco));
-    this.stateService.profileRole$.next("Bhco")
-    this.router.navigateByUrl('BhcoDashboard')
+    const logInfo = {
+      username: this.userNamePara,
+      password: this.userPasswordPara
+    };
+    this.userService.bhcoLogin(logInfo).subscribe(value => {
+      if (value) {
+        const bhco = new CurrentUser({
+          id: value.id,
+          name: value.name,
+          role: "bhco",
+          location: value.location,
+          token: value.accessToken
+        });
+        localStorage.setItem('curUser', JSON.stringify(bhco));
+        this.stateService.profileRole$.next("Bhco");
+        this.router.navigateByUrl('BhcoDashboard')
+      } else {
+        this.openSnackBar();
+      }
+    });
+
   }
 
   back() {
@@ -74,4 +86,18 @@ export class BhcoLoginComponent implements OnInit {
   forgotPwd() {
     this.router.navigateByUrl('forgotPwd')
   }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(BhcoMessageComponent, {
+      duration: 3000,
+    });
+  }
 }
+
+//TODO: add message module and component and import the current component from module
+@Component({
+  selector: 'bhco-message',
+  templateUrl: 'bhco-message.html',
+})
+export class BhcoMessageComponent {}
+

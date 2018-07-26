@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import {SharedModuleModule} from '../../../shared/shared-module/shared-module.module';
 import {ControlBoxModule} from '../../../shared/shared-module/control-box.module';
 import {RouterModule} from "@angular/router";
-import {BhcoLoginComponent} from "./bhco-login.component";
+import {BhcoLoginComponent, BhcoMessageComponent} from "./bhco-login.component";
 
 @NgModule({
+  entryComponents: [
+    BhcoMessageComponent
+  ],
   imports: [
     CommonModule,
     SharedModuleModule,
@@ -15,7 +18,8 @@ import {BhcoLoginComponent} from "./bhco-login.component";
     ])
   ],
   declarations: [
-    BhcoLoginComponent
+    BhcoLoginComponent,
+    BhcoMessageComponent,
   ],
   exports: [
     CommonModule,
