@@ -68,18 +68,6 @@ export class SysLoginComponent implements OnInit {
   }
 
   // TODO: get administrator token plus location info from server once log in
-  public sysAdmin = new CurrentUser({
-    id: 1,
-    name: this.userNamePara,
-    role: "System Administrator",
-  });
-  public stateAdmin = new CurrentUser({
-    id: 1,
-    name: this.userNamePara,
-    role: "State Administrator",
-    location: 38,
-    locName: 'Pennsylvania'
-  });
   public comAdmin = new CurrentUser({
     id: 1,
     name: this.userNamePara,
@@ -130,9 +118,22 @@ export class SysLoginComponent implements OnInit {
         }
       });
     } else {
-      localStorage.setItem('curUser', JSON.stringify(this.comAdmin));
-      this.stateService.profileRole$.next("Community Administrator")
-      this.router.navigateByUrl('CommunityDashboard');
+      this.userService.communityAdminLogin(logInfo).subscribe(value => {
+        if (value) {
+          const communityAdmin = new CurrentUser({
+            id: value.id,
+            name: value.name,
+            role: "Community Administrator",
+            location: value.location,
+            token: value.accessToken
+          });
+          localStorage.setItem('curUser', JSON.stringify(communityAdmin));
+          this.stateService.profileRole$.next("Community Administrator")
+          this.router.navigateByUrl('CommunityDashboard');
+        } else {
+          this.openSnackBar();
+        }
+      });
     }
   }
 
@@ -151,12 +152,14 @@ export class SysLoginComponent implements OnInit {
   }
 }
 
+
+//TODO: add message module and component and import the current component from module
 @Component({
   selector: 'app-message',
   templateUrl: 'message.component.html',
   styles: [`
     .error-msg {
-      color: #e8e8e8;
+      color: darksalmon;
     }
   `],
 })
